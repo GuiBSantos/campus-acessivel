@@ -1,0 +1,174 @@
+{
+  "aviso": "Árvore documental provisória; não usar como inventário validado ou ranking.",
+  "arvore": {
+    "nome": "Prédio do Ensino Superior — UNASP-EC",
+    "codigos_piloto": [],
+    "subsetores": [
+      {
+        "nome": "Localização a conciliar",
+        "codigos_piloto": [
+          "B01",
+          "B02",
+          "B03",
+          "B05"
+        ],
+        "subsetores": []
+      },
+      {
+        "nome": "Auditório",
+        "codigos_piloto": [
+          "B04"
+        ],
+        "subsetores": []
+      },
+      {
+        "nome": "Bloco D",
+        "codigos_piloto": [],
+        "subsetores": [
+          {
+            "nome": "Pavimento Superior",
+            "codigos_piloto": [],
+            "subsetores": [
+              {
+                "nome": "Portas",
+                "codigos_piloto": [
+                  "B06"
+                ],
+                "subsetores": []
+              }
+            ]
+          },
+          {
+            "nome": "Pavimento Inferior",
+            "codigos_piloto": [],
+            "subsetores": [
+              {
+                "nome": "Portas",
+                "codigos_piloto": [
+                  "B14"
+                ],
+                "subsetores": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "nome": "Bloco E",
+        "codigos_piloto": [],
+        "subsetores": [
+          {
+            "nome": "Pavimento Superior",
+            "codigos_piloto": [],
+            "subsetores": [
+              {
+                "nome": "Portas",
+                "codigos_piloto": [
+                  "B07"
+                ],
+                "subsetores": []
+              }
+            ]
+          },
+          {
+            "nome": "Pavimento Inferior",
+            "codigos_piloto": [],
+            "subsetores": [
+              {
+                "nome": "Portas",
+                "codigos_piloto": [
+                  "B15"
+                ],
+                "subsetores": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "nome": "Bloco A",
+        "codigos_piloto": [],
+        "subsetores": [
+          {
+            "nome": "Pavimento Superior",
+            "codigos_piloto": [],
+            "subsetores": [
+              {
+                "nome": "Portas",
+                "codigos_piloto": [
+                  "B08"
+                ],
+                "subsetores": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "nome": "Bloco B",
+        "codigos_piloto": [],
+        "subsetores": [
+          {
+            "nome": "Pavimento Superior",
+            "codigos_piloto": [],
+            "subsetores": [
+              {
+                "nome": "Portas",
+                "codigos_piloto": [
+                  "B09"
+                ],
+                "subsetores": []
+              }
+            ]
+          },
+          {
+            "nome": "Pavimento Térreo",
+            "codigos_piloto": [],
+            "subsetores": [
+              {
+                "nome": "Laboratório",
+                "codigos_piloto": [
+                  "B12",
+                  "B13"
+                ],
+                "subsetores": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "nome": "Bloco C",
+        "codigos_piloto": [],
+        "subsetores": [
+          {
+            "nome": "Pavimento Superior",
+            "codigos_piloto": [],
+            "subsetores": [
+              {
+                "nome": "Portas",
+                "codigos_piloto": [
+                  "B10"
+                ],
+                "subsetores": []
+              }
+            ]
+          },
+          {
+            "nome": "Pavimento Inferior",
+            "codigos_piloto": [],
+            "subsetores": [
+              {
+                "nome": "Portas",
+                "codigos_piloto": [
+                  "B11"
+                ],
+                "subsetores": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,8 +1,12 @@
 # Critérios do MVP E3
 
-O piloto real NÃO foi conciliado. O checkout contém apenas sua revisão textual,
-sem o PDF, medidas completas ou custos e alcance confirmados.
-`dados/piloto_pendente.json` preserva B01–B15 sem inventar valores ou localizações.
+O piloto real NÃO foi conciliado. O PDF anexado foi lido e seus 15 registros foram transcritos, preservando
+medidas, categorias preliminares e divergências. Custos numéricos e alcance
+continuam ausentes.
+`dados/piloto_pendente.json` preserva B01–B15 sem inventar valores. A árvore documental
+`dados/arvore_piloto_provisoria.json` posiciona cada código uma vez: usa os
+locais da tabela quando específicos e mantém B01, B02, B03 e B05 em
+“Localização a conciliar”. Não assume que térreo e inferior são equivalentes.
 Não há inventário real validado. A árvore de `dados/demonstracao.json` é fictícia,
 com quatro barreiras e três ambientes; não comprova a entrega de campo da E2.
 

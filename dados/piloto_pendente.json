@@ -1,0 +1,126 @@
+{
+  "fonte": "docs/pendencias_piloto.md",
+  "estado": "Não conciliado: PDF e valores confirmados ausentes do checkout",
+  "registros": [
+    {
+      "codigo_piloto": "B01",
+      "codigo_final": null,
+      "caminho": null,
+      "gravidade": null,
+      "custo": null,
+      "pessoas_dia": null
+    },
+    {
+      "codigo_piloto": "B02",
+      "codigo_final": null,
+      "caminho": null,
+      "gravidade": null,
+      "custo": null,
+      "pessoas_dia": null
+    },
+    {
+      "codigo_piloto": "B03",
+      "codigo_final": null,
+      "caminho": null,
+      "gravidade": null,
+      "custo": null,
+      "pessoas_dia": null
+    },
+    {
+      "codigo_piloto": "B04",
+      "codigo_final": null,
+      "caminho": null,
+      "gravidade": null,
+      "custo": null,
+      "pessoas_dia": null
+    },
+    {
+      "codigo_piloto": "B05",
+      "codigo_final": null,
+      "caminho": null,
+      "gravidade": null,
+      "custo": null,
+      "pessoas_dia": null
+    },
+    {
+      "codigo_piloto": "B06",
+      "codigo_final": null,
+      "caminho": null,
+      "gravidade": null,
+      "custo": null,
+      "pessoas_dia": null
+    },
+    {
+      "codigo_piloto": "B07",
+      "codigo_final": null,
+      "caminho": null,
+      "gravidade": null,
+      "custo": null,
+      "pessoas_dia": null
+    },
+    {
+      "codigo_piloto": "B08",
+      "codigo_final": null,
+      "caminho": null,
+      "gravidade": null,
+      "custo": null,
+      "pessoas_dia": null
+    },
+    {
+      "codigo_piloto": "B09",
+      "codigo_final": null,
+      "caminho": null,
+      "gravidade": null,
+      "custo": null,
+      "pessoas_dia": null
+    },
+    {
+      "codigo_piloto": "B10",
+      "codigo_final": null,
+      "caminho": null,
+      "gravidade": null,
+      "custo": null,
+      "pessoas_dia": null
+    },
+    {
+      "codigo_piloto": "B11",
+      "codigo_final": null,
+      "caminho": null,
+      "gravidade": null,
+      "custo": null,
+      "pessoas_dia": null
+    },
+    {
+      "codigo_piloto": "B12",
+      "codigo_final": null,
+      "caminho": null,
+      "gravidade": null,
+      "custo": null,
+      "pessoas_dia": null
+    },
+    {
+      "codigo_piloto": "B13",
+      "codigo_final": null,
+      "caminho": null,
+      "gravidade": null,
+      "custo": null,
+      "pessoas_dia": null
+    },
+    {
+      "codigo_piloto": "B14",
+      "codigo_final": null,
+      "caminho": null,
+      "gravidade": null,
+      "custo": null,
+      "pessoas_dia": null
+    },
+    {
+      "codigo_piloto": "B15",
+      "codigo_final": null,
+      "caminho": null,
+      "gravidade": null,
+      "custo": null,
+      "pessoas_dia": null
+    }
+  ]
+}

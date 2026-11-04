@@ -1,0 +1,84 @@
+{
+  "nome": "DEMO — dados fictícios",
+  "barreiras": [],
+  "subsetores": [
+    {
+      "nome": "Entrada",
+      "barreiras": [
+        {
+          "codigo": "DEMO-TESTE-01",
+          "ambiente": "Entrada",
+          "tipo": "Exemplo didático",
+          "descricao": "Barreira fictícia para demonstração técnica",
+          "medida": 80,
+          "unidade": "cm",
+          "referencia_norma": "Não aplicável: exemplo fictício",
+          "gravidade": 4,
+          "pessoas_dia": 100,
+          "custo": 2000,
+          "intervencao": "Intervenção simulada",
+          "coletado_por": "Dados sintéticos",
+          "data_coleta": "2026-11-04"
+        },
+        {
+          "codigo": "DEMO-TESTE-02",
+          "ambiente": "Entrada",
+          "tipo": "Exemplo didático",
+          "descricao": "Barreira fictícia para demonstração técnica",
+          "medida": 80,
+          "unidade": "cm",
+          "referencia_norma": "Não aplicável: exemplo fictício",
+          "gravidade": 3,
+          "pessoas_dia": 50,
+          "custo": 1000,
+          "intervencao": "Intervenção simulada",
+          "coletado_por": "Dados sintéticos",
+          "data_coleta": "2026-11-04"
+        }
+      ],
+      "subsetores": []
+    },
+    {
+      "nome": "Biblioteca",
+      "barreiras": [
+        {
+          "codigo": "DEMO-TESTE-03",
+          "ambiente": "Biblioteca",
+          "tipo": "Exemplo didático",
+          "descricao": "Barreira fictícia para demonstração técnica",
+          "medida": 80,
+          "unidade": "cm",
+          "referencia_norma": "Não aplicável: exemplo fictício",
+          "gravidade": 5,
+          "pessoas_dia": 80,
+          "custo": 4000,
+          "intervencao": "Intervenção simulada",
+          "coletado_por": "Dados sintéticos",
+          "data_coleta": "2026-11-04"
+        }
+      ],
+      "subsetores": []
+    },
+    {
+      "nome": "Sanitário",
+      "barreiras": [
+        {
+          "codigo": "DEMO-TESTE-04",
+          "ambiente": "Sanitário",
+          "tipo": "Exemplo didático",
+          "descricao": "Barreira fictícia para demonstração técnica",
+          "medida": 80,
+          "unidade": "cm",
+          "referencia_norma": "Não aplicável: exemplo fictício",
+          "gravidade": 4,
+          "pessoas_dia": 40,
+          "custo": 1500,
+          "intervencao": "Intervenção simulada",
+          "coletado_por": "Dados sintéticos",
+          "data_coleta": "2026-11-04"
+        }
+      ],
+      "subsetores": []
+    }
+  ]
+}

@@ -6,7 +6,7 @@ Projeto acadêmico da disciplina **Construção de Algoritmos e Programação**,
 
 Este repositório reúne o desenvolvimento de um sistema em Python e a documentação de um levantamento de barreiras de acessibilidade. A proposta é transformar medidas coletadas pelo grupo em uma recomendação justificável: quais intervenções executar, em que ordem e dentro de qual orçamento.
 
-> **Estado do projeto:** estrutura inicial criada, com funções ainda não implementadas. Piloto do Grupo 5 analisado; inventário e árvore aguardam conciliação. Veja [pendências do piloto](docs/pendencias_piloto.md) e [caderno de bordo](docs/caderno_de_bordo.md). As funcionalidades abaixo representam o escopo previsto.
+> **Estado do projeto:** MVP técnico da E3 implementado: validação, CSV, JSON, percursos recursivos, resumo hierárquico e ranking com Bubble Sort próprio. A demonstração usa dados fictícios, separados dos 15 registros transcritos do piloto. O inventário real ainda depende de conciliação e valores confirmados. Veja [critérios da E3](docs/criterios_e3.md), [pendências do piloto](docs/pendencias_piloto.md) e [caderno de bordo](docs/caderno_de_bordo.md).
 
 ## O problema que queremos resolver
 
@@ -50,7 +50,7 @@ O inventário final deverá conter pelo menos **15 barreiras**, distribuídas em
 
 ## Organização prevista do repositório
 
-Os seis módulos Python estão na raiz, com implementação pendente. As pastas abaixo já contêm orientações para receber os dados e as entregas.
+Os seis módulos Python estão na raiz. Coleta, percursos recursivos e Bubble Sort estão implementados; buscas, demais ordenações, seleção de pacotes e relatórios finais continuam pendentes. As pastas abaixo já contêm orientações para receber os dados e as entregas.
 
 | Arquivo ou pasta | Responsabilidade |
 | --- | --- |
@@ -129,21 +129,36 @@ O escopo da disciplina não permite bibliotecas externas, interface gráfica ou 
 
 `sorted()`, `list.sort()`, `min()`, `max()` e o operador `in` não poderão substituir os algoritmos exigidos. O uso de `sorted()` será restrito à função separada de conferência `confere_com_o_python`, conforme o enunciado.
 
-## Execução prevista
+## Execução do MVP E3
 
-A estrutura atual exibe uma mensagem de desenvolvimento. O menu ainda não está implementado. Execute na raiz do repositório:
+Na raiz do repositório, sem instalar pacotes:
 
 ```bash
 python main.py
+python -m unittest discover -s tests -v
 ```
 
-Em ambientes nos quais o Python 3 é identificado como `python3`:
+A execução padrão usa **quatro barreiras fictícias** em três ambientes. Exibe
+aviso, confere gravação/leitura JSON em pasta temporária, imprime a hierarquia
+e mostra o ranking com comparações e trocas. Não altera os dados de entrada.
+Essa demonstração não é uma recomendação de intervenções reais.
+
+Para usar um inventário confirmado ou importar uma ficha completa:
 
 ```bash
-python3 main.py
+python main.py --inventario dados/inventario.json
+python main.py --ficha dados/ficha.csv --peso-gravidade 1 --peso-pessoas 1
 ```
 
-O programa deverá apresentar um menu numerado para importar dados, consultar o inventário, comparar algoritmos e gerar relatórios. O procedimento de carregamento do inventário será detalhado após a integração do piloto.
+Esses dois arquivos reais ainda devem ser preparados pelo grupo. Dados inválidos
+interrompem a execução com mensagem e código de saída 1. Caminhos fornecidos são
+relativos ao diretório atual; os dados padrão são localizados a partir de main.py.
+Somente main.py cuida da interface; não há menu interativo neste MVP.
+Consulte [contrato e critérios](docs/criterios_e3.md).
+
+As tarefas foram separadas em branches encadeadas: `feat/e3-inventario`,
+`feat/e3-coleta-recursao`, `feat/e3-ranking`, `feat/e3-piloto-documentado` e
+`feat/e3-demonstracao`. Cada branch inclui as anteriores; a última integra o MVP.
 
 ## Evidências que vamos produzir
 

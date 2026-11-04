@@ -20,3 +20,14 @@ Registrar para cada uso o pedido, o retorno, o que o grupo alterou e por quê. A
 ## Um defeito que encontramos
 
 A preencher com um defeito real, a execução ou teste que o revelou e a correção. As inconsistências documentais do piloto estão em pendencias_piloto.md; não substituem automaticamente a evidência de defeito exigida na entrega.
+
+## 04/11/2026 — MVP técnico para a E3
+
+- Pedido: preparar demonstração em main.py para 05/11, separar tarefas por branches e publicar no GitHub.
+- Apoio de IA: Codex implementou validação, importação CSV, montagem de árvore, persistência JSON, percursos recursivos, Bubble Sort, demonstração e testes automatizados.
+- Fonte recebida: Campus_Acessivel_Grupo5_Inventario_Piloto (2).pdf. Transcrição de B01–B15 com medidas e categorias preservadas. Custos numéricos e pessoas/dia não constam do documento.
+- Decisão técnica proposta pela IA: separar demonstração fictícia do levantamento real. Pesos 1 e 1 são somente demonstrativos; não houve aprovação dos critérios pelo grupo.
+- Resultado: fluxo técnico demonstrável; conciliação final, valores reais, fotos e aprovação humana permanecem pendentes. A demonstração não comprova inventário de campo validado.
+- Revisão e alterações pelo grupo: ainda não informadas. Não presumir participação, aprovação ou validação coletiva.
+- Verificação: suíte E3 cobre entrada inválida, códigos repetidos, CSV, persistência, árvore de profundidade variável, ranking, desempate, rastreabilidade do piloto e execução de main.py.
+- Defeito de software do projeto: ainda deve ser documentado pelo grupo com evidência real; um erro de expectativa de recuo no teste foi corrigido durante o desenvolvimento, sem alteração do comportamento do resumo.

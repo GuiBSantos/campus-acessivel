@@ -6,7 +6,7 @@ Projeto acadêmico da disciplina **Construção de Algoritmos e Programação**,
 
 Este repositório reúne o desenvolvimento de um sistema em Python e a documentação de um levantamento de barreiras de acessibilidade. A proposta é transformar medidas coletadas pelo grupo em uma recomendação justificável: quais intervenções executar, em que ordem e dentro de qual orçamento.
 
-> **Estado desta documentação:** versão inicial. O piloto, a árvore do setor, os integrantes e os critérios próprios do grupo ainda serão incorporados. As funcionalidades abaixo representam o escopo previsto, não uma declaração de implementação concluída.
+> **Estado do projeto:** estrutura inicial criada, com funções ainda não implementadas. Piloto do Grupo 5 analisado; inventário e árvore aguardam conciliação. Veja [pendências do piloto](docs/pendencias_piloto.md) e [caderno de bordo](docs/caderno_de_bordo.md). As funcionalidades abaixo representam o escopo previsto.
 
 ## O problema que queremos resolver
 
@@ -18,11 +18,11 @@ Nosso trabalho será registrar as barreiras encontradas, estimar o impacto e o c
 
 | Informação | Definição do grupo |
 | --- | --- |
-| Setor analisado | A preencher após incorporar o piloto |
-| Curso e turma | A preencher |
-| Integrantes | A preencher |
+| Setor analisado | Prédio do Ensino Superior — UNASP-EC |
+| Curso e turma | Sistemas de Informação — Grupo 5; turma a confirmar |
+| Integrantes | Antonio Augusto Rodrigues Soares Júnior; Raphael Rios; Guilherme Barreto dos Santos |
 | Ambientes e hierarquia | A documentar a partir do levantamento |
-| Período de coleta | A preencher com as datas reais |
+| Período de coleta | Piloto informa coleta atualizada em 21/10/2026; confirmar datas por registro |
 | Orçamento de referência | A definir e justificar |
 
 ## Do campo à recomendação
@@ -50,7 +50,7 @@ O inventário final deverá conter pelo menos **15 barreiras**, distribuídas em
 
 ## Organização prevista do repositório
 
-Os seis módulos Python ficarão na raiz. As pastas complementares abaixo são uma proposta de organização para os dados e as entregas; serão criadas conforme os materiais forem incorporados.
+Os seis módulos Python estão na raiz, com implementação pendente. As pastas abaixo já contêm orientações para receber os dados e as entregas.
 
 | Arquivo ou pasta | Responsabilidade |
 | --- | --- |
@@ -131,7 +131,7 @@ O escopo da disciplina não permite bibliotecas externas, interface gráfica ou 
 
 ## Execução prevista
 
-Quando os módulos estiverem implementados, a execução será feita na raiz do repositório:
+A estrutura atual exibe uma mensagem de desenvolvimento. O menu ainda não está implementado. Execute na raiz do repositório:
 
 ```bash
 python main.py

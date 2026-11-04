@@ -6,7 +6,7 @@ Projeto acadêmico da disciplina **Construção de Algoritmos e Programação**,
 
 Este repositório reúne o desenvolvimento de um sistema em Python e a documentação de um levantamento de barreiras de acessibilidade. A proposta é transformar medidas coletadas pelo grupo em uma recomendação justificável: quais intervenções executar, em que ordem e dentro de qual orçamento.
 
-> **Estado do projeto:** estrutura inicial criada, com funções ainda não implementadas. Piloto do Grupo 5 analisado; inventário e árvore aguardam conciliação. Veja [pendências do piloto](docs/pendencias_piloto.md) e [caderno de bordo](docs/caderno_de_bordo.md). As funcionalidades abaixo representam o escopo previsto.
+> **Estado do projeto:** estrutura inicial criada, com funções ainda não implementadas. Piloto do Grupo 5 analisado; inventário e árvore aguardam conciliação. Veja as [pendências do piloto](docs/pendencias_piloto.md). As funcionalidades abaixo representam o escopo previsto.
 
 ## O problema que queremos resolver
 
@@ -62,7 +62,7 @@ Os seis módulos Python estão na raiz, com implementação pendente. As pastas 
 | `relatorio.py` | Matriz, tabelas e exportação de resultados |
 | `dados/` | Ficha digitada e inventário JSON |
 | `fotos/` | Evidências de campo, nomeadas pelo código da barreira |
-| `docs/` | Árvore do setor, critérios, caderno de bordo e documentos de entrega |
+| `docs/` | Árvore do setor, critérios e documentos de entrega |
 | `resultados/` | Relatórios e tabelas gerados pelo sistema |
 | `README.md` | Apresentação do projeto e orientação de uso |
 
@@ -161,26 +161,18 @@ Os resultados ainda não estão disponíveis nesta versão. A recomendação fin
 
 ## Colaboração do grupo
 
-As responsabilidades por módulo e por etapa serão registradas no caderno de bordo. Cada sessão deverá informar data, participantes, atividades, dificuldades e decisões.
-
 Como fluxo de colaboração proposto, cada alteração deverá ter uma descrição clara, ser revisada por outro integrante e incluir a atualização da documentação quando mudar dados, critérios ou comportamento do programa. Todos deverão compreender o projeto completo para as defesas e a apresentação.
 
-O caderno de bordo terá também as três seções finais exigidas:
-
-1. Divisão de responsabilidades.
-2. Registro de uso de IA: pedido realizado, resposta obtida, alterações feitas pelo grupo e justificativas.
-3. Um defeito real encontrado, com a evidência que o revelou e a correção adotada.
-
-**Nota de elaboração:** esta versão inicial do README foi preparada com apoio do ChatGPT a partir do caderno da disciplina. A revisão do grupo e suas alterações deverão ser registradas no caderno de bordo.
+**Nota de elaboração:** esta versão inicial do README foi preparada com apoio do ChatGPT a partir do caderno da disciplina.
 
 ## Entregas previstas no caderno da disciplina
 
 | Etapa | Data em 2026 | Entrega |
 | --- | --- | --- |
 | E1 | 24/09 | Piloto com pelo menos oito barreiras, árvore do setor e critérios iniciais |
-| E2 | 15/10 | Inventário completo, ficha digitada, fotos e caderno de bordo atualizado |
+| E2 | 15/10 | Inventário completo, ficha digitada e fotos |
 | E3 | 05/11 | Coleta e recursão funcionando, resumo hierárquico e ranking por uma ordenação própria |
-| E4 | 12/11 | Sistema completo e pacote final congelado, incluindo relatórios, caderno de bordo e revisão por pares |
+| E4 | 12/11 | Sistema completo e pacote final congelado, incluindo relatórios e revisão por pares |
 | E5 | 25 ou 26/11 | Pitch de cinco minutos, demonstração ao vivo e arguição |
 
 As datas acima reproduzem o planejamento do documento-base; não indicam que as entregas já foram concluídas.
@@ -193,7 +185,6 @@ As datas acima reproduzem o planejamento do documento-base; não indicam que as 
 - [ ] Uma foto por barreira, identificada pelo código.
 - [ ] Relatório técnico em PDF com os achados A1 a A5.
 - [ ] Relatório de texto gerado pelo próprio programa.
-- [ ] Caderno de bordo com as três seções obrigatórias.
 - [ ] Ficha de revisão por pares assinada pelo grupo revisor.
 - [ ] Casos base identificados em comentários nas funções recursivas.
 - [ ] Números do relatório reproduzíveis no sistema.
@@ -201,7 +192,7 @@ As datas acima reproduzem o planejamento do documento-base; não indicam que as 
 
 ## Uso dos registros de campo
 
-A coleta seguirá o termo de conduta da disciplina: fotos sem pessoas, respeito às autorizações de acesso e registro de impedimentos no caderno de bordo. Os achados não deverão ser divulgados fora do projeto antes da devolutiva.
+A coleta seguirá o termo de conduta da disciplina: fotos sem pessoas e respeito às autorizações de acesso. Os achados não deverão ser divulgados fora do projeto antes da devolutiva.
 
 Por esse motivo, a orientação inicial é manter o repositório privado e revisar os materiais antes de eventual publicação.
 

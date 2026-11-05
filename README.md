@@ -141,7 +141,7 @@ python -m unittest discover -s tests -v
 
 A execução padrão abre um menu: carregar demonstração fictícia (1), carregar
 JSON (2), importar CSV (3), validar (4), mostrar hierarquia (5), ranking (6),
-demonstração completa (7) e sair (0). Carregue um arquivo antes de consultar.
+demonstração completa (7), exportar relatório textual (8) e sair (0). Carregue um arquivo antes de consultar.
 Uma falha ao carregar outro arquivo preserva o inventário anterior em memória.
 O menu não grava por cima dos arquivos de entrada.
 
@@ -222,3 +222,17 @@ As datas acima reproduzem o planejamento do documento-base; não indicam que as 
 - [ ] Casos base identificados em comentários nas funções recursivas.
 - [ ] Números do relatório reproduzíveis no sistema.
 - [ ] Execução verificada em outra máquina.
+
+## Saídas, conferências e apresentação da E3
+
+O ranking inclui gravidade, pessoas/dia, custo em reais e índice. Os detalhes
+preservam descrição, caminho, intervenção e base das estimativas. A origem de
+custo, alcance e medida é exibida explicitamente; sem informação, fica marcada
+como não informada. O relatório exportado pela opção 8 mantém essas ressalvas
+e inclui matriz ambiente × tipo. Informe um nome novo: arquivos existentes
+não são sobrescritos.
+
+As opções 4 e 5 conferem quantidade esperada, códigos únicos, cobertura do piloto
+quando informada, contagens e custos por ambiente contra o total recursivo.
+Consulte o [roteiro da apresentação](docs/apresentacao_e3.md) para executar,
+explicar os casos base e entender o que ainda falta para a E4.

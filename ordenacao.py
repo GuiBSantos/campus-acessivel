@@ -50,12 +50,12 @@ def bubble_sort(lista, chave='indice', crescente=False):
 
 def selection_sort(lista, chave="indice", crescente=False):
     """Devolver (lista_ordenada, comparacoes, trocas), sem alterar a entrada."""
-    raise NotImplementedError("Implementação pendente pelo grupo.")
+    raise NotImplementedError("Ordenação adicional prevista para E4; use bubble_sort na E3.")
 
 
 def insertion_sort(lista, chave="indice", crescente=False):
     """Devolver (lista_ordenada, comparacoes, trocas), sem alterar a entrada."""
-    raise NotImplementedError("Implementação pendente pelo grupo.")
+    raise NotImplementedError("Ordenação adicional prevista para E4; use bubble_sort na E3.")
 
 
 def confere_com_o_python(ordenada, chave, crescente):

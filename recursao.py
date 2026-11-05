@@ -56,14 +56,15 @@ def caminho_da_barreira(no, codigo):
     return None
 
 
-def resumo_hierarquico(no, nivel=0):
+def resumo_hierarquico(no, nivel=0, formatar_custo=None):
     """Imprimir totais por nó. Caso base: folha não faz novas chamadas."""
-    print(f"{'  ' * nivel}{no['nome']}: {contar_barreiras(no)} barreiras | R$ {custo_total(no):.2f}")
+    custo = (formatar_custo(custo_total(no)) if formatar_custo else f"R$ {custo_total(no):.2f}")
+    print(f"{'  ' * nivel}{no['nome']}: {contar_barreiras(no)} barreiras | {custo}")
     for filho in no['subsetores']:
-        resumo_hierarquico(filho, nivel + 1)
+        resumo_hierarquico(filho, nivel + 1, formatar_custo)
 
 
 def melhor_pacote_exaustivo(barreiras, orcamento, pesos, indice=0, contador=None):
     """Devolver (beneficio, custo, lista_de_codigos, chamadas)."""
-    raise NotImplementedError("Implementação pendente pelo grupo.")
+    raise NotImplementedError("Seleção de pacotes prevista para E4; percursos da E3 estão implementados.")
 

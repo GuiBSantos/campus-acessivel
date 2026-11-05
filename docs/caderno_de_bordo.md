@@ -46,3 +46,11 @@ A preencher com um defeito real, a execução ou teste que o revelou e a correç
 - Execução automática preservada com `--demo`, `--inventario` e `--ficha`. Consultas não alteram o arquivo; carga inválida preserva o inventário anterior.
 - Verificação: dez testes passaram, incluindo uso do menu, opções inválidas, arquivo ausente, importação CSV e encerramento por fim de entrada.
 - Dados de campo e estimativas não foram modificados nesta tarefa. Aprovação e revisão humana continuam a ser registradas pelos integrantes.
+
+## 05/11/2026 — Saídas, conferências e roteiro de apresentação
+
+- Pedido: identificar estimativas, melhorar leitura, conferir cobertura/totais e preparar defesa.
+- Apoio de IA: Codex implementou tabelas com moeda brasileira, detalhes de origem por campo, exportação textual sem sobrescrever arquivos, matriz de contagens e conferências independentes dos totais.
+- Arquivos sem origem explícita são sinalizados; a existência de valores não comprova coleta. Metadados e hipóteses são preservados no relatório.
+- Roteiro em `docs/apresentacao_e3.md`: execução, recursão, casos base, Bubble Sort, desempate e limites atuais. As buscas, ordenações adicionais e seleção de pacotes continuam pendentes para E4.
+- Verificação automatizada: 15 testes, cobrindo também divergência de totais, cobertura B01–B15, origens e exportação pelo menu. Não se presume revisão humana dos dados.

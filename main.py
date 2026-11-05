@@ -6,13 +6,13 @@ import sys
 import tempfile
 
 from coleta import gravar_inventario, importar_ficha_campo, ler_inventario, montar_arvore, validar_setor
-from ordenacao import bubble_sort, calcular_indices, confere_com_o_python
-from recursao import achatar, contar_barreiras, custo_total, profundidade, resumo_hierarquico
+from relatorio import conferir_inventario, exportar_relatorio, texto_resumo, texto_ranking
+from recursao import contar_barreiras
 
 BASE = Path(__file__).resolve().parent
 
 
-def demonstrar(setor, pesos):
+def demonstrar(setor, pesos, esperado=15):
     """Validar round-trip JSON, imprimir hierarquia e ranking próprio."""
     with tempfile.TemporaryDirectory(prefix='campus-e3-') as pasta:
         arquivo = Path(pasta) / 'inventario.json'
@@ -21,30 +21,17 @@ def demonstrar(setor, pesos):
         if recarregado != setor:
             raise ValueError('Falha na conferência da persistência JSON.')
     print('Persistência JSON: gravação e leitura conferidas.')
-    mostrar_resumo(recarregado)
+    mostrar_resumo(recarregado, esperado)
     return mostrar_ranking(recarregado, pesos)
 
 
-def mostrar_resumo(setor):
-    """Exibir os totais e a profundidade do inventário carregado."""
-    print('\nRESUMO HIERÁRQUICO')
-    resumo_hierarquico(setor)
-    print(f'Profundidade: {profundidade(setor)} níveis')
-    print(f'Total: {contar_barreiras(setor)} barreiras | R$ {custo_total(setor):.2f}')
+def mostrar_resumo(setor, esperado=15):
+    print('\n' + texto_resumo(setor, esperado))
 
 
 def mostrar_ranking(setor, pesos):
-    """Exibir ranking sem alterar as barreiras do inventário."""
-    registros = achatar(setor)
-    calcular_indices(registros, pesos)
-    ranking, comparacoes, trocas = bubble_sort(registros)
-    if not confere_com_o_python(ranking, 'indice', False):
-        raise ValueError('Falha na conferência do ranking.')
-    print('\nRANKING — Bubble Sort próprio; empate por código crescente')
-    print(f'Pesos: gravidade={pesos["gravidade"]}, pessoas/dia={pesos["pessoas_dia"]}')
-    for posicao, registro in enumerate(ranking, 1):
-        print(f'{posicao}. {registro["codigo"]} | índice {registro["indice"]:.4f} | {registro["caminho"]}')
-    print(f'Comparações: {comparacoes} | Trocas: {trocas} | Conferência: OK')
+    texto, ranking = texto_ranking(setor, pesos)
+    print('\n' + texto)
     return ranking
 
 
@@ -78,6 +65,7 @@ def menu(pesos):
         print('5 — Mostrar resumo hierárquico')
         print('6 — Mostrar ranking')
         print('7 — Executar demonstração completa')
+        print('8 — Exportar relatório de texto')
         print('0 — Sair')
         try:
             opcao = input('Opção: ').strip()
@@ -92,23 +80,29 @@ def menu(pesos):
                 origem = str(caminho)
                 print(f'Inventário carregado: {contar_barreiras(setor)} barreiras.')
                 avisar_origem(ficticio)
-            elif opcao in ('4', '5', '6', '7'):
+            elif opcao in ('4', '5', '6', '7', '8'):
                 if setor is None:
                     print('Carregue um inventário primeiro: opção 1, 2 ou 3.')
                     continue
                 if opcao == '4':
                     erros = validar_setor(setor)
                     print('\n'.join(erros) if erros else 'Estrutura válida: campos, códigos e árvore conferidos.')
+                    conferencias = conferir_inventario(setor, 4 if ficticio else 15)
+                    print('\n'.join(conferencias) if conferencias else 'Conferências: códigos únicos, cobertura e totais por ambientes OK.')
                 else:
                     avisar_origem(ficticio)
                     if opcao == '5':
-                        mostrar_resumo(setor)
+                        mostrar_resumo(setor, 4 if ficticio else 15)
                     elif opcao == '6':
                         mostrar_ranking(setor, pesos)
+                    elif opcao == '7':
+                        demonstrar(setor, pesos, 4 if ficticio else 15)
                     else:
-                        demonstrar(setor, pesos)
+                        destino = Path(input('Novo arquivo de relatório (.txt): ').strip()).expanduser()
+                        exportar_relatorio(destino, setor, pesos, 4 if ficticio else 15)
+                        print(f'Relatório salvo em {destino}.')
             else:
-                print('Opção inválida. Escolha um número de 0 a 7.')
+                print('Opção inválida. Escolha um número de 0 a 8.')
         except (EOFError, KeyboardInterrupt):
             print('\nEncerrando o menu.')
             return 0
@@ -133,7 +127,7 @@ def main(argv=None):
     try:
         setor = (carregar_ficha(args.ficha) if args.ficha
                  else ler_inventario(args.inventario or BASE / 'dados/demonstracao.json'))
-        demonstrar(setor, pesos)
+        demonstrar(setor, pesos, 4 if args.demo else 15)
     except (OSError, ValueError, RecursionError) as erro:
         print(f'Não foi possível executar: {erro}', file=sys.stderr)
         return 1

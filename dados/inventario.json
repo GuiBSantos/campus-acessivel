@@ -136,18 +136,18 @@
           "codigo": "ES-POR-01",
           "ambiente": "Salas de aula (padrão em todos os blocos)",
           "tipo": "Porta",
-          "descricao": "Portas de sala de aula com largura útil padrão de 80 cm",
+          "descricao": "Portas de salas de aula com largura útil padrão de 80 cm, conforme mínimo adotado pelo grupo",
           "medida": 80,
           "unidade": "cm",
           "referencia_norma": "ABNT NBR 9050:2020, item 6.11.2.4: vão livre mín. 0,80 m e altura 2,10 m. A largura útil de 80 cm, isoladamente, não comprova não conformidade",
           "gravidade": 2,
           "pessoas_dia": 120,
           "custo": 8400,
-          "intervencao": "Medir o vão livre de cada porta e alargar apenas as que ficarem abaixo de 0,80 m ou tiverem obstáculo",
+          "intervencao": "Ampliar a largura de portas de salas de aula como oportunidade de melhoria, acima do mínimo adotado; confirmar portas-alvo e custo",
           "coletado_por": "Raphael Rios e Antonio Augusto Rodrigues Soares Júnior",
           "data_coleta": "2026-10-21",
           "codigo_piloto": "B03",
-          "base_estimativa": "Gravidade Baixa→2: 80 cm atende ao vão livre mínimo da NBR 9050; sem barreira comprovada. Hipótese: 3 salas com vão menor ou obstáculo, ~R$ 2.800 por porta, 40 alunos por sala = 120 pessoas/dia. | Original: Gravidade Média→3. Registrado em nível de prédio para não duplicar por bloco. Custo = ponto médio da faixa Médio (nº de portas a alargar ainda não levantado)."
+          "base_estimativa": "O grupo informa que 80 cm atende ao mínimo adotado; B03 é oportunidade de melhoria, não não conformidade comprovada. Proposta: ampliar a largura. Hipótese para demonstração: 3 portas-alvo × R$ 2.800 = R$ 8.400, sem seleção das portas nem cotação confirmadas. Pessoas/dia = 120 estimadas a partir de 3 salas × 40 alunos; fluxo afetado ainda não contado. Gravidade baixa (2) provisória para representar oportunidade, não violação confirmada."
         }
       ],
       "subsetores": []

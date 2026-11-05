@@ -21,6 +21,8 @@ def validar_registro(barreira, codigos_usados=None):
         valor = barreira.get(campo)
         if not isinstance(valor, str) or not valor.strip():
             erros.append(f'{campo}: texto obrigatório.')
+        elif campo == 'descricao' and len(valor.strip()) < 10:
+            erros.append('descricao: detalhe insuficiente para ser verificável.')
     codigo = barreira.get('codigo')
     if isinstance(codigo, str):
         if not re.fullmatch(r'[A-Z0-9]+-[A-Z0-9]+-\d{2,}', codigo):
@@ -35,7 +37,7 @@ def validar_registro(barreira, codigos_usados=None):
         valor = barreira.get(campo)
         if isinstance(valor, bool) or not isinstance(valor, (int, float)):
             erros.append(f'{campo}: número obrigatório.')
-        elif not math.isfinite(valor):
+        elif isinstance(valor, float) and not math.isfinite(valor):
             erros.append(f'{campo}: número finito obrigatório.')
         elif campo == 'gravidade' and (not isinstance(valor, int) or not 1 <= valor <= 5):
             erros.append('gravidade: inteiro de 1 a 5.')
@@ -45,8 +47,11 @@ def validar_registro(barreira, codigos_usados=None):
             erros.append('custo: deve ser positivo.')
         elif campo == 'medida' and valor < 0:
             erros.append('medida: não pode ser negativa.')
+    data_coleta = barreira.get('data_coleta', '')
     try:
-        date.fromisoformat(barreira.get('data_coleta', ''))
+        if not isinstance(data_coleta, str) or not re.fullmatch(r'\d{4}-\d{2}-\d{2}', data_coleta):
+            raise ValueError
+        date.fromisoformat(data_coleta)
     except (TypeError, ValueError):
         erros.append('data_coleta: data válida no formato AAAA-MM-DD.')
     return erros

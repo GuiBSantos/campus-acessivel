@@ -38,3 +38,11 @@ A preencher com um defeito real, a execução ou teste que o revelou e a correç
 - Alteração com apoio de IA: `piloto_pendente.json` substituído pelo arquivo fornecido, salvo como `inventario_estimado.json`; árvore documental e referências atualizadas.
 - Conferência: 15 registros com códigos finais únicos, caminhos e valores numéricos; faltam campos operacionais e confirmação das hipóteses. Mantidas as pendências e as declarações originais de estimativa sem cotação ou contagem de campo.
 - Não foi atribuída aos integrantes coleta ou verificação que o arquivo não documenta. A demonstração padrão continua separada dos dados estimados.
+
+## 05/11/2026 — Menu da demonstração E3
+
+- Pedido: avançar na interface enquanto os dados de campo são confirmados.
+- Apoio de IA: Codex implementou menu em main.py para carregar exemplo fictício, JSON e CSV, validar estrutura, mostrar hierarquia, ranking e demonstração completa.
+- Execução automática preservada com `--demo`, `--inventario` e `--ficha`. Consultas não alteram o arquivo; carga inválida preserva o inventário anterior.
+- Verificação: dez testes passaram, incluindo uso do menu, opções inválidas, arquivo ausente, importação CSV e encerramento por fim de entrada.
+- Dados de campo e estimativas não foram modificados nesta tarefa. Aprovação e revisão humana continuam a ser registradas pelos integrantes.

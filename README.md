@@ -135,10 +135,17 @@ Na raiz do repositório, sem instalar pacotes:
 
 ```bash
 python main.py
+python main.py --demo
 python -m unittest discover -s tests -v
 ```
 
-A execução padrão usa **quatro barreiras fictícias** em três ambientes. Exibe
+A execução padrão abre um menu: carregar demonstração fictícia (1), carregar
+JSON (2), importar CSV (3), validar (4), mostrar hierarquia (5), ranking (6),
+demonstração completa (7) e sair (0). Carregue um arquivo antes de consultar.
+Uma falha ao carregar outro arquivo preserva o inventário anterior em memória.
+O menu não grava por cima dos arquivos de entrada.
+
+Com `--demo`, a execução automática usa **quatro barreiras fictícias** em três ambientes. Exibe
 aviso, confere gravação/leitura JSON em pasta temporária, imprime a hierarquia
 e mostra o ranking com comparações e trocas. Não altera os dados de entrada.
 Essa demonstração não é uma recomendação de intervenções reais.
@@ -153,12 +160,14 @@ python main.py --ficha dados/ficha.csv --peso-gravidade 1 --peso-pessoas 1
 Esses dois arquivos reais ainda devem ser preparados pelo grupo. Dados inválidos
 interrompem a execução com mensagem e código de saída 1. Caminhos fornecidos são
 relativos ao diretório atual; os dados padrão são localizados a partir de main.py.
-Somente main.py cuida da interface; não há menu interativo neste MVP.
+Somente main.py solicita entradas. As opções `--demo`, `--inventario` e
+`--ficha` executam diretamente o fluxo completo, sem abrir o menu.
 Consulte [contrato e critérios](docs/criterios_e3.md).
 
 As tarefas foram separadas em branches encadeadas: `feat/e3-inventario`,
 `feat/e3-coleta-recursao`, `feat/e3-ranking`, `feat/e3-piloto-documentado` e
 `feat/e3-demonstracao`. Cada branch inclui as anteriores; a última integra o MVP.
+O menu foi desenvolvido em `feat/e3-menu`.
 
 ## Evidências que vamos produzir
 

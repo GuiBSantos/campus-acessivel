@@ -1,11 +1,11 @@
-"""Demonstração E3: python main.py (sem dependências externas)."""
+"""Menu E3: python main.py; demonstração automática: python main.py --demo."""
 
 import argparse
 from pathlib import Path
 import sys
 import tempfile
 
-from coleta import gravar_inventario, importar_ficha_campo, ler_inventario, montar_arvore
+from coleta import gravar_inventario, importar_ficha_campo, ler_inventario, montar_arvore, validar_setor
 from ordenacao import bubble_sort, calcular_indices, confere_com_o_python
 from recursao import achatar, contar_barreiras, custo_total, profundidade, resumo_hierarquico
 
@@ -21,11 +21,21 @@ def demonstrar(setor, pesos):
         if recarregado != setor:
             raise ValueError('Falha na conferência da persistência JSON.')
     print('Persistência JSON: gravação e leitura conferidas.')
+    mostrar_resumo(recarregado)
+    return mostrar_ranking(recarregado, pesos)
+
+
+def mostrar_resumo(setor):
+    """Exibir os totais e a profundidade do inventário carregado."""
     print('\nRESUMO HIERÁRQUICO')
-    resumo_hierarquico(recarregado)
-    print(f'Profundidade: {profundidade(recarregado)} níveis')
-    print(f'Total: {contar_barreiras(recarregado)} barreiras | R$ {custo_total(recarregado):.2f}')
-    registros = achatar(recarregado)
+    resumo_hierarquico(setor)
+    print(f'Profundidade: {profundidade(setor)} níveis')
+    print(f'Total: {contar_barreiras(setor)} barreiras | R$ {custo_total(setor):.2f}')
+
+
+def mostrar_ranking(setor, pesos):
+    """Exibir ranking sem alterar as barreiras do inventário."""
+    registros = achatar(setor)
     calcular_indices(registros, pesos)
     ranking, comparacoes, trocas = bubble_sort(registros)
     if not confere_com_o_python(ranking, 'indice', False):
@@ -38,29 +48,92 @@ def demonstrar(setor, pesos):
     return ranking
 
 
+def carregar_ficha(caminho):
+    registros, erros = importar_ficha_campo(caminho)
+    if erros:
+        raise ValueError('\n'.join(erros))
+    return montar_arvore(registros)
+
+
+def avisar_origem(ficticio):
+    if ficticio:
+        print('DEMONSTRAÇÃO FICTÍCIA: estes dados e pesos não são resultados do piloto.')
+    else:
+        print('Arquivo fornecido: validar a estrutura não confirma medições ou cotações.')
+        print('Custos e alcance podem ser estimados; confira as fontes do inventário.')
+    print('Pesos provisórios: valide os critérios com o grupo antes de recomendar intervenções.')
+
+
+def menu(pesos):
+    """Manter inventário em memória; falhas de carga preservam o anterior."""
+    setor = None
+    ficticio = False
+    origem = 'nenhum'
+    while True:
+        print(f'\nInventário carregado: {origem}')
+        print('1 — Carregar demonstração fictícia')
+        print('2 — Carregar inventário JSON')
+        print('3 — Importar ficha CSV')
+        print('4 — Validar inventário carregado')
+        print('5 — Mostrar resumo hierárquico')
+        print('6 — Mostrar ranking')
+        print('7 — Executar demonstração completa')
+        print('0 — Sair')
+        try:
+            opcao = input('Opção: ').strip()
+            if opcao == '0':
+                return 0
+            if opcao in ('1', '2', '3'):
+                caminho = (BASE / 'dados/demonstracao.json' if opcao == '1'
+                           else Path(input('Caminho do arquivo: ').strip()).expanduser())
+                novo = carregar_ficha(caminho) if opcao == '3' else ler_inventario(caminho)
+                setor = novo
+                ficticio = opcao == '1'
+                origem = str(caminho)
+                print(f'Inventário carregado: {contar_barreiras(setor)} barreiras.')
+                avisar_origem(ficticio)
+            elif opcao in ('4', '5', '6', '7'):
+                if setor is None:
+                    print('Carregue um inventário primeiro: opção 1, 2 ou 3.')
+                    continue
+                if opcao == '4':
+                    erros = validar_setor(setor)
+                    print('\n'.join(erros) if erros else 'Estrutura válida: campos, códigos e árvore conferidos.')
+                else:
+                    avisar_origem(ficticio)
+                    if opcao == '5':
+                        mostrar_resumo(setor)
+                    elif opcao == '6':
+                        mostrar_ranking(setor, pesos)
+                    else:
+                        demonstrar(setor, pesos)
+            else:
+                print('Opção inválida. Escolha um número de 0 a 7.')
+        except (EOFError, KeyboardInterrupt):
+            print('\nEncerrando o menu.')
+            return 0
+        except (OSError, ValueError, RecursionError) as erro:
+            print(f'Não foi possível executar: {erro}')
+
+
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     origem = parser.add_mutually_exclusive_group()
-    origem.add_argument('--inventario', type=Path, help='JSON com inventário validado')
-    origem.add_argument('--ficha', type=Path, help='CSV separado por ponto e vírgula')
+    origem.add_argument('--demo', action='store_true', help='Executar demonstração fictícia sem menu')
+    origem.add_argument('--inventario', type=Path, help='Executar com um inventário JSON sem menu')
+    origem.add_argument('--ficha', type=Path, help='Executar com uma ficha CSV sem menu')
     parser.add_argument('--peso-gravidade', type=float, default=1)
     parser.add_argument('--peso-pessoas', type=float, default=1)
     args = parser.parse_args(argv)
+    pesos = {'gravidade': args.peso_gravidade, 'pessoas_dia': args.peso_pessoas}
     print('Campus Acessível — Grupo 5 — MVP E3')
-    if args.inventario is None and args.ficha is None:
-        print('DEMONSTRAÇÃO FICTÍCIA: estes dados e pesos não são resultados do piloto.')
-        print('O piloto real permanece parcialmente conciliado; consulte docs/criterios_e3.md.')
-    else:
-        print('Pesos provisórios: valide os critérios com o grupo antes de recomendar intervenções.')
+    if not args.demo and args.inventario is None and args.ficha is None:
+        return menu(pesos)
+    avisar_origem(args.demo)
     try:
-        if args.ficha:
-            registros, erros = importar_ficha_campo(args.ficha)
-            if erros:
-                raise ValueError('\n'.join(erros))
-            setor = montar_arvore(registros)
-        else:
-            setor = ler_inventario(args.inventario or BASE / 'dados/demonstracao.json')
-        demonstrar(setor, {'gravidade': args.peso_gravidade, 'pessoas_dia': args.peso_pessoas})
+        setor = (carregar_ficha(args.ficha) if args.ficha
+                 else ler_inventario(args.inventario or BASE / 'dados/demonstracao.json'))
+        demonstrar(setor, pesos)
     except (OSError, ValueError, RecursionError) as erro:
         print(f'Não foi possível executar: {erro}', file=sys.stderr)
         return 1

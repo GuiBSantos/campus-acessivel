@@ -165,9 +165,39 @@ class E3(unittest.TestCase):
                 no = next(f for f in no['subsetores'] if f['nome'] == nome)
             self.assertIn(registro['codigo_piloto'], no['codigos_piloto'])
 
+    def test_menu_full_flow_and_recovery(self):
+        with tempfile.TemporaryDirectory() as pasta:
+            ausente = str(Path(pasta) / 'ausente.json')
+            roteiro = f'5\n9\n1\n2\n{ausente}\n4\n5\n6\n7\n0\n'
+            result = subprocess.run([sys.executable, str(BASE / 'main.py')],
+                                    input=roteiro, text=True, capture_output=True, cwd=pasta)
+            self.assertEqual(result.returncode, 0, result.stderr)
+            for esperado in ('Carregue um inventário primeiro', 'Opção inválida',
+                             'Não foi possível executar', 'Estrutura válida',
+                             'RESUMO HIERÁRQUICO', 'RANKING', 'Persistência JSON',
+                             'DEMONSTRAÇÃO FICTÍCIA', 'Conferência: OK'):
+                self.assertIn(esperado, result.stdout)
+
+    def test_menu_json_csv_and_eof(self):
+        with tempfile.TemporaryDirectory() as pasta:
+            ficha = Path(pasta) / 'ficha.csv'
+            with ficha.open('w', encoding='utf-8', newline='') as arquivo:
+                writer = csv.DictWriter(arquivo, fieldnames=('caminho',) + TEXTOS + NUMEROS,
+                                        delimiter=';')
+                writer.writeheader()
+                writer.writerows(achatar(self.setor))
+            roteiro = f'2\n{BASE / "dados/demonstracao.json"}\n4\n3\n{ficha}\n7\n'
+            result = subprocess.run([sys.executable, str(BASE / 'main.py')],
+                                    input=roteiro, text=True, capture_output=True, cwd=pasta)
+            self.assertEqual(result.returncode, 0, result.stderr)
+            self.assertIn('Estrutura válida', result.stdout)
+            self.assertIn('Conferência: OK', result.stdout)
+            self.assertIn('Encerrando o menu', result.stdout)
+            self.assertNotIn('Não foi possível executar', result.stdout)
+
     def test_main_from_other_directory_and_failure(self):
         with tempfile.TemporaryDirectory() as pasta:
-            result = subprocess.run([sys.executable, str(BASE / 'main.py')], cwd=pasta,
+            result = subprocess.run([sys.executable, str(BASE / 'main.py'), '--demo'], cwd=pasta,
                                     text=True, capture_output=True)
             self.assertEqual(result.returncode, 0, result.stderr)
             self.assertIn('DEMONSTRAÇÃO FICTÍCIA', result.stdout)

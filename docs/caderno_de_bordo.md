@@ -54,3 +54,10 @@ A preencher com um defeito real, a execução ou teste que o revelou e a correç
 - Arquivos sem origem explícita são sinalizados; a existência de valores não comprova coleta. Metadados e hipóteses são preservados no relatório.
 - Roteiro em `docs/apresentacao_e3.md`: execução, recursão, casos base, Bubble Sort, desempate e limites atuais. As buscas, ordenações adicionais e seleção de pacotes continuam pendentes para E4.
 - Verificação automatizada: 15 testes, cobrindo também divergência de totais, cobertura B01–B15, origens e exportação pelo menu. Não se presume revisão humana dos dados.
+
+## 05/11/2026 — Incorporação do inventário operacional
+
+- Pedido: adicionar a última versão do JSON anexado ao repositório.
+- Arquivo: `inventario (1).json` copiado integralmente para `dados/inventario.json`, sem alterar medidas, autoria declarada ou hipóteses.
+- Verificação com apoio de IA: validação estrutural, cobertura B01–B15, códigos únicos, totais por ambientes e execução completa. Total informado/estimado: R$ 134.460,00.
+- Custos, alcance e medidas marcadas como hipótese continuam estimados. Não se presume confirmação de campo pela aprovação estrutural do arquivo.

@@ -157,7 +157,9 @@ python main.py --inventario dados/inventario.json
 python main.py --ficha dados/ficha.csv --peso-gravidade 1 --peso-pessoas 1
 ```
 
-Esses dois arquivos reais ainda devem ser preparados pelo grupo. Dados inválidos
+O JSON `dados/inventario.json` está incluído e contém 15 registros com estimativas
+e hipóteses explícitas; não representa cotações ou contagens confirmadas. A ficha
+CSV ainda deve ser preparada pelo grupo. Dados inválidos
 interrompem a execução com mensagem e código de saída 1. Caminhos fornecidos são
 relativos ao diretório atual; os dados padrão são localizados a partir de main.py.
 Somente main.py solicita entradas. As opções `--demo`, `--inventario` e

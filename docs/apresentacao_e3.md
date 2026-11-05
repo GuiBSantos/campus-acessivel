@@ -11,11 +11,12 @@ python main.py
 Sequência para ensaiar: 1 (carregar dados fictícios), 4 (conferir), 5 (hierarquia),
 6 (ranking), 8 (salvar em um novo arquivo .txt) e 0 (sair).
 Para uma demonstração automática: `python main.py --demo`.
-Para o arquivo operacional preparado pelo grupo: opção 2, informe seu caminho.
+Para carregar os 15 registros: opção 2, informe `dados/inventario.json`.
+Para executar diretamente: `python main.py --inventario dados/inventario.json`.
 A opção 3 importa CSV; `dados/inventario_estimado.json` ainda é um documento
 com registros, não a árvore operacional esperada pela opção 2.
-Os JSONs operacionais anexados à conversa foram analisados, mas não incorporados
-ao repositório. Não apresente o exemplo fictício como inventário real.
+A última versão anexada (`inventario (1).json`) foi incorporada como
+`dados/inventario.json`, preservando hipóteses e estimativas. Não apresente o exemplo fictício como inventário real.
 
 ## O que mostrar e explicar
 

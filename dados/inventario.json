@@ -1,0 +1,435 @@
+{
+  "nome": "Prédio do Ensino Superior — UNASP-EC",
+  "barreiras": [],
+  "subsetores": [
+    {
+      "nome": "Bloco B",
+      "barreiras": [],
+      "subsetores": [
+        {
+          "nome": "Rampa de acesso entre pavimentos",
+          "barreiras": [
+            {
+              "codigo": "ES-RAM-01",
+              "ambiente": "Rampa de acesso entre pavimentos",
+              "tipo": "Rampa",
+              "descricao": "Inclinação da rampa de aproximadamente 12,3%",
+              "medida": 12.3,
+              "unidade": "%",
+              "referencia_norma": "ABNT NBR 9050:2020, item 6.6.2.1 e Tabela 4: inclinação máx. 8,33% (1:12); em reforma, até 12,5% só para desníveis muito pequenos; largura, item 6.6.2.5. Referência a confirmar pelo grupo; não é laudo de conformidade",
+              "gravidade": 4,
+              "pessoas_dia": 400,
+              "custo": 9000,
+              "intervencao": "Refazer ou alongar a rampa para reduzir a inclinação (meta ≤ 8,33%), com patamares; avaliar projeto civil",
+              "coletado_por": "Raphael Rios e Antonio Augusto Rodrigues Soares Júnior",
+              "data_coleta": "2026-10-21",
+              "codigo_piloto": "B01",
+              "base_estimativa": "Fluxo-base informado pelo grupo: ~800 pessoas por turno; assumidos 2 turnos = ~1.600 pessoas/dia no prédio. Hipótese: 25% do fluxo passa pela rampa do Bloco B. | Original: Gravidade Alta→4. Inclinação 12,3% excede o limite usual de 8,33% (1:12) da NBR 9050 p/ rampa nova; correção exige refazer/alongar a rampa (faixa Médio). Fluxo estimado, sem contagem."
+            }
+          ],
+          "subsetores": []
+        },
+        {
+          "nome": "Pavimento Superior",
+          "barreiras": [],
+          "subsetores": [
+            {
+              "nome": "Portas",
+              "barreiras": [
+                {
+                  "codigo": "ES-BRA-04",
+                  "ambiente": "Portas",
+                  "tipo": "Braille",
+                  "descricao": "7 portas identificadas com Braille",
+                  "medida": 8,
+                  "unidade": "portas sem Braille (hipótese: 15 portas/pavimento)",
+                  "referencia_norma": "ABNT NBR 9050:2020, seção 5 (sinalização tátil/Braille de identificação de ambientes). Item exato a confirmar pelo grupo",
+                  "gravidade": 3,
+                  "pessoas_dia": 200,
+                  "custo": 960,
+                  "intervencao": "Instalar placas em Braille nas portas que ainda não possuem",
+                  "coletado_por": "Raphael Rios e Antonio Augusto Rodrigues Soares Júnior",
+                  "data_coleta": "2026-10-21",
+                  "codigo_piloto": "B09",
+                  "base_estimativa": "Hipótese: R$ 120 por placa Braille instalada; 15 portas por pavimento (total NÃO contado em campo); déficit = 15 − portas já com Braille. Fluxo: 1.600 pessoas/dia ÷ 8 pavimentos com portas listados = 200. | Original: Gravidade Média→3. 7 portas já têm Braille; custo cobre as restantes. Bloco B com maior fluxo (laboratório e rampa)."
+                }
+              ],
+              "subsetores": []
+            }
+          ]
+        },
+        {
+          "nome": "Pavimento Térreo",
+          "barreiras": [],
+          "subsetores": [
+            {
+              "nome": "Laboratório",
+              "barreiras": [
+                {
+                  "codigo": "ES-TEC-01",
+                  "ambiente": "Laboratório",
+                  "tipo": "Tecnologia assistiva",
+                  "descricao": "2 estações de computador acessíveis registradas",
+                  "medida": 2,
+                  "unidade": "estações acessíveis",
+                  "referencia_norma": "ABNT NBR 9050:2020, seção 9 (mobiliário), item a confirmar; Lei nº 13.146/2015 (LBI). Quantidade isolada não comprova insuficiência",
+                  "gravidade": 3,
+                  "pessoas_dia": 80,
+                  "custo": 2000,
+                  "intervencao": "Levantar a demanda e adicionar posto de trabalho acessível, se confirmada a necessidade",
+                  "coletado_por": "Raphael Rios e Antonio Augusto Rodrigues Soares Júnior",
+                  "data_coleta": "2026-10-21",
+                  "codigo_piloto": "B12",
+                  "base_estimativa": "Hipótese: 1 laboratório com 40 alunos por turno × 2 turnos = 80 pessoas/dia; demanda por estações acessíveis não confirmada. | Original: Gravidade Média→3. Custo = mesa/posto acessível adicional, limite superior da faixa Baixo. Fluxo = usuários PcD do laboratório, estimado."
+                },
+                {
+                  "codigo": "ES-TEC-02",
+                  "ambiente": "Laboratório",
+                  "tipo": "Tecnologia assistiva",
+                  "descricao": "1 teclado em Braille",
+                  "medida": 1,
+                  "unidade": "teclado em Braille",
+                  "referencia_norma": "Lei nº 13.146/2015 (LBI), tecnologia assistiva; sem item normativo específico confirmado. Quantidade isolada não comprova insuficiência",
+                  "gravidade": 3,
+                  "pessoas_dia": 80,
+                  "custo": 1500,
+                  "intervencao": "Levantar a demanda e adquirir teclado ou adaptação Braille adicional, se confirmada a necessidade",
+                  "coletado_por": "Raphael Rios e Antonio Augusto Rodrigues Soares Júnior",
+                  "data_coleta": "2026-10-21",
+                  "codigo_piloto": "B13",
+                  "base_estimativa": "Hipótese: mesma ocupação do laboratório (80/dia); demanda por teclado Braille não confirmada. | Original: Gravidade Média→3. Custo = teclado/adaptação Braille adicional (premissa; Braille display seria bem acima da faixa Baixo)."
+                }
+              ],
+              "subsetores": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "nome": "Rampa principal entre blocos",
+      "barreiras": [
+        {
+          "codigo": "ES-RAM-02",
+          "ambiente": "Rampa principal entre blocos",
+          "tipo": "Rampa",
+          "descricao": "Inclinação dos dois trechos da rampa de aproximadamente 12,3%",
+          "medida": 12.3,
+          "unidade": "%",
+          "referencia_norma": "ABNT NBR 9050:2020, item 6.6.2.1 e Tabela 4: inclinação máx. 8,33% (1:12); em reforma, até 12,5% só para desníveis muito pequenos; largura, item 6.6.2.5. Referência a confirmar pelo grupo; não é laudo de conformidade",
+          "gravidade": 4,
+          "pessoas_dia": 800,
+          "custo": 40000,
+          "intervencao": "Refazer os dois trechos com inclinação ≤ 8,33% e patamares; exige projeto e espaço de implantação",
+          "coletado_por": "Raphael Rios e Antonio Augusto Rodrigues Soares Júnior",
+          "data_coleta": "2026-10-21",
+          "codigo_piloto": "B02",
+          "base_estimativa": "Fluxo-base informado pelo grupo: ~800 pessoas por turno; assumidos 2 turnos = ~1.600 pessoas/dia no prédio. Hipótese: 50% do fluxo usa a rampa principal entre blocos. | Original: Gravidade Alta→4. Dois trechos de 12,76 m × 2,00 m (~51 m²) a refazer com patamares (faixa Alto). Rampa principal de ligação: fluxo estimado maior."
+        }
+      ],
+      "subsetores": []
+    },
+    {
+      "nome": "Salas de aula (padrão em todos os blocos)",
+      "barreiras": [
+        {
+          "codigo": "ES-POR-01",
+          "ambiente": "Salas de aula (padrão em todos os blocos)",
+          "tipo": "Porta",
+          "descricao": "Portas de sala de aula com largura útil padrão de 80 cm",
+          "medida": 80,
+          "unidade": "cm",
+          "referencia_norma": "ABNT NBR 9050:2020, item 6.11.2.4: vão livre mín. 0,80 m e altura 2,10 m. A largura útil de 80 cm, isoladamente, não comprova não conformidade",
+          "gravidade": 2,
+          "pessoas_dia": 120,
+          "custo": 8400,
+          "intervencao": "Medir o vão livre de cada porta e alargar apenas as que ficarem abaixo de 0,80 m ou tiverem obstáculo",
+          "coletado_por": "Raphael Rios e Antonio Augusto Rodrigues Soares Júnior",
+          "data_coleta": "2026-10-21",
+          "codigo_piloto": "B03",
+          "base_estimativa": "Gravidade Baixa→2: 80 cm atende ao vão livre mínimo da NBR 9050; sem barreira comprovada. Hipótese: 3 salas com vão menor ou obstáculo, ~R$ 2.800 por porta, 40 alunos por sala = 120 pessoas/dia. | Original: Gravidade Média→3. Registrado em nível de prédio para não duplicar por bloco. Custo = ponto médio da faixa Médio (nº de portas a alargar ainda não levantado)."
+        }
+      ],
+      "subsetores": []
+    },
+    {
+      "nome": "Auditório",
+      "barreiras": [],
+      "subsetores": [
+        {
+          "nome": "Elevador",
+          "barreiras": [
+            {
+              "codigo": "ES-ELE-01",
+              "ambiente": "Elevador",
+              "tipo": "Elevador",
+              "descricao": "Cabine do elevador com dimensões internas de 1,32 m × 0,89 m",
+              "medida": 0.89,
+              "unidade": "m",
+              "referencia_norma": "ABNT NBR NM 313, Tabela 1 (cabine mín. 1,10 × 1,40 m p/ 1 cadeira de rodas + 1 usuário); se for plataforma de elevação, ABNT NBR 9050:2020, item 6.10. Confirmar o tipo de equipamento. Medida = largura interna; comprimento interno 1,32 m",
+              "gravidade": 3,
+              "pessoas_dia": 150,
+              "custo": 60000,
+              "intervencao": "Confirmar o tipo de equipamento e avaliar adequação ou substituição da cabine",
+              "coletado_por": "Raphael Rios e Antonio Augusto Rodrigues Soares Júnior",
+              "data_coleta": "2026-10-21",
+              "codigo_piloto": "B04",
+              "base_estimativa": "Hipótese: ~150 pessoas/dia usam o auditório (eventos e aulas). Tipo de equipamento a confirmar. Fluxo-base informado pelo grupo: ~800 pessoas por turno; assumidos 2 turnos = ~1.600 pessoas/dia no prédio. | Original: Gravidade Média→3. Cabine 1,32 × 0,89 m; adequação ou troca de equipamento (faixa Alto). Fluxo = público do auditório, estimado."
+            }
+          ],
+          "subsetores": []
+        }
+      ]
+    },
+    {
+      "nome": "Áreas livres (Blocos A e B)",
+      "barreiras": [
+        {
+          "codigo": "ES-ACE-01",
+          "ambiente": "Áreas livres (Blocos A e B)",
+          "tipo": "Acesso",
+          "descricao": "Acesso para cadeirante às áreas livres",
+          "medida": 0.15,
+          "unidade": "m (altura do degrau — hipótese, não medida)",
+          "referencia_norma": "ABNT NBR 9050:2020, item 6.3 (piso e desníveis na rota acessível). Obstáculo e medidas ainda não detalhados no piloto",
+          "gravidade": 4,
+          "pessoas_dia": 640,
+          "custo": 1800,
+          "intervencao": "Detalhar o obstáculo em campo e adequar o acesso (rampa ou nivelamento)",
+          "coletado_por": "Raphael Rios e Antonio Augusto Rodrigues Soares Júnior",
+          "data_coleta": "2026-10-21",
+          "codigo_piloto": "B05",
+          "base_estimativa": "Fluxo-base informado pelo grupo: ~800 pessoas por turno; assumidos 2 turnos = ~1.600 pessoas/dia no prédio. Hipótese: degrau de 15 cm na entrada (a foto mostra desnível); 40% do fluxo (Blocos A e B). Custo = rampa curta. | Original: Gravidade Alta→4 (degrau na entrada impede acesso de cadeirante). Custo Baixo: rampa/adequação pontual. Registrado único para A e B; dividir se medir separado."
+        }
+      ],
+      "subsetores": []
+    },
+    {
+      "nome": "Bloco D",
+      "barreiras": [],
+      "subsetores": [
+        {
+          "nome": "Pavimento Superior",
+          "barreiras": [],
+          "subsetores": [
+            {
+              "nome": "Portas",
+              "barreiras": [
+                {
+                  "codigo": "ES-BRA-01",
+                  "ambiente": "Portas",
+                  "tipo": "Braille",
+                  "descricao": "Ausência de Braille nas portas observadas",
+                  "medida": 15,
+                  "unidade": "portas sem Braille (hipótese: 15 portas/pavimento)",
+                  "referencia_norma": "ABNT NBR 9050:2020, seção 5 (sinalização tátil/Braille de identificação de ambientes). Item exato a confirmar pelo grupo",
+                  "gravidade": 3,
+                  "pessoas_dia": 200,
+                  "custo": 1800,
+                  "intervencao": "Instalar placas de identificação em Braille nas portas do pavimento",
+                  "coletado_por": "Raphael Rios e Antonio Augusto Rodrigues Soares Júnior",
+                  "data_coleta": "2026-10-21",
+                  "codigo_piloto": "B06",
+                  "base_estimativa": "Hipótese: R$ 120 por placa Braille instalada; 15 portas por pavimento (total NÃO contado em campo); déficit = 15 − portas já com Braille. Fluxo: 1.600 pessoas/dia ÷ 8 pavimentos com portas listados = 200. | Original: Gravidade Média→3. Custo ≈ R$ 100 por placa Braille + instalação × ~15–18 portas (premissa, sem cotação)."
+                }
+              ],
+              "subsetores": []
+            }
+          ]
+        },
+        {
+          "nome": "Pavimento Inferior",
+          "barreiras": [],
+          "subsetores": [
+            {
+              "nome": "Portas",
+              "barreiras": [
+                {
+                  "codigo": "ES-BRA-07",
+                  "ambiente": "Portas",
+                  "tipo": "Braille",
+                  "descricao": "2 portas identificadas com Braille",
+                  "medida": 13,
+                  "unidade": "portas sem Braille (hipótese: 15 portas/pavimento)",
+                  "referencia_norma": "ABNT NBR 9050:2020, seção 5 (sinalização tátil/Braille de identificação de ambientes). Item exato a confirmar pelo grupo",
+                  "gravidade": 3,
+                  "pessoas_dia": 200,
+                  "custo": 1560,
+                  "intervencao": "Instalar placas em Braille nas portas que ainda não possuem",
+                  "coletado_por": "Raphael Rios e Antonio Augusto Rodrigues Soares Júnior",
+                  "data_coleta": "2026-10-21",
+                  "codigo_piloto": "B14",
+                  "base_estimativa": "Hipótese: R$ 120 por placa Braille instalada; 15 portas por pavimento (total NÃO contado em campo); déficit = 15 − portas já com Braille. Fluxo: 1.600 pessoas/dia ÷ 8 pavimentos com portas listados = 200. | Original: Gravidade Média→3. 2 portas já têm Braille; custo cobre as restantes (~12 placas, premissa)."
+                }
+              ],
+              "subsetores": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "nome": "Bloco E",
+      "barreiras": [],
+      "subsetores": [
+        {
+          "nome": "Pavimento Superior",
+          "barreiras": [],
+          "subsetores": [
+            {
+              "nome": "Portas",
+              "barreiras": [
+                {
+                  "codigo": "ES-BRA-02",
+                  "ambiente": "Portas",
+                  "tipo": "Braille",
+                  "descricao": "Ausência de Braille nas portas observadas",
+                  "medida": 15,
+                  "unidade": "portas sem Braille (hipótese: 15 portas/pavimento)",
+                  "referencia_norma": "ABNT NBR 9050:2020, seção 5 (sinalização tátil/Braille de identificação de ambientes). Item exato a confirmar pelo grupo",
+                  "gravidade": 3,
+                  "pessoas_dia": 200,
+                  "custo": 1800,
+                  "intervencao": "Instalar placas de identificação em Braille nas portas do pavimento",
+                  "coletado_por": "Raphael Rios e Antonio Augusto Rodrigues Soares Júnior",
+                  "data_coleta": "2026-10-21",
+                  "codigo_piloto": "B07",
+                  "base_estimativa": "Hipótese: R$ 120 por placa Braille instalada; 15 portas por pavimento (total NÃO contado em campo); déficit = 15 − portas já com Braille. Fluxo: 1.600 pessoas/dia ÷ 8 pavimentos com portas listados = 200. | Original: Gravidade Média→3. Mesma premissa de custo de B06."
+                }
+              ],
+              "subsetores": []
+            }
+          ]
+        },
+        {
+          "nome": "Pavimento Inferior",
+          "barreiras": [],
+          "subsetores": [
+            {
+              "nome": "Portas",
+              "barreiras": [
+                {
+                  "codigo": "ES-BRA-08",
+                  "ambiente": "Portas",
+                  "tipo": "Braille",
+                  "descricao": "1 porta identificada com Braille",
+                  "medida": 14,
+                  "unidade": "portas sem Braille (hipótese: 15 portas/pavimento)",
+                  "referencia_norma": "ABNT NBR 9050:2020, seção 5 (sinalização tátil/Braille de identificação de ambientes). Item exato a confirmar pelo grupo",
+                  "gravidade": 3,
+                  "pessoas_dia": 200,
+                  "custo": 1680,
+                  "intervencao": "Instalar placas em Braille nas portas que ainda não possuem",
+                  "coletado_por": "Raphael Rios e Antonio Augusto Rodrigues Soares Júnior",
+                  "data_coleta": "2026-10-21",
+                  "codigo_piloto": "B15",
+                  "base_estimativa": "Hipótese: R$ 120 por placa Braille instalada; 15 portas por pavimento (total NÃO contado em campo); déficit = 15 − portas já com Braille. Fluxo: 1.600 pessoas/dia ÷ 8 pavimentos com portas listados = 200. | Original: Gravidade Média→3. 1 porta já tem Braille; custo cobre as restantes."
+                }
+              ],
+              "subsetores": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "nome": "Bloco A",
+      "barreiras": [],
+      "subsetores": [
+        {
+          "nome": "Pavimento Superior",
+          "barreiras": [],
+          "subsetores": [
+            {
+              "nome": "Portas",
+              "barreiras": [
+                {
+                  "codigo": "ES-BRA-03",
+                  "ambiente": "Portas",
+                  "tipo": "Braille",
+                  "descricao": "3 portas identificadas com Braille",
+                  "medida": 12,
+                  "unidade": "portas sem Braille (hipótese: 15 portas/pavimento)",
+                  "referencia_norma": "ABNT NBR 9050:2020, seção 5 (sinalização tátil/Braille de identificação de ambientes). Item exato a confirmar pelo grupo",
+                  "gravidade": 3,
+                  "pessoas_dia": 200,
+                  "custo": 1440,
+                  "intervencao": "Instalar placas em Braille nas portas que ainda não possuem",
+                  "coletado_por": "Raphael Rios e Antonio Augusto Rodrigues Soares Júnior",
+                  "data_coleta": "2026-10-21",
+                  "codigo_piloto": "B08",
+                  "base_estimativa": "Hipótese: R$ 120 por placa Braille instalada; 15 portas por pavimento (total NÃO contado em campo); déficit = 15 − portas já com Braille. Fluxo: 1.600 pessoas/dia ÷ 8 pavimentos com portas listados = 200. | Original: Gravidade Média→3. 3 portas já têm Braille; custo cobre as restantes (~15 placas, premissa)."
+                }
+              ],
+              "subsetores": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "nome": "Bloco C",
+      "barreiras": [],
+      "subsetores": [
+        {
+          "nome": "Pavimento Superior",
+          "barreiras": [],
+          "subsetores": [
+            {
+              "nome": "Portas",
+              "barreiras": [
+                {
+                  "codigo": "ES-BRA-05",
+                  "ambiente": "Portas",
+                  "tipo": "Braille",
+                  "descricao": "3 portas identificadas com Braille",
+                  "medida": 12,
+                  "unidade": "portas sem Braille (hipótese: 15 portas/pavimento)",
+                  "referencia_norma": "ABNT NBR 9050:2020, seção 5 (sinalização tátil/Braille de identificação de ambientes). Item exato a confirmar pelo grupo",
+                  "gravidade": 3,
+                  "pessoas_dia": 200,
+                  "custo": 1440,
+                  "intervencao": "Instalar placas em Braille nas portas que ainda não possuem",
+                  "coletado_por": "Raphael Rios e Antonio Augusto Rodrigues Soares Júnior",
+                  "data_coleta": "2026-10-21",
+                  "codigo_piloto": "B10",
+                  "base_estimativa": "Hipótese: R$ 120 por placa Braille instalada; 15 portas por pavimento (total NÃO contado em campo); déficit = 15 − portas já com Braille. Fluxo: 1.600 pessoas/dia ÷ 8 pavimentos com portas listados = 200. | Original: Gravidade Média→3. 3 portas já têm Braille; custo cobre as restantes."
+                }
+              ],
+              "subsetores": []
+            }
+          ]
+        },
+        {
+          "nome": "Pavimento Inferior",
+          "barreiras": [],
+          "subsetores": [
+            {
+              "nome": "Portas",
+              "barreiras": [
+                {
+                  "codigo": "ES-BRA-06",
+                  "ambiente": "Portas",
+                  "tipo": "Braille",
+                  "descricao": "6 portas identificadas com Braille",
+                  "medida": 9,
+                  "unidade": "portas sem Braille (hipótese: 15 portas/pavimento)",
+                  "referencia_norma": "ABNT NBR 9050:2020, seção 5 (sinalização tátil/Braille de identificação de ambientes). Item exato a confirmar pelo grupo",
+                  "gravidade": 3,
+                  "pessoas_dia": 200,
+                  "custo": 1080,
+                  "intervencao": "Instalar placas em Braille nas portas que ainda não possuem",
+                  "coletado_por": "Raphael Rios e Antonio Augusto Rodrigues Soares Júnior",
+                  "data_coleta": "2026-10-21",
+                  "codigo_piloto": "B11",
+                  "base_estimativa": "Hipótese: R$ 120 por placa Braille instalada; 15 portas por pavimento (total NÃO contado em campo); déficit = 15 − portas já com Braille. Fluxo: 1.600 pessoas/dia ÷ 8 pavimentos com portas listados = 200. | Original: Gravidade Média→3. 6 portas já têm Braille; custo cobre as restantes."
+                }
+              ],
+              "subsetores": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

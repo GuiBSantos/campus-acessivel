@@ -1,7 +1,13 @@
 # Dados do projeto
 
-O inventário real `inventario.json` ainda depende da reconciliação descrita em
-`docs/pendencias_piloto.md`.
+`inventario.json` é a árvore operacional fornecida pelo usuário em
+`inventario (1).json`, com 15 registros e quatro níveis. Pode ser carregada
+pela opção 2 do menu ou por `python main.py --inventario dados/inventario.json`.
+Preserva custos, alcance e algumas medidas estimados; validade estrutural não
+confirma coleta ou cotação. A revisão de campo continua necessária.
+
+Os arquivos abaixo preservam versões documentais anteriores, não são a entrada
+operacional atual:
 
 - `inventario_estimado.json`: arquivo estimado fornecido pelo usuário, com 15 registros, códigos finais, caminhos, gravidade, custos e pessoas/dia. Preserva medidas originais, hipóteses e pendências; não contém cotações verificadas.
 - `arvore_piloto_provisoria.json`: agrupamento documental atualizado pelos caminhos do arquivo estimado, cada código uma única vez; não equivale à confirmação dos locais em campo.

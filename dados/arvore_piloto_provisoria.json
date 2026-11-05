@@ -1,23 +1,80 @@
 {
-  "aviso": "Árvore documental provisória; não usar como inventário validado ou ranking.",
+  "aviso": "Árvore documental dos caminhos informados em inventario_estimado.json; não é inventário operacional validado.",
   "arvore": {
     "nome": "Prédio do Ensino Superior — UNASP-EC",
     "codigos_piloto": [],
     "subsetores": [
       {
-        "nome": "Localização a conciliar",
+        "nome": "Bloco B",
+        "codigos_piloto": [],
+        "subsetores": [
+          {
+            "nome": "Rampa de acesso entre pavimentos",
+            "codigos_piloto": [
+              "B01"
+            ],
+            "subsetores": []
+          },
+          {
+            "nome": "Pavimento Superior",
+            "codigos_piloto": [],
+            "subsetores": [
+              {
+                "nome": "Portas",
+                "codigos_piloto": [
+                  "B09"
+                ],
+                "subsetores": []
+              }
+            ]
+          },
+          {
+            "nome": "Pavimento Térreo",
+            "codigos_piloto": [],
+            "subsetores": [
+              {
+                "nome": "Laboratório",
+                "codigos_piloto": [
+                  "B12",
+                  "B13"
+                ],
+                "subsetores": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "nome": "Rampa principal entre blocos",
         "codigos_piloto": [
-          "B01",
-          "B02",
-          "B03",
-          "B05"
+          "B02"
+        ],
+        "subsetores": []
+      },
+      {
+        "nome": "Salas de aula (padrão em todos os blocos)",
+        "codigos_piloto": [
+          "B03"
         ],
         "subsetores": []
       },
       {
         "nome": "Auditório",
+        "codigos_piloto": [],
+        "subsetores": [
+          {
+            "nome": "Elevador",
+            "codigos_piloto": [
+              "B04"
+            ],
+            "subsetores": []
+          }
+        ]
+      },
+      {
+        "nome": "Áreas livres (Blocos A e B)",
         "codigos_piloto": [
-          "B04"
+          "B05"
         ],
         "subsetores": []
       },
@@ -97,39 +154,6 @@
                 "nome": "Portas",
                 "codigos_piloto": [
                   "B08"
-                ],
-                "subsetores": []
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "nome": "Bloco B",
-        "codigos_piloto": [],
-        "subsetores": [
-          {
-            "nome": "Pavimento Superior",
-            "codigos_piloto": [],
-            "subsetores": [
-              {
-                "nome": "Portas",
-                "codigos_piloto": [
-                  "B09"
-                ],
-                "subsetores": []
-              }
-            ]
-          },
-          {
-            "nome": "Pavimento Térreo",
-            "codigos_piloto": [],
-            "subsetores": [
-              {
-                "nome": "Laboratório",
-                "codigos_piloto": [
-                  "B12",
-                  "B13"
                 ],
                 "subsetores": []
               }

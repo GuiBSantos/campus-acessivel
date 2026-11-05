@@ -31,3 +31,10 @@ A preencher com um defeito real, a execução ou teste que o revelou e a correç
 - Revisão e alterações pelo grupo: ainda não informadas. Não presumir participação, aprovação ou validação coletiva.
 - Verificação: suíte E3 cobre entrada inválida, códigos repetidos, CSV, persistência, árvore de profundidade variável, ranking, desempate, rastreabilidade do piloto e execução de main.py.
 - Defeito de software do projeto: ainda deve ser documentado pelo grupo com evidência real; um erro de expectativa de recuo no teste foi corrigido durante o desenvolvimento, sem alteração do comportamento do resumo.
+
+## 05/11/2026 — Recebimento do inventário estimado
+
+- Pedido: conferir o JSON estimado anexado, substituir o arquivo anterior e renomeá-lo; remover pendências somente se não faltasse informação.
+- Alteração com apoio de IA: `piloto_pendente.json` substituído pelo arquivo fornecido, salvo como `inventario_estimado.json`; árvore documental e referências atualizadas.
+- Conferência: 15 registros com códigos finais únicos, caminhos e valores numéricos; faltam campos operacionais e confirmação das hipóteses. Mantidas as pendências e as declarações originais de estimativa sem cotação ou contagem de campo.
+- Não foi atribuída aos integrantes coleta ou verificação que o arquivo não documenta. A demonstração padrão continua separada dos dados estimados.

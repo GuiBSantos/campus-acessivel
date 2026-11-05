@@ -137,7 +137,7 @@ class E3(unittest.TestCase):
                 indice_prioridade(self.registro, pesos)
 
     def test_pilot_preserves_each_code_once(self):
-        data = json.loads((BASE / 'dados/piloto_pendente.json').read_text())
+        data = json.loads((BASE / 'dados/inventario_estimado.json').read_text())
         self.assertEqual(len(data['registros']), 15)
         arvore = json.loads((BASE / 'dados/arvore_piloto_provisoria.json').read_text())['arvore']
         def codigos(no):
@@ -146,10 +146,24 @@ class E3(unittest.TestCase):
                 resultado.extend(codigos(filho))
             return resultado
         encontrados = codigos(arvore)
+        finais = []
         for registro in data['registros']:
             self.assertEqual(encontrados.count(registro['codigo_piloto']), 1)
-            self.assertIsNone(registro['custo'])
-            self.assertIsNone(registro['pessoas_dia'])
+            self.assertGreater(registro['custo'], 0)
+            self.assertIsInstance(registro['pessoas_dia'], int)
+            self.assertGreaterEqual(registro['pessoas_dia'], 0)
+            self.assertTrue(1 <= registro['gravidade'] <= 5)
+            self.assertRegex(registro['codigo_final'], r'^[A-Z0-9]+-[A-Z0-9]+-\d{2,}$')
+            self.assertNotIn(registro['codigo_final'], finais)
+            finais.append(registro['codigo_final'])
+            self.assertTrue(registro['pendencias'])
+            self.assertTrue(registro['base_estimativa'])
+            partes = registro['caminho'].split('/')
+            no = arvore
+            self.assertEqual(no['nome'], partes[0])
+            for nome in partes[1:]:
+                no = next(f for f in no['subsetores'] if f['nome'] == nome)
+            self.assertIn(registro['codigo_piloto'], no['codigos_piloto'])
 
     def test_main_from_other_directory_and_failure(self):
         with tempfile.TemporaryDirectory() as pasta:

@@ -1,12 +1,17 @@
 # Critérios do MVP E3
 
-O piloto real NÃO foi conciliado. O PDF anexado foi lido e seus 15 registros foram transcritos, preservando
-medidas, categorias preliminares e divergências. Custos numéricos e alcance
-continuam ausentes.
-`dados/piloto_pendente.json` preserva B01–B15 sem inventar valores. A árvore documental
-`dados/arvore_piloto_provisoria.json` posiciona cada código uma vez: usa os
-locais da tabela quando específicos e mantém B01, B02, B03 e B05 em
-“Localização a conciliar”. Não assume que térreo e inferior são equivalentes.
+O PDF do piloto foi transcrito, preservando medidas e categorias originais.
+Em 05/11 o usuário forneceu `dados/inventario_estimado.json`, que substitui
+`piloto_pendente.json`. O arquivo acrescenta códigos finais, caminhos e valores
+estimados de gravidade, custos e pessoas/dia, com suas hipóteses. Seu próprio
+estado informa ausência de cotação e contagem de campo; não é inventário validado.
+A escala proposta nesse arquivo converte Crítica=5, Alta=4, Média=3 e Baixa=2,
+com 1 reservado a incômodo mínimo. Trata-se de uma proposta registrada no arquivo,
+sem presumir aprovação ou conferência de campo.
+
+`dados/arvore_piloto_provisoria.json` foi atualizado pelos caminhos informados,
+com cada código uma vez e sem equiparar térreo a inferior. As pendências de
+confirmação e os campos operacionais ausentes estão descritos em `dados/README.md`.
 Não há inventário real validado. A árvore de `dados/demonstracao.json` é fictícia,
 com quatro barreiras e três ambientes; não comprova a entrega de campo da E2.
 

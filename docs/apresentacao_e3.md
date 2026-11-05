@@ -8,20 +8,19 @@ Use Python 3, sem instalar pacotes. Na pasta do repositório:
 python main.py
 ```
 
-Sequência para ensaiar: 1 (carregar dados fictícios), 4 (conferir), 5 (hierarquia),
+Sequência para ensaiar: 1 (carregar inventário do projeto), 4 (conferir), 5 (hierarquia),
 6 (ranking), 8 (salvar em um novo arquivo .txt) e 0 (sair).
-Para uma demonstração automática: `python main.py --demo`.
+Para uma demonstração automática com os mesmos 15 registros: `python main.py --demo`.
 Para carregar os 15 registros: opção 2, informe `dados/inventario.json`.
 Para executar diretamente: `python main.py --inventario dados/inventario.json`.
-A opção 3 importa CSV; `dados/inventario_estimado.json` ainda é um documento
-com registros, não a árvore operacional esperada pela opção 2.
-A última versão anexada (`inventario (1).json`) foi incorporada como
-`dados/inventario.json`, preservando hipóteses e estimativas. Não apresente o exemplo fictício como inventário real.
+A opção 3 importa CSV. Os arquivos documentais intermediários foram removidos.
+O inventário atual foi fornecido em `inventario (1).json`; preserva hipóteses e
+estimativas. O exemplo fictício fica apenas em `tests/fixtures` para testes.
 
 ## O que mostrar e explicar
 
 1. **Validação:** campos obrigatórios, números válidos e código único em toda a árvore.
-   A conferência verifica quantidade esperada (15 no inventário, 4 no exemplo),
+   A conferência verifica quantidade esperada (15 no inventário),
    e B01–B15 exatamente uma vez quando houver códigos de origem do piloto.
 2. **Persistência:** a opção 7 grava e relê um JSON em diretório temporário e compara
    os dados; não substitui o arquivo de entrada.
@@ -49,7 +48,7 @@ A última versão anexada (`inventario (1).json`) foi incorporada como
 
    Na ausência desses dados, o programa informa “não informada”. Arquivos legados
    com `base_estimativa` têm custo e alcance marcados como estimados; hipóteses
-   na unidade de medida são sinalizadas. O exemplo do projeto é identificado como
+   na unidade de medida são sinalizadas. O exemplo usado nos testes é identificado como
    fictício. A base completa é preservada na saída e no relatório; não se presume
    confirmação de campo pela simples existência de um número.
 

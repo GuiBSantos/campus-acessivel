@@ -61,3 +61,10 @@ A preencher com um defeito real, a execução ou teste que o revelou e a correç
 - Arquivo: `inventario (1).json` copiado integralmente para `dados/inventario.json`, sem alterar medidas, autoria declarada ou hipóteses.
 - Verificação com apoio de IA: validação estrutural, cobertura B01–B15, códigos únicos, totais por ambientes e execução completa. Total informado/estimado: R$ 134.460,00.
 - Custos, alcance e medidas marcadas como hipótese continuam estimados. Não se presume confirmação de campo pela aprovação estrutural do arquivo.
+
+## 05/11/2026 — Limpeza dos protótipos de dados
+
+- Pedido: remover o protótipo agora que existe um inventário operacional.
+- Com apoio de IA, removidos os dois JSONs intermediários e movido o exemplo fictício para a pasta de testes. Histórico anterior preservado no Git.
+- Menu (opção 1) e `--demo` agora usam `dados/inventario.json`, com 15 registros. Hipóteses e estimativas continuam explícitas.
+- Documentação e testes atualizados; essa limpeza não constitui revisão de campo dos valores.

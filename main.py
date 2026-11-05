@@ -58,7 +58,7 @@ def menu(pesos):
     origem = 'nenhum'
     while True:
         print(f'\nInventário carregado: {origem}')
-        print('1 — Carregar demonstração fictícia')
+        print('1 — Carregar inventário do projeto')
         print('2 — Carregar inventário JSON')
         print('3 — Importar ficha CSV')
         print('4 — Validar inventário carregado')
@@ -72,11 +72,11 @@ def menu(pesos):
             if opcao == '0':
                 return 0
             if opcao in ('1', '2', '3'):
-                caminho = (BASE / 'dados/demonstracao.json' if opcao == '1'
+                caminho = (BASE / 'dados/inventario.json' if opcao == '1'
                            else Path(input('Caminho do arquivo: ').strip()).expanduser())
                 novo = carregar_ficha(caminho) if opcao == '3' else ler_inventario(caminho)
                 setor = novo
-                ficticio = opcao == '1'
+                ficticio = False
                 origem = str(caminho)
                 print(f'Inventário carregado: {contar_barreiras(setor)} barreiras.')
                 avisar_origem(ficticio)
@@ -113,7 +113,7 @@ def menu(pesos):
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     origem = parser.add_mutually_exclusive_group()
-    origem.add_argument('--demo', action='store_true', help='Executar demonstração fictícia sem menu')
+    origem.add_argument('--demo', action='store_true', help='Executar demonstração com o inventário do projeto sem menu')
     origem.add_argument('--inventario', type=Path, help='Executar com um inventário JSON sem menu')
     origem.add_argument('--ficha', type=Path, help='Executar com uma ficha CSV sem menu')
     parser.add_argument('--peso-gravidade', type=float, default=1)
@@ -123,11 +123,11 @@ def main(argv=None):
     print('Campus Acessível — Grupo 5 — MVP E3')
     if not args.demo and args.inventario is None and args.ficha is None:
         return menu(pesos)
-    avisar_origem(args.demo)
+    avisar_origem(False)
     try:
         setor = (carregar_ficha(args.ficha) if args.ficha
-                 else ler_inventario(args.inventario or BASE / 'dados/demonstracao.json'))
-        demonstrar(setor, pesos, 4 if args.demo else 15)
+                 else ler_inventario(args.inventario or BASE / 'dados/inventario.json'))
+        demonstrar(setor, pesos)
     except (OSError, ValueError, RecursionError) as erro:
         print(f'Não foi possível executar: {erro}', file=sys.stderr)
         return 1

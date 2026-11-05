@@ -18,7 +18,7 @@ BASE = Path(__file__).resolve().parents[1]
 
 class Relatorio(unittest.TestCase):
     def setUp(self):
-        self.setor = ler_inventario(BASE / 'dados/demonstracao.json')
+        self.setor = ler_inventario(BASE / 'tests/fixtures/demonstracao.json')
         self.pesos = {'gravidade': 1, 'pessoas_dia': 1}
 
     def test_format_and_estimate_provenance(self):
@@ -91,4 +91,4 @@ class Relatorio(unittest.TestCase):
                                     capture_output=True, text=True)
             self.assertEqual(result.returncode, 0, result.stderr)
             self.assertIn('Relatório salvo', result.stdout)
-            self.assertIn('fictício', (Path(pasta) / 'menu.txt').read_text(encoding='utf-8'))
+            self.assertIn('estimado', (Path(pasta) / 'menu.txt').read_text(encoding='utf-8'))

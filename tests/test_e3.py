@@ -22,7 +22,7 @@ BASE = Path(__file__).resolve().parents[1]
 
 class E3(unittest.TestCase):
     def setUp(self):
-        self.setor = ler_inventario(BASE / 'dados/demonstracao.json')
+        self.setor = ler_inventario(BASE / 'tests/fixtures/demonstracao.json')
         self.registro = copy.deepcopy(self.setor['subsetores'][0]['barreiras'][0])
 
     def test_invalid_values(self):
@@ -137,33 +137,19 @@ class E3(unittest.TestCase):
                 indice_prioridade(self.registro, pesos)
 
     def test_pilot_preserves_each_code_once(self):
-        data = json.loads((BASE / 'dados/inventario_estimado.json').read_text())
-        self.assertEqual(len(data['registros']), 15)
-        arvore = json.loads((BASE / 'dados/arvore_piloto_provisoria.json').read_text())['arvore']
-        def codigos(no):
-            resultado = list(no['codigos_piloto'])
-            for filho in no['subsetores']:
-                resultado.extend(codigos(filho))
-            return resultado
-        encontrados = codigos(arvore)
+        setor = ler_inventario(BASE / 'dados/inventario.json')
+        registros = achatar(setor)
+        self.assertEqual(len(registros), 15)
         finais = []
-        for registro in data['registros']:
-            self.assertEqual(encontrados.count(registro['codigo_piloto']), 1)
+        for registro in registros:
+            finais.append(registro['codigo'])
             self.assertGreater(registro['custo'], 0)
-            self.assertIsInstance(registro['pessoas_dia'], int)
-            self.assertGreaterEqual(registro['pessoas_dia'], 0)
-            self.assertTrue(1 <= registro['gravidade'] <= 5)
-            self.assertRegex(registro['codigo_final'], r'^[A-Z0-9]+-[A-Z0-9]+-\d{2,}$')
-            self.assertNotIn(registro['codigo_final'], finais)
-            finais.append(registro['codigo_final'])
-            self.assertTrue(registro['pendencias'])
             self.assertTrue(registro['base_estimativa'])
-            partes = registro['caminho'].split('/')
-            no = arvore
-            self.assertEqual(no['nome'], partes[0])
-            for nome in partes[1:]:
-                no = next(f for f in no['subsetores'] if f['nome'] == nome)
-            self.assertIn(registro['codigo_piloto'], no['codigos_piloto'])
+        for registro in registros:
+            self.assertEqual(finais.count(registro['codigo']), 1)
+        pilotos = [registro['codigo_piloto'] for registro in registros]
+        for i in range(1, 16):
+            self.assertEqual(pilotos.count(f'B{i:02}'), 1)
 
     def test_menu_full_flow_and_recovery(self):
         with tempfile.TemporaryDirectory() as pasta:
@@ -175,7 +161,7 @@ class E3(unittest.TestCase):
             for esperado in ('Carregue um inventário primeiro', 'Opção inválida',
                              'Não foi possível executar', 'Estrutura válida',
                              'RESUMO HIERÁRQUICO', 'RANKING', 'Persistência JSON',
-                             'DEMONSTRAÇÃO FICTÍCIA', 'Conferência: OK'):
+                             'Arquivo fornecido', 'Conferência: OK'):
                 self.assertIn(esperado, result.stdout)
 
     def test_menu_json_csv_and_eof(self):
@@ -186,7 +172,7 @@ class E3(unittest.TestCase):
                                         delimiter=';')
                 writer.writeheader()
                 writer.writerows(achatar(self.setor))
-            roteiro = f'2\n{BASE / "dados/demonstracao.json"}\n4\n3\n{ficha}\n7\n'
+            roteiro = f'2\n{BASE / "tests/fixtures/demonstracao.json"}\n4\n3\n{ficha}\n7\n'
             result = subprocess.run([sys.executable, str(BASE / 'main.py')],
                                     input=roteiro, text=True, capture_output=True, cwd=pasta)
             self.assertEqual(result.returncode, 0, result.stderr)
@@ -200,7 +186,8 @@ class E3(unittest.TestCase):
             result = subprocess.run([sys.executable, str(BASE / 'main.py'), '--demo'], cwd=pasta,
                                     text=True, capture_output=True)
             self.assertEqual(result.returncode, 0, result.stderr)
-            self.assertIn('DEMONSTRAÇÃO FICTÍCIA', result.stdout)
+            self.assertIn('15 códigos únicos', result.stdout)
+            self.assertIn('estimado', result.stdout)
             self.assertIn('Conferência: OK', result.stdout)
             result = subprocess.run([sys.executable, str(BASE / 'main.py'), '--inventario',
                                      str(Path(pasta) / 'ausente.json')], capture_output=True)

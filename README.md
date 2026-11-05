@@ -6,7 +6,7 @@ Projeto acadêmico da disciplina **Construção de Algoritmos e Programação**,
 
 Este repositório reúne o desenvolvimento de um sistema em Python e a documentação de um levantamento de barreiras de acessibilidade. A proposta é transformar medidas coletadas pelo grupo em uma recomendação justificável: quais intervenções executar, em que ordem e dentro de qual orçamento.
 
-> **Estado do projeto:** MVP técnico da E3 implementado: validação, CSV, JSON, percursos recursivos, resumo hierárquico e ranking com Bubble Sort próprio. A demonstração usa dados fictícios, separados dos 15 registros transcritos do piloto. O inventário real ainda depende de conciliação e valores confirmados. Veja [critérios da E3](docs/criterios_e3.md), [pendências do piloto](docs/pendencias_piloto.md) e [caderno de bordo](docs/caderno_de_bordo.md).
+> **Estado do projeto:** MVP técnico da E3 implementado: validação, CSV, JSON, percursos recursivos, resumo hierárquico e ranking com Bubble Sort próprio. A demonstração usa o inventário de 15 registros fornecido pelo grupo, preservando estimativas e hipóteses. O inventário real ainda depende de conciliação e valores confirmados. Veja [critérios da E3](docs/criterios_e3.md), [pendências do piloto](docs/pendencias_piloto.md) e [caderno de bordo](docs/caderno_de_bordo.md).
 
 ## O problema que queremos resolver
 
@@ -139,16 +139,18 @@ python main.py --demo
 python -m unittest discover -s tests -v
 ```
 
-A execução padrão abre um menu: carregar demonstração fictícia (1), carregar
+A execução padrão abre um menu: carregar inventário do projeto (1), carregar
 JSON (2), importar CSV (3), validar (4), mostrar hierarquia (5), ranking (6),
 demonstração completa (7), exportar relatório textual (8) e sair (0). Carregue um arquivo antes de consultar.
 Uma falha ao carregar outro arquivo preserva o inventário anterior em memória.
 O menu não grava por cima dos arquivos de entrada.
 
-Com `--demo`, a execução automática usa **quatro barreiras fictícias** em três ambientes. Exibe
-aviso, confere gravação/leitura JSON em pasta temporária, imprime a hierarquia
-e mostra o ranking com comparações e trocas. Não altera os dados de entrada.
-Essa demonstração não é uma recomendação de intervenções reais.
+Com `--demo`, a execução automática usa os **15 registros** de
+`dados/inventario.json`. Confere gravação/leitura JSON em pasta temporária,
+imprime a hierarquia e mostra o ranking com comparações e trocas.
+Não altera os dados de entrada. Custos, alcance e algumas medidas continuam
+estimados; a saída preserva suas hipóteses e não os apresenta como confirmados.
+O exemplo fictício foi movido para `tests/fixtures`, somente para testes.
 
 Para usar um inventário confirmado ou importar uma ficha completa:
 

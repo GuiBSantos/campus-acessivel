@@ -1,19 +1,16 @@
 # Critérios do MVP E3
 
-O PDF do piloto foi transcrito, preservando medidas e categorias originais.
-Em 05/11 o usuário forneceu `dados/inventario_estimado.json`, que substitui
-`piloto_pendente.json`. O arquivo acrescenta códigos finais, caminhos e valores
-estimados de gravidade, custos e pessoas/dia, com suas hipóteses. Seu próprio
-estado informa ausência de cotação e contagem de campo; não é inventário validado.
-A escala proposta nesse arquivo converte Crítica=5, Alta=4, Média=3 e Baixa=2,
-com 1 reservado a incômodo mínimo. Trata-se de uma proposta registrada no arquivo,
-sem presumir aprovação ou conferência de campo.
+O inventário operacional é `dados/inventario.json`, fornecido pelo usuário
+na versão `inventario (1).json`. Possui 15 registros B01–B15 e quatro níveis.
+Substitui os arquivos documentais intermediários, removidos da versão atual.
+O exemplo fictício está em `tests/fixtures/demonstracao.json`, somente para testes.
 
-`dados/arvore_piloto_provisoria.json` foi atualizado pelos caminhos informados,
-com cada código uma vez e sem equiparar térreo a inferior. As pendências de
-confirmação e os campos operacionais ausentes estão descritos em `dados/README.md`.
-Não há inventário real validado. A árvore de `dados/demonstracao.json` é fictícia,
-com quatro barreiras e três ambientes; não comprova a entrega de campo da E2.
+O arquivo operacional é estruturalmente válido, mas contém estimativas e
+hipóteses, preservadas em `base_estimativa`. Validade estrutural não comprova
+medição ou cotação. A escala informada converte Crítica=5, Alta=4, Média=3 e
+Baixa=2, reservando 1 a incômodo mínimo; sua aprovação cabe ao grupo.
+A revisão das localizações, normas, demanda, custos e alcance permanece
+necessária. Consulte `docs/pendencias_piloto.md` para as divergências da fonte.
 
 ## Modelo provisório para demonstrar o algoritmo
 

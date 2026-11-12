@@ -20,9 +20,30 @@ Benefício = gravidade × peso_gravidade + pessoas_dia × peso_pessoas_dia.
 Índice = benefício / (custo / 1000). Custos devem ser positivos.
 Pesos de demonstração: gravidade = 1 e pessoas_dia = 1. Eles demonstram a fórmula,
 mas misturam escalas e não representam uma decisão validada pelo grupo.
-Antes de usar dados reais, o grupo deve aprovar pesos, escala de gravidade,
-método de contagem de pessoas/dia e fontes de custo. Não converter categorias
-verbais do piloto automaticamente em números.
+Não usar esses pesos em resultados do grupo. Não converter categorias verbais
+do piloto automaticamente em números.
+
+## Proposta para decisão do grupo (ainda não aprovada)
+
+- Gravidade, escala 1–5: 1 = desconforto leve sem bloquear o uso; 2 = dificuldade
+  pequena com alternativa próxima; 3 = limitação relevante ou desvio; 4 = ajuda
+  frequente ou grande restrição; 5 = acesso impedido ou risco imediato.
+- Alcance, escala 1–5: calcular a proporção de usuários diários do ambiente
+  afetados pela barreira: até 20% = 1; 21–40% = 2; 41–60% = 3; 61–80% = 4;
+  81–100% = 5. Registrar também a estimativa bruta de pessoas/dia e o total de
+  usuários/dia usado como denominador.
+- Benefício sugerido = 0,6 × gravidade + 0,4 × alcance. Índice sugerido =
+  benefício ÷ (custo em R$ / 1.000). O peso maior para gravidade reflete a
+  prioridade de remover restrições severas; o grupo deve aprovar ou ajustar a
+  proporção antes de alterar o código.
+- Custo: quantidade × preço unitário + instalação/mão de obra + transporte.
+  Registrar item/escopo, fonte ou cotações, data e responsável. Usar três
+  cotações comparáveis ou orçamento formal quando possível; preços públicos
+  podem servir como estimativa identificada, não como cotação local.
+- Pessoas/dia: usar horários e ocupação do ambiente ou observação em dias
+  representativos; estimar pessoas únicas que encontram a barreira por dia,
+  com período e método anotados. Não somar visitas repetidas como pessoas
+  diferentes sem declarar que a métrica é passagens/dia.
 
 Ranking: índice decrescente; em empate, código crescente, independentemente da
 direção escolhida para o índice. Bubble Sort próprio conta cada comparação

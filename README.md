@@ -36,7 +36,7 @@ Nosso trabalho será registrar as barreiras encontradas, estimar o impacto e o c
 
 O inventário final deverá conter pelo menos **15 barreiras**, distribuídas em **3 ambientes** e **2 níveis de hierarquia**. Cada barreira terá uma medida com unidade e uma foto identificada pelo seu código.
 
-**Contagem revisada:** B03 e oportunidade de melhoria e fica fora da contagem de barreiras. Restam 14 candidatos sujeitos a comprovacao. O minimo de 15 barreiras permanece pendente. Consulte a [revisao de B03](docs/confirmacao_barreiras.md).
+**Contagem do grupo:** Antonio confirmou B01–B15 como barreiras, incluindo B03 como barreira de conforto/passagem. B03 atende ao mínimo de 80 cm citado; o grupo recomenda ampliar o espaço para conforto, sem alegar infração dimensional. Custos e alcance diário ainda precisam ser registrados. Consulte [custos e critérios sugeridos](CUSTOS_SUGESTAO.md).
 
 ## Funcionalidades implementadas
 
@@ -293,6 +293,9 @@ A [conferência de 12/11/2026](docs/validacao_normativa.md) registra fontes, cri
 O PDF do Grupo 5 apresenta os 15 registros preliminares; `dados/inventario.json`
 mantém apenas a hierarquia e ainda não contém esses registros. B03 está marcado
 como oportunidade de conforto e não conta no mínimo de barreiras enquanto assim
-classificado. B05, contagens de portas, recursos do laboratório, custos, alcance
-e fotos ainda precisam ser concluídos ou associados. Consulte `dados/README.md`
-e `TODO_ANTONIO.md` para o estado detalhado.
+classificado. Já foram complementados os degraus observados em B05, totais de
+portas por setor (75 nos setores de B06–B11/B14–B15, 22 com Braille) e exemplos
+de postos acessíveis em B105/B103. Fotos, custos numéricos, alcance diário e
+inventário completo dos laboratórios ainda precisam ser concluídos ou
+associados. As fotos B01–B15 estão em `fotos/`. Consulte
+`dados/README.md` e `TODO_ANTONIO.md` para o estado detalhado.

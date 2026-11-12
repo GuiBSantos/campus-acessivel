@@ -1,5 +1,3 @@
-"""Menu E3: python main.py; demonstração automática: python main.py --demo."""
-
 import argparse
 import json
 from pathlib import Path
@@ -17,7 +15,6 @@ BASE = Path(__file__).resolve().parent
 
 
 def demonstrar(setor, pesos, esperado=15):
-    """Validar round-trip JSON, imprimir hierarquia e ranking próprio."""
     with tempfile.TemporaryDirectory(prefix='campus-e3-') as pasta:
         arquivo = Path(pasta) / 'inventario.json'
         gravar_inventario(arquivo, setor)
@@ -56,7 +53,6 @@ def avisar_origem(ficticio):
 
 
 def menu(pesos):
-    """Manter inventário em memória; falhas de carga preservam o anterior."""
     setor = None
     ficticio = False
     origem = 'nenhum'
@@ -157,7 +153,7 @@ def menu(pesos):
                         print('Alteração validada em memória. Use opção 15 para salvar.')
                     elif opcao == '15':
                         destino = Path(input('Novo arquivo JSON: ').strip()).expanduser()
-                        # Modo exclusivo evita sobrescrever coleta ou código por engano.
+
                         conteudo = json.dumps(setor, ensure_ascii=False, indent=2, allow_nan=False)
                         with destino.open('x', encoding='utf-8') as arquivo:
                             arquivo.write(conteudo + '\n')
@@ -180,7 +176,7 @@ def menu(pesos):
 
 
 def main(argv=None):
-    parser = argparse.ArgumentParser(description=__doc__)
+    parser = argparse.ArgumentParser(description='Menu E3: python main.py; demonstração automática: python main.py --demo.')
     origem = parser.add_mutually_exclusive_group()
     origem.add_argument('--demo', action='store_true', help='Executar demonstração com o inventário do projeto sem menu')
     origem.add_argument('--inventario', type=Path, help='Executar com um inventário JSON sem menu')

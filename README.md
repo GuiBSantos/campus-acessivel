@@ -36,6 +36,8 @@ Nosso trabalho será registrar as barreiras encontradas, estimar o impacto e o c
 
 O inventário final deverá conter pelo menos **15 barreiras**, distribuídas em **3 ambientes** e **2 níveis de hierarquia**. Cada barreira terá uma medida com unidade e uma foto identificada pelo seu código.
 
+**Contagem revisada:** B03 e oportunidade de melhoria e fica fora da contagem de barreiras. Restam 14 candidatos sujeitos a comprovacao. O minimo de 15 barreiras permanece pendente. Consulte a [revisao de B03](docs/confirmacao_barreiras.md).
+
 ## Funcionalidades implementadas
 
 - Importação da ficha de campo, com campos separados por ponto e vírgula.

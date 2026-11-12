@@ -1,5 +1,3 @@
-"""Tabelas, rastreabilidade, conferências e relatório de texto da E3."""
-
 from contextlib import redirect_stdout
 from decimal import Decimal
 from io import StringIO
@@ -12,13 +10,11 @@ from recursao import achatar, contar_barreiras, custo_total, profundidade, resum
 
 
 def reais(valor):
-    """Formatar moeda sem depender da configuração regional da máquina."""
     texto = f'{valor:,.2f}'
     return 'R$ ' + texto.replace(',', '_').replace('.', ',').replace('_', '.')
 
 
 def origem_campo(registro, campo):
-    """Ler origem explícita; manter a incerteza em arquivos legados."""
     origens = registro.get('origens', {})
     origem = origens.get(campo) if isinstance(origens, dict) else None
     if isinstance(origem, str) and origem.strip():
@@ -34,11 +30,22 @@ def origem_campo(registro, campo):
 
 
 def conferir_inventario(setor, esperado=15):
-    """Conferir códigos, cobertura e somas independentes por caminho completo."""
     erros = validar_setor(setor)
     if erros:
         return erros
     registros = achatar(setor)
+    oportunidades = [registro for registro in registros
+                     if registro.get('classificacao') == 'oportunidade_melhoria']
+    if oportunidades:
+        candidatos = len(registros) - len(oportunidades)
+        codigos = ', '.join(registro['codigo'] for registro in oportunidades)
+        erros.append(f'Classificacao: {codigos} e oportunidade de melhoria e nao conta '
+                     f'como barreira comprovada; {candidatos} candidatos restantes, '
+                     'ainda sujeitos a validacao de campo.')
+        if candidatos < esperado:
+            erros.append(f'Quantidade elegivel: minimo de {esperado} barreiras; '
+                         f'{candidatos} candidatos apos excluir oportunidades. '
+                         f'Faltam pelo menos {esperado - candidatos} ocorrencias comprovadas.')
     if len(registros) < esperado:
         erros.append(f'Quantidade: mínimo de {esperado} barreiras, encontradas {len(registros)}.')
     codigos = []
@@ -62,7 +69,7 @@ def conferir_inventario(setor, esperado=15):
             codigo = f'B{i:02}'
             if pilotos.count(codigo) != 1:
                 erros.append(f'Cobertura do piloto: {codigo} deve aparecer uma vez.')
-        # Novos registros podem ampliar o inventário além dos 15 itens do piloto.
+
     if len(grupos) < 3:
         erros.append('Cobertura: mínimo de 3 ambientes com barreiras.')
     if profundidade(setor) < 2:
@@ -77,7 +84,6 @@ def conferir_inventario(setor, esperado=15):
 
 
 def matriz_ambiente_tipo(registros):
-    """Matriz de contagens, com caminhos completos para ambientes homônimos."""
     ambientes, tipos = [], []
     for registro in registros:
         if registro['caminho'] not in ambientes:
@@ -120,7 +126,6 @@ def texto_ranking(setor, pesos, algoritmo="bubble"):
 
 
 def texto_resumo(setor, esperado=15):
-    """Incluir totais locais sem somar novamente os subtotais da árvore."""
     saida = StringIO()
     with redirect_stdout(saida):
         print('RESUMO HIERÁRQUICO')
@@ -151,7 +156,6 @@ def texto_resumo(setor, esperado=15):
 
 
 def gerar_relatorio(setor, pesos, esperado=15):
-    """O texto exportado preserva as mesmas ressalvas exibidas no terminal."""
     ranking, _ = texto_ranking(setor, pesos)
     registros = achatar(setor)
     ambientes, tipos, matriz = matriz_ambiente_tipo(registros)
@@ -165,14 +169,12 @@ def gerar_relatorio(setor, pesos, esperado=15):
 
 
 def exportar_relatorio(caminho, setor, pesos, esperado=15):
-    """Criar relatório sem sobrescrever arquivos existentes."""
     texto = gerar_relatorio(setor, pesos, esperado)
     with Path(caminho).open('x', encoding='utf-8') as arquivo:
         arquivo.write(texto)
 
 
 def texto_desempenho(setor, pesos):
-    """A1 e A2: contagens observadas, sem inventar conclusões."""
     from busca import busca_sequencial, busca_binaria_iterativa, busca_binaria_recursiva
     registros = achatar(setor)
     calcular_indices(registros, pesos)
@@ -205,7 +207,6 @@ def texto_desempenho(setor, pesos):
 
 
 def texto_sensibilidade(setor, pesos):
-    """A5: comparar top 10 com cada peso dobrado, sem alterar o inventário."""
     linhas = ['A5 — sensibilidade dos pesos provisórios']
     for nome, usados in (('original', pesos),
                          ('gravidade dobrada', dict(pesos, gravidade=2 * pesos['gravidade'])),
@@ -218,7 +219,6 @@ def texto_sensibilidade(setor, pesos):
 
 
 def texto_planos(setor, pesos, orcamentos, permitir_grande=False):
-    """A4: comparar orçamentos informados, evitando busca exponencial silenciosa."""
     from recursao import pacote_guloso, melhor_pacote_exaustivo, preparar_pacote
     registros = achatar(setor)
     linhas = ['A4 — orçamento | estratégia | benefício | custo | itens | chamadas | códigos']

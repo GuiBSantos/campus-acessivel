@@ -1,5 +1,3 @@
-"""Cobertura direcionada aos requisitos de coleta e recursão da E3."""
-
 import copy
 import csv
 import json
@@ -18,7 +16,6 @@ INVENTARIO = BASE / 'dados' / 'inventario.json'
 
 
 def iterar_registros(no):
-    """Percurso iterativo independente, usado como referência nos testes."""
     pilha = [no]
     while pilha:
         atual = pilha.pop()

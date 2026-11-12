@@ -1,8 +1,4 @@
-"""Percursos recursivos da hierarquia do inventário."""
-
-
 def custo_total(no):
-    """Caso base: folha soma somente suas próprias barreiras."""
     total = sum(barreira['custo'] for barreira in no['barreiras'])
     for filho in no['subsetores']:
         total += custo_total(filho)
@@ -10,7 +6,6 @@ def custo_total(no):
 
 
 def contar_barreiras(no):
-    """Caso base: folha devolve a quantidade local."""
     total = len(no['barreiras'])
     for filho in no['subsetores']:
         total += contar_barreiras(filho)
@@ -18,7 +13,6 @@ def contar_barreiras(no):
 
 
 def contar_por_tipo(no, tipo):
-    """Caso base: folha conta apenas ocorrências locais do tipo."""
     total = sum(1 for barreira in no['barreiras'] if barreira['tipo'] == tipo)
     for filho in no['subsetores']:
         total += contar_por_tipo(filho, tipo)
@@ -26,7 +20,6 @@ def contar_por_tipo(no, tipo):
 
 
 def profundidade(no):
-    """Caso base: folha tem profundidade 1."""
     maior = 0
     for filho in no['subsetores']:
         valor = profundidade(filho)
@@ -36,7 +29,6 @@ def profundidade(no):
 
 
 def achatar(no, caminho=''):
-    """Caso base: folha copia suas barreiras; preserva a árvore original."""
     caminho = caminho + '/' + no['nome'] if caminho else no['nome']
     registros = [dict(barreira, caminho=caminho) for barreira in no['barreiras']]
     for filho in no['subsetores']:
@@ -45,7 +37,6 @@ def achatar(no, caminho=''):
 
 
 def caminho_da_barreira(no, codigo):
-    """Casos base: código local encontrado, ou folha sem correspondência."""
     for barreira in no['barreiras']:
         if barreira['codigo'] == codigo:
             return no['nome']
@@ -57,7 +48,6 @@ def caminho_da_barreira(no, codigo):
 
 
 def resumo_hierarquico(no, nivel=0, formatar_custo=None):
-    """Imprimir totais por nó. Caso base: folha não faz novas chamadas."""
     custo = (formatar_custo(custo_total(no)) if formatar_custo else f"R$ {custo_total(no):.2f}")
     print(f"{'  ' * nivel}{no['nome']}: {contar_barreiras(no)} barreiras | {custo}")
     for filho in no['subsetores']:
@@ -65,7 +55,6 @@ def resumo_hierarquico(no, nivel=0, formatar_custo=None):
 
 
 def preparar_pacote(barreiras, orcamento, pesos):
-    """Converter dinheiro em centavos para não ultrapassar o teto por arredondamento."""
     from decimal import Decimal, InvalidOperation
     from ordenacao import beneficio_total_item
 
@@ -83,18 +72,12 @@ def preparar_pacote(barreiras, orcamento, pesos):
     for registro in barreiras:
         beneficio = beneficio_total_item(registro, pesos)
         custo = centavos(registro['custo'])
-        # Poda legítima: com custos positivos, esse item não cabe em combinação alguma.
         if custo <= teto:
             candidatos.append((registro, custo, beneficio))
     return candidatos, teto
 
 
 def melhor_pacote_exaustivo(barreiras, orcamento, pesos, indice=0, contador=None):
-    """Explorar incluir/excluir; empate por menor custo, depois códigos crescentes.
-
-    contador, quando fornecido, é uma lista de um inteiro. Inclui chamadas base.
-    O chamador deve avisar e confirmar a execução acima de 20 candidatos.
-    """
     from ordenacao import bubble_sort
     if not isinstance(indice, int) or indice < 0 or indice > len(barreiras):
         raise ValueError('Índice inicial inválido.')
@@ -105,7 +88,6 @@ def melhor_pacote_exaustivo(barreiras, orcamento, pesos, indice=0, contador=None
 
     def visitar(posicao, saldo):
         contador[0] += 1
-        # Caso base: todos os candidatos já foram decididos.
         if posicao == len(candidatos):
             return 0, 0, []
         melhor = visitar(posicao + 1, saldo)
@@ -124,7 +106,6 @@ def melhor_pacote_exaustivo(barreiras, orcamento, pesos, indice=0, contador=None
 
 
 def pacote_guloso(barreiras, orcamento, pesos):
-    """Selecionar por índice; pular itens que não cabem e continuar o percurso."""
     from ordenacao import bubble_sort, calcular_indices
     registros = [dict(item) for item in barreiras]
     calcular_indices(registros, pesos)

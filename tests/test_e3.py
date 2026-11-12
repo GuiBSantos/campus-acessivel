@@ -1,5 +1,3 @@
-"""Regressões do fluxo E3; dados sintéticos, biblioteca padrão."""
-
 import contextlib
 import copy
 import csv
@@ -186,9 +184,9 @@ class E3(unittest.TestCase):
             result = subprocess.run([sys.executable, str(BASE / 'main.py'), '--demo'], cwd=pasta,
                                     text=True, capture_output=True)
             self.assertEqual(result.returncode, 0, result.stderr)
-            self.assertIn('15 códigos únicos', result.stdout)
+            self.assertIn('14 candidatos', result.stdout)
             self.assertIn('estimado', result.stdout)
-            self.assertIn('Conferência: OK', result.stdout)
+            self.assertIn('Faltam pelo menos 1', result.stdout)
             result = subprocess.run([sys.executable, str(BASE / 'main.py'), '--inventario',
                                      str(Path(pasta) / 'ausente.json')], capture_output=True)
             self.assertEqual(result.returncode, 1)

@@ -1,12 +1,9 @@
-"""Índice provisório e três ordenações próprias com contadores."""
-
 import math
 
 from coleta import validar_registro
 
 
 def indice_prioridade(barreira, pesos):
-    """Calcular benefício por mil reais; rejeitar valores inválidos."""
     erros = validar_registro(barreira)
     if erros:
         raise ValueError('; '.join(erros))
@@ -29,14 +26,12 @@ def indice_prioridade(barreira, pesos):
 
 
 def calcular_indices(lista, pesos):
-    """Calcular todos os índices antes de atualizar os registros."""
     indices = [indice_prioridade(barreira, pesos) for barreira in lista]
     for barreira, indice in zip(lista, indices):
         barreira['indice'] = indice
 
 
 def bubble_sort(lista, chave='indice', crescente=False):
-    """Ordenar cópia; empates por código crescente; contar comparações e trocas."""
     resultado = list(lista)
     comparacoes = trocas = 0
     for fim in range(len(resultado) - 1, 0, -1):
@@ -53,7 +48,6 @@ def bubble_sort(lista, chave='indice', crescente=False):
 
 
 def selection_sort(lista, chave="indice", crescente=False):
-    """Devolver (lista_ordenada, comparacoes, trocas), sem alterar a entrada."""
     resultado = list(lista)
     comparacoes = trocas = 0
     for i in range(len(resultado) - 1):
@@ -69,7 +63,6 @@ def selection_sort(lista, chave="indice", crescente=False):
 
 
 def insertion_sort(lista, chave="indice", crescente=False):
-    """Devolver (lista_ordenada, comparacoes, trocas), sem alterar a entrada."""
     resultado = list(lista)
     comparacoes = trocas = 0
     for i in range(1, len(resultado)):
@@ -85,20 +78,17 @@ def insertion_sort(lista, chave="indice", crescente=False):
 
 
 def confere_com_o_python(ordenada, chave, crescente):
-    """Conferir ordenação e desempate; único uso de sorted no projeto."""
     por_codigo = sorted(ordenada, key=lambda item: item['codigo'])
     esperado = sorted(por_codigo, key=lambda item: item[chave], reverse=not crescente)
     return ordenada == esperado
 
 
 def vem_antes(a, b, chave, crescente):
-    """Uma comparação entre registros, com desempate pelo código crescente."""
     if a[chave] == b[chave]:
         return a['codigo'] < b['codigo']
     return a[chave] < b[chave] if crescente else a[chave] > b[chave]
 
 
 def beneficio_total_item(barreira, pesos):
-    """Reusar validação do índice, mantendo a fórmula de benefício explícita."""
     indice_prioridade(barreira, pesos)
     return barreira['gravidade'] * pesos['gravidade'] + barreira['pessoas_dia'] * pesos['pessoas_dia']

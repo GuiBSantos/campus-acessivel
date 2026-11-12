@@ -1,5 +1,3 @@
-"""Validação, importação e persistência usando apenas biblioteca padrão."""
-
 import csv
 import json
 import math
@@ -13,7 +11,6 @@ NUMEROS = ('medida', 'gravidade', 'pessoas_dia', 'custo')
 
 
 def validar_registro(barreira, codigos_usados=None):
-    """Devolver problemas e registrar códigos para detectar duplicatas."""
     if not isinstance(barreira, dict):
         return ['Barreira deve ser um dicionário.']
     erros = []
@@ -58,7 +55,6 @@ def validar_registro(barreira, codigos_usados=None):
 
 
 def validar_setor(no, codigos=None):
-    """Validar árvore e unicidade global. Caso base: nó sem descendentes."""
     if codigos is None:
         codigos = []
     if not isinstance(no, dict):
@@ -87,7 +83,6 @@ def validar_setor(no, codigos=None):
 
 
 def importar_ficha_campo(caminho):
-    """Importar linhas válidas e devolver erros com os números das linhas."""
     registros, erros, codigos = [], [], []
     with open(caminho, encoding='utf-8-sig', newline='') as arquivo:
         leitor = csv.DictReader(arquivo, delimiter=';')
@@ -121,7 +116,6 @@ def importar_ficha_campo(caminho):
 
 
 def montar_arvore(registros):
-    """Agrupar registros por caminho sem supor pavimentos do piloto."""
     raiz = None
     for registro in registros:
         partes = registro['caminho'].split('/')
@@ -150,7 +144,6 @@ def montar_arvore(registros):
 
 
 def gravar_inventario(caminho, setor):
-    """Validar antes de gravar; não substituir arquivos em caso de erro."""
     erros = validar_setor(setor)
     if erros:
         raise ValueError('\n'.join(erros))
@@ -159,7 +152,6 @@ def gravar_inventario(caminho, setor):
 
 
 def ler_inventario(caminho):
-    """Ler JSON e recusar inventários inconsistentes."""
     with open(caminho, encoding='utf-8') as arquivo:
         setor = json.load(arquivo)
     erros = validar_setor(setor)
@@ -169,11 +161,6 @@ def ler_inventario(caminho):
 
 
 def alterar_barreira(setor, acao, codigo=None, registro=None, caminho=None):
-    """Devolver cópia validada; nunca modificar o inventário em caso de falha.
-
-    Cadastro/edição recebem um registro completo e o caminho do nó existente.
-    Na edição, metadados antigos são preservados se não forem substituídos.
-    """
     import copy
     novo = copy.deepcopy(setor)
     if acao not in ('cadastrar', 'editar', 'remover'):

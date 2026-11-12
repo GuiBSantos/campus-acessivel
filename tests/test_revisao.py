@@ -1,4 +1,3 @@
-"""Regressões da revisão: algoritmos, dinheiro, CSV e integração."""
 import copy
 import csv
 import itertools
@@ -146,7 +145,9 @@ class Revisao(unittest.TestCase):
         adicional = dict(base, codigo='TESTE-NOVO-99')
         adicional.pop('codigo_piloto')
         setor = alterar_barreira(setor, 'cadastrar', registro=adicional, caminho=base['caminho'])
-        self.assertEqual(conferir_inventario(setor), [])
+        erros = conferir_inventario(setor)
+        self.assertTrue(any('15 candidatos' in erro for erro in erros))
+        self.assertFalse(any('Quantidade elegivel' in erro for erro in erros))
 
 
 if __name__ == '__main__':

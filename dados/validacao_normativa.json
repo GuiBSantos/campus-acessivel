@@ -1,0 +1,159 @@
+{
+  "data": "2026-11-12",
+  "natureza": "conferencia_documental_sem_vistoria",
+  "base_commit": "3f08fb48ecf24626b5156b1feabce07de99a354b",
+  "criterios": "../docs/validacao_normativa.md",
+  "uso": "Complementar; não importado automaticamente. Null sinaliza pendência nesta auditoria, não autorização acadêmica. Dados originais preservados.",
+  "registros": [
+    {
+      "codigo": "ES-RAM-01",
+      "codigo_piloto": "B01",
+      "tipo_candidato": "rampa_inclinada",
+      "criterio": "R",
+      "referencia_numerica": 6.25,
+      "unidade_referencia": "%",
+      "status": "condicional",
+      "pendencia": "Confirmar segmento contínuo e desnível derivado do piloto."
+    },
+    {
+      "codigo": "ES-BRA-04",
+      "codigo_piloto": "B09",
+      "tipo_candidato": "sinalizacao_ausente",
+      "criterio": "S",
+      "referencia_numerica": null,
+      "unidade_referencia": "portas",
+      "status": "pendente_inspecao",
+      "pendencia": "Contagens de portas e déficit são hipóteses; verificar identificação completa junto ao acesso."
+    },
+    {
+      "codigo": "ES-TEC-01",
+      "codigo_piloto": "B12",
+      "tipo_candidato": "posto_trabalho_em_avaliacao",
+      "criterio": "M",
+      "referencia_numerica": null,
+      "unidade_referencia": "estações",
+      "status": "pendente_grandeza",
+      "pendencia": "Contagem não comparável às dimensões de mesa; levantar medidas e demanda."
+    },
+    {
+      "codigo": "ES-TEC-02",
+      "codigo_piloto": "B13",
+      "tipo_candidato": "recurso_assistivo_em_avaliacao",
+      "criterio": "S4",
+      "referencia_numerica": null,
+      "unidade_referencia": "teclados",
+      "status": "pendente_demanda",
+      "pendencia": "Nenhuma quantidade mínima identificada nas fontes consultadas."
+    },
+    {
+      "codigo": "ES-RAM-02",
+      "codigo_piloto": "B02",
+      "tipo_candidato": "rampa_inclinada",
+      "criterio": "R",
+      "referencia_numerica": null,
+      "unidade_referencia": "%",
+      "status": "pendente_segmentacao",
+      "pendencia": "Não fixar limite por trecho antes de conferir desnível e patamares."
+    },
+    {
+      "codigo": "ES-POR-01",
+      "codigo_piloto": "B03",
+      "tipo_candidato": null,
+      "criterio": "P",
+      "referencia_numerica": 80,
+      "unidade_referencia": "cm",
+      "status": "atende_largura_informada",
+      "pendencia": "Observação/oportunidade; não comprova porta estreita."
+    },
+    {
+      "codigo": "ES-ELE-01",
+      "codigo_piloto": "B04",
+      "tipo_candidato": "equipamento_elevacao_em_avaliacao",
+      "criterio": "S3",
+      "referencia_numerica": null,
+      "unidade_referencia": "m",
+      "status": "pendente_equipamento",
+      "pendencia": "Confirmar tipo, modelo, instalação e norma específica; texto integral de S3 não consultado."
+    },
+    {
+      "codigo": "ES-ACE-01",
+      "codigo_piloto": "B05",
+      "tipo_candidato": "acesso_em_avaliacao",
+      "criterio": "A",
+      "referencia_numerica": null,
+      "unidade_referencia": "m",
+      "status": "pendente_medicao",
+      "pendencia": "Altura de degrau no inventário é hipótese."
+    },
+    {
+      "codigo": "ES-BRA-01",
+      "codigo_piloto": "B06",
+      "tipo_candidato": "sinalizacao_ausente",
+      "criterio": "S",
+      "referencia_numerica": null,
+      "unidade_referencia": "portas",
+      "status": "pendente_inspecao",
+      "pendencia": "Contagens de portas e déficit são hipóteses; verificar identificação completa junto ao acesso."
+    },
+    {
+      "codigo": "ES-BRA-07",
+      "codigo_piloto": "B14",
+      "tipo_candidato": "sinalizacao_ausente",
+      "criterio": "S",
+      "referencia_numerica": null,
+      "unidade_referencia": "portas",
+      "status": "pendente_inspecao",
+      "pendencia": "Contagens de portas e déficit são hipóteses; verificar identificação completa junto ao acesso."
+    },
+    {
+      "codigo": "ES-BRA-02",
+      "codigo_piloto": "B07",
+      "tipo_candidato": "sinalizacao_ausente",
+      "criterio": "S",
+      "referencia_numerica": null,
+      "unidade_referencia": "portas",
+      "status": "pendente_inspecao",
+      "pendencia": "Contagens de portas e déficit são hipóteses; verificar identificação completa junto ao acesso."
+    },
+    {
+      "codigo": "ES-BRA-08",
+      "codigo_piloto": "B15",
+      "tipo_candidato": "sinalizacao_ausente",
+      "criterio": "S",
+      "referencia_numerica": null,
+      "unidade_referencia": "portas",
+      "status": "pendente_inspecao",
+      "pendencia": "Contagens de portas e déficit são hipóteses; verificar identificação completa junto ao acesso."
+    },
+    {
+      "codigo": "ES-BRA-03",
+      "codigo_piloto": "B08",
+      "tipo_candidato": "sinalizacao_ausente",
+      "criterio": "S",
+      "referencia_numerica": null,
+      "unidade_referencia": "portas",
+      "status": "pendente_inspecao",
+      "pendencia": "Contagens de portas e déficit são hipóteses; verificar identificação completa junto ao acesso."
+    },
+    {
+      "codigo": "ES-BRA-05",
+      "codigo_piloto": "B10",
+      "tipo_candidato": "sinalizacao_ausente",
+      "criterio": "S",
+      "referencia_numerica": null,
+      "unidade_referencia": "portas",
+      "status": "pendente_inspecao",
+      "pendencia": "Contagens de portas e déficit são hipóteses; verificar identificação completa junto ao acesso."
+    },
+    {
+      "codigo": "ES-BRA-06",
+      "codigo_piloto": "B11",
+      "tipo_candidato": "sinalizacao_ausente",
+      "criterio": "S",
+      "referencia_numerica": null,
+      "unidade_referencia": "portas",
+      "status": "pendente_inspecao",
+      "pendencia": "Contagens de portas e déficit são hipóteses; verificar identificação completa junto ao acesso."
+    }
+  ]
+}

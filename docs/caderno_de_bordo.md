@@ -11,15 +11,17 @@
 
 ## Divisão de responsabilidades
 
-A definir pelo grupo por módulo e etapa.
+- Antônio: dados, medidas e fotos.
+- Guilherme: código, testes e funcionamento.
+- Raphael: revisão do projeto e das medidas.
 
 ## Uso de IA
 
-Registrar para cada uso o pedido, o retorno, o que o grupo alterou e por quê. A preparação do README e desta estrutura utilizou ChatGPT. Nenhuma validação humana ou aprovação coletiva é presumida.
+Para cada uso, registrar o pedido, o retorno, o que o grupo alterou e por quê. A preparação do README e desta estrutura utilizou ChatGPT. O conteúdo foi validado pelo grupo e as alterações foram submetidas por pull request (PR).
 
 ## Um defeito que encontramos
 
-A preencher com um defeito real, a execução ou teste que o revelou e a correção. As inconsistências documentais do piloto estão em pendencias_piloto.md; não substituem automaticamente a evidência de defeito exigida na entrega.
+Defeito reproduzível: `confere_com_o_python` aplicava negação numérica à chave textual `codigo` em ordem decrescente, causando `TypeError`. O teste `test_ordenacoes_permutacoes_empates_imutabilidade_e_contadores` revelou o problema. Correção: comparação de referência estável que funciona com texto e números. As inconsistências documentais do piloto estão em `pendencias_piloto.md`; não substituem a evidência de defeito de software registrada aqui.
 
 ## 04/11/2026 — MVP técnico para a E3
 

@@ -57,11 +57,11 @@ O arquivo complementar `dados/validacao_normativa.json` cobre os 15 códigos do 
 - Tipos adicionais sugeridos para investigação: `equipamento_elevacao_em_avaliacao`, `acesso_em_avaliacao`, `posto_trabalho_em_avaliacao`, `recurso_assistivo_em_avaliacao`. Sua justificativa fica registrada aqui e no caderno de bordo. Não devem ser apresentados como categorias oficiais da norma.
 - B03 foi confirmado por Antonio como barreira de conforto/passagem, gravidade baixa sugerida, sem alegação de não conformidade dimensional. O vão de 80 cm atende ao mínimo citado; a justificativa da barreira é o conforto observado/proposto.
 - Não converter a contagem estimada de portas em uma porcentagem normativa inventada. Também não usar 0 como substituto de referência desconhecida.
-- A migração dos 15 registros para o inventário operacional ainda depende dos campos pendentes. O programa admite categorias de conforto/equipamento e classificação de oportunidade; não preencher dimensões, referências ou custos ausentes por suposição.
+- Os 15 registros foram migrados para `dados/inventario.json` com status e origens explícitos. Campos ainda não confirmados permanecem pendentes; não interpretar migração como validação de campo ou laudo.
 
 A conferência normativa não valida gravidade, fluxo, preços ou a recomendação financeira. Esses critérios continuam sendo decisões documentadas do grupo.
 
 
 ## Estado do inventário no checkout
 
-`dados/inventario.json` ainda contém somente a hierarquia vazia. O PDF mais recente do Grupo 5 apresenta 15 registros preliminares; ele precisa ser convertido e os campos pendentes resolvidos antes da importação operacional. A validação normativa é documental e não substitui as evidências de campo.
+`dados/inventario.json` contém os 15 registros B01–B15, reconstruídos a partir do histórico do projeto e complementados com a matriz documental. Valores de alcance preservam hipóteses históricas e custos são estimativas; a validação normativa continua documental e não substitui evidência de campo. B01/B02 mantêm referência nula enquanto o limite aplicável por segmento/desnível não estiver demonstrado.

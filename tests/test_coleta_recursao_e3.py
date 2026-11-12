@@ -31,8 +31,15 @@ class ColetaRecursaoE3(unittest.TestCase):
         self.setor = ler_inventario(INVENTARIO)
         self.registros = achatar(self.setor)
 
-    def test_inventario_operacional_ainda_sem_registros_importados(self):
-        self.assertEqual(achatar(ler_inventario(BASE / 'dados/inventario.json')), [])
+    def test_inventario_operacional_contem_15_registros_do_piloto(self):
+        setor = ler_inventario(BASE / 'dados/inventario.json')
+        registros = achatar(setor)
+        self.assertEqual(len(registros), 15)
+        self.assertEqual({r['codigo_piloto'] for r in registros},
+                         {f'B{i:02}' for i in range(1, 16)})
+        self.assertEqual(validar_setor(setor), [])
+        self.assertTrue(all(r['custo'] > 0 for r in registros))
+        self.assertTrue(all(r.get('base_estimativa') for r in registros))
 
     def test_referencia_estritamente_numerica(self):
         for valor in (None, '', '80', True, -1, float('nan'), float('inf')):

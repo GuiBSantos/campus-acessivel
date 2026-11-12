@@ -2,6 +2,19 @@ import math
 
 from coleta import validar_registro
 
+FLUXO_DIARIO_ESTIMADO = 1600
+
+
+def nota_alcance(barreira):
+    """Converte o fluxo bruto em nota usando o denominador histórico autorizado."""
+    numerador = barreira['pessoas_dia']
+    denominador = barreira.get('usuarios_dia', FLUXO_DIARIO_ESTIMADO)
+    if (isinstance(denominador, bool) or not isinstance(denominador, int)
+            or denominador <= 0 or numerador > denominador):
+        raise ValueError(f"{barreira.get('codigo')}: pessoas_dia/usuarios_dia inválidos.")
+    proporcao = 100 * numerador / denominador
+    return 1 if proporcao <= 20 else 2 if proporcao <= 40 else 3 if proporcao <= 60 else 4 if proporcao <= 80 else 5
+
 
 def indice_prioridade(barreira, pesos):
     erros = validar_registro(barreira)
@@ -9,14 +22,15 @@ def indice_prioridade(barreira, pesos):
         raise ValueError('; '.join(erros))
     if not isinstance(pesos, dict):
         raise ValueError('Pesos devem ser um dicionário.')
-    for fator in ('gravidade', 'pessoas_dia'):
+    for fator in ('gravidade', 'alcance'):
         peso = pesos.get(fator)
         if isinstance(peso, bool) or not isinstance(peso, (int, float)) or (isinstance(peso, float) and not math.isfinite(peso)) or peso < 0:
             raise ValueError(f'Peso inválido: {fator}.')
-    if pesos['gravidade'] + pesos['pessoas_dia'] == 0:
+    if pesos['gravidade'] + pesos['alcance'] == 0:
         raise ValueError('Pelo menos um peso deve ser positivo.')
     try:
-        beneficio = barreira['gravidade'] * pesos['gravidade'] + barreira['pessoas_dia'] * pesos['pessoas_dia']
+        alcance = nota_alcance(barreira)
+        beneficio = barreira['gravidade'] * pesos['gravidade'] + alcance * pesos['alcance']
         resultado = beneficio / (barreira['custo'] / 1000)
         if not math.isfinite(resultado):
             raise ValueError('Índice fora da faixa numérica suportada.')
@@ -91,4 +105,4 @@ def vem_antes(a, b, chave, crescente):
 
 def beneficio_total_item(barreira, pesos):
     indice_prioridade(barreira, pesos)
-    return barreira['gravidade'] * pesos['gravidade'] + barreira['pessoas_dia'] * pesos['pessoas_dia']
+    return barreira['gravidade'] * pesos['gravidade'] + nota_alcance(barreira) * pesos['alcance']

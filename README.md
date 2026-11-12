@@ -6,7 +6,7 @@ Projeto acadêmico da disciplina **Construção de Algoritmos e Programação**,
 
 Este repositório reúne o desenvolvimento de um sistema em Python e a documentação de um levantamento de barreiras de acessibilidade. A proposta é transformar medidas coletadas pelo grupo em uma recomendação justificável: quais intervenções executar, em que ordem e dentro de qual orçamento.
 
-> **Estado do projeto (12/11/2026):** algoritmos de busca, ordenação e seleção de pacotes implementados e integrados ao menu, junto da coleta, recursão e relatórios. Os dados do grupo foram preservados, incluindo hipóteses e estimativas. Isso não torna o inventário validado nem a entrega acadêmica concluída. Consulte a [revisão técnica](docs/revisao_2026-11-12.md), as [pendências de campo](docs/pendencias_piloto.md) e o [caderno de bordo](docs/caderno_de_bordo.md).
+> **Estado do projeto (12/11/2026):** algoritmos de busca, ordenação e seleção de pacotes implementados e integrados ao menu, junto da coleta, recursão e relatórios. O inventário contém 15 registros com custos de referência e alcances estimados identificados; isso não valida medições nem conclui a análise acadêmica. Consulte as [pendências de campo](docs/pendencias_piloto.md) e o [caderno de bordo](docs/caderno_de_bordo.md).
 
 ## O problema que queremos resolver
 
@@ -36,7 +36,7 @@ Nosso trabalho será registrar as barreiras encontradas, estimar o impacto e o c
 
 O inventário final deverá conter pelo menos **15 barreiras**, distribuídas em **3 ambientes** e **2 níveis de hierarquia**. Cada barreira terá uma medida com unidade e uma foto identificada pelo seu código.
 
-**Contagem do grupo:** Antonio confirmou B01–B15 como barreiras, incluindo B03 como barreira de conforto/passagem. B03 atende ao mínimo de 80 cm citado; o grupo recomenda ampliar o espaço para conforto, sem alegar infração dimensional. Custos e alcance diário ainda precisam ser registrados. Consulte [custos e critérios sugeridos](CUSTOS_SUGESTAO.md).
+**Contagem do grupo:** Antonio confirmou B01–B15 como barreiras, incluindo B03 como barreira de conforto/passagem. B03 atende ao mínimo de 80 cm citado; a recomendação é ampliar o conforto, sem alegar infração dimensional. Custos são referências preliminares e alcance diário é hipótese, não contagem.
 
 ## Funcionalidades implementadas
 
@@ -96,7 +96,7 @@ benefício = soma dos fatores multiplicados pelos respectivos pesos
 índice de prioridade = benefício / (custo / 1000)
 ```
 
-**Gravidade** e **pessoas afetadas por dia** serão fatores obrigatórios. Um terceiro fator só será incluído se houver um campo coletado que o sustente.
+**Gravidade** e **alcance normalizado** são fatores obrigatórios; exposição bruta permanece registrada em pessoas/dia. Um terceiro fator só será incluído se houver um campo coletado que o sustente.
 
 Antes de produzir o ranking, o grupo deverá documentar:
 
@@ -106,7 +106,7 @@ Antes de produzir o ranking, o grupo deverá documentar:
 - Os fatores, os pesos e a justificativa de cada escolha.
 - A regra de desempate, aplicada de forma consistente nas três ordenações.
 
-Essas decisões permanecem em aberto nesta versão. Serão definidas com base no piloto, sem adotar pesos ou resultados fictícios.
+Critérios finais do modelo: gravidade 60% e alcance 40%, ambos em escala 1–5. O alcance do inventário atual usa o denominador proxy de 1.600 pessoas/dia, identificado como estimativa histórica.
 
 ### Ranking e pacote de intervenções
 
@@ -149,24 +149,16 @@ O menu não grava por cima dos arquivos de entrada.
 
 Com `--demo`, a execução automática usa `dados/inventario.json`. Confere
 gravação/leitura JSON em pasta temporária, imprime a hierarquia e mostra o
-ranking sem alterar os dados de entrada. No checkout atual, o inventário tem
-hierarquia mas ainda está sem registros; portanto essa execução não gera
-resultados do levantamento de campo. O PDF com os 15 registros preliminares
-precisa ser conciliado e importado. O exemplo fictício está em `tests/fixtures`,
-somente para testes.
+ranking sem alterar os dados de entrada. O inventário carregado contém B01–B15; valores de custo e alcance são estimativas documentadas. O exemplo fictício está em `tests/fixtures`, somente para testes.
 
 Para usar um inventário confirmado ou importar uma ficha completa:
 
 ```bash
 python main.py --inventario dados/inventario.json
-python main.py --ficha dados/ficha.csv --peso-gravidade 1 --peso-pessoas 1
+python main.py --ficha dados/ficha.csv --peso-gravidade 0.6 --peso-alcance 0.4
 ```
 
-O JSON `dados/inventario.json` está incluído, mas contém somente a hierarquia.
-O PDF de inventário apresenta 15 itens preliminares que ainda precisam ser
-convertidos e conciliados com o contrato de dados. Custos e alcance em
-pessoas/dia ainda precisam de método e valores documentados. A ficha CSV ainda
-deve ser preparada pelo grupo. Dados inválidos
+O JSON `dados/inventario.json` contém os 15 códigos B01–B15. Custos e alcance usam referências e estimativas marcadas no inventário; verifique suas limitações antes de interpretar o ranking. A ficha CSV pode ser preparada pelo grupo. Dados inválidos
 interrompem a execução com mensagem e código de saída 1. Caminhos fornecidos são
 relativos ao diretório atual; os dados padrão são localizados a partir de main.py.
 Somente main.py solicita entradas. As opções `--demo`, `--inventario` e
@@ -234,15 +226,14 @@ As datas acima reproduzem o planejamento do documento-base; não indicam que as 
 
 ## Saídas, conferências e apresentação da E3
 
-O ranking inclui gravidade, pessoas/dia, custo em reais e índice. Os detalhes
+O ranking inclui gravidade, alcance normalizado 1–5, exposição estimada em pessoas/dia, custo em reais e índice. Os detalhes
 preservam descrição, caminho, intervenção e base das estimativas. A origem de
 custo, alcance e medida é exibida explicitamente; sem informação, fica marcada
 como não informada. O relatório exportado pela opção 8 mantém essas ressalvas
 e inclui matriz ambiente × tipo. Informe um nome novo: arquivos existentes
 não são sobrescritos.
 
-As opções 4 e 5 conferem quantidade esperada, códigos únicos, cobertura do piloto
-quando informada, contagens e custos por ambiente contra o total recursivo.
+As opções de conferência verificam quantidade esperada, códigos únicos, cobertura do piloto quando informada, contagens e custos por ambiente contra o total recursivo.
 Consulte o [roteiro da apresentação](docs/apresentacao_e3.md) para executar,
 explicar os casos base e entender o que ainda falta para a E4.
 
@@ -285,17 +276,9 @@ python -m unittest discover -s tests -v
 
 ## Conferência normativa documental
 
-A [conferência de 12/11/2026](docs/validacao_normativa.md) registra fontes, critérios e limites por ocorrência. A [matriz complementar](dados/validacao_normativa.json) cobre B01–B15 e não é carregada pelo programa. O inventário PDF tem medidas e observações preliminares; a conversão operacional depende das pendências documentadas. Não confundir uma oportunidade de conforto com infração normativa nem preencher referências desconhecidas com zero.
+A [conferência normativa](docs/validacao_normativa.md) e a [matriz complementar](dados/validacao_normativa.json) registram fontes e limites para B01–B15. Referências desconhecidas ficam pendentes; não confundir barreira de conforto com infração dimensional.
 
 
 ## Estado atual do inventário
 
-O PDF do Grupo 5 apresenta os 15 registros preliminares; `dados/inventario.json`
-mantém apenas a hierarquia e ainda não contém esses registros. B03 está marcado
-como oportunidade de conforto e não conta no mínimo de barreiras enquanto assim
-classificado. Já foram complementados os degraus observados em B05, totais de
-portas por setor (75 nos setores de B06–B11/B14–B15, 22 com Braille) e exemplos
-de postos acessíveis em B105/B103. Fotos, custos numéricos, alcance diário e
-inventário completo dos laboratórios ainda precisam ser concluídos ou
-associados. As fotos B01–B15 estão em `fotos/`. Consulte
-`dados/README.md` e `TODO_ANTONIO.md` para o estado detalhado.
+`dados/inventario.json` contém B01–B15. B03 é barreira de conforto e conta no conjunto confirmado pelo grupo, sem alegação de infração dimensional. B05 registra dois degraus de 11 cm. As contagens de portas somam 75, com 22 identificadas com Braille; outras formas de sinalização não foram avaliadas. B105/B103 são exemplos parciais de laboratórios. Custos são referências estimadas, e pessoas/dia preserva hipóteses históricas. O critério de prioridade está em `docs/criterios_e3.md`; fontes e contas de custos estão em `docs/estimativas_custo.md`. Rankings e pacotes são preliminares até substituir hipóteses por dados locais.

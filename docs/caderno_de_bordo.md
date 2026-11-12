@@ -80,7 +80,7 @@ A preencher com um defeito real, a execução ou teste que o revelou e a correç
   de referência estável que funciona com texto e números. Evidência automatizada:
   `test_ordenacoes_permutacoes_empates_imutabilidade_e_contadores`.
 - Verificação: 31 testes passaram. Convenções dos contadores foram documentadas.
-- Retorno da IA: código e revisão técnica em `docs/revisao_2026-11-12.md`.
+- Retorno da IA: revisão técnica registrada em documento de trabalho posteriormente removido da versão de produção.
 - Alterações e justificativas humanas sobre esse retorno: pendentes de registro
   pelos integrantes. Não se presume aprovação dos critérios nem coleta adicional.
 
@@ -132,6 +132,6 @@ A preencher com um defeito real, a execução ou teste que o revelou e a correç
 
 - Decis?o mais recente de Antonio: B03 conta como barreira de conforto/passagem. O v?o informado de 80 cm atende ao m?nimo citado; n?o afirmar infra??o dimensional. Com B03, o grupo confirma os 15 c?digos B01?B15 como barreiras.
 - Pedido: reunir fontes p?blicas, sugerir custos num?ricos, m?todo de pessoas/dia e escala/pesos sob prazo curto.
-- A??o: criado `CUSTOS_SUGESTAO.md` com refer?ncias de SINAPI/CAIXA, planilhas e contratos p?blicos; c?lculos rastre?veis para placas Braille, rampas, mesa acess?vel, teclado Braille e elevador, al?m das limita??es de uso desses comparadores.
+- Ação: foi criado documento de trabalho com referências de SINAPI/CAIXA, planilhas e contratos públicos e cálculos de referência; documento removido da versão de produção. As estimativas não foram incorporadas ao inventário nem aprovadas pelo grupo.
 - Recomenda??o para decis?o: gravidade e alcance normalizados de 1 a 5, pesos 60/40, custo por R$ 1.000 e m?todo para estimar usu?rios ?nicos/dia. A f?rmula segue como proposta at? aprova??o do grupo.
 - Limite: n?o foi encontrada fonte p?blica com fluxo di?rio por pr?dio/setor do campus. Matr?culas gerais n?o equivalem a presen?a di?ria; levantar hor?rios/ocupa??o ou observar fluxo por local. Custos de obras maiores e amplia??o da porta s?o par?metros preliminares, n?o cota??es do UNASP.

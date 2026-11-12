@@ -49,7 +49,7 @@ def avisar_origem(ficticio):
     else:
         print('Arquivo fornecido: validar a estrutura não confirma medições ou cotações.')
         print('Custos e alcance podem ser estimados; confira as fontes do inventário.')
-    print('Pesos provisórios: valide os critérios com o grupo antes de recomendar intervenções.')
+    print('Critérios adotados: gravidade 60%, alcance 40%; alcance baseado em fluxo estimado.')
 
 
 def menu(pesos):
@@ -181,10 +181,10 @@ def main(argv=None):
     origem.add_argument('--demo', action='store_true', help='Executar demonstração com o inventário do projeto sem menu')
     origem.add_argument('--inventario', type=Path, help='Executar com um inventário JSON sem menu')
     origem.add_argument('--ficha', type=Path, help='Executar com uma ficha CSV sem menu')
-    parser.add_argument('--peso-gravidade', type=float, default=1)
-    parser.add_argument('--peso-pessoas', type=float, default=1)
+    parser.add_argument('--peso-gravidade', type=float, default=0.6)
+    parser.add_argument('--peso-alcance', type=float, default=0.4)
     args = parser.parse_args(argv)
-    pesos = {'gravidade': args.peso_gravidade, 'pessoas_dia': args.peso_pessoas}
+    pesos = {'gravidade': args.peso_gravidade, 'alcance': args.peso_alcance}
     print('Campus Acessível — Grupo 5 — análise de intervenções')
     if not args.demo and args.inventario is None and args.ficha is None:
         return menu(pesos)

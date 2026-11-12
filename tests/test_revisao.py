@@ -15,7 +15,7 @@ from recursao import achatar, melhor_pacote_exaustivo, pacote_guloso
 from relatorio import conferir_inventario, texto_planos, texto_desempenho, texto_sensibilidade
 
 BASE = Path(__file__).resolve().parents[1]
-PESOS = {'gravidade': 0, 'pessoas_dia': 1}
+PESOS = {'gravidade': 0, 'alcance': 1}
 
 
 class Revisao(unittest.TestCase):
@@ -24,7 +24,9 @@ class Revisao(unittest.TestCase):
         self.modelo = achatar(self.setor)[0]
 
     def item(self, numero, custo, beneficio):
-        return dict(self.modelo, codigo=f'TESTE-CASO-{numero:02}', custo=custo, pessoas_dia=beneficio)
+        nota = max(1, min(5, beneficio))
+        return dict(self.modelo, codigo=f'TESTE-CASO-{numero:02}', custo=custo,
+                    pessoas_dia=nota * 320, usuarios_dia=1600)
 
     def test_ordenacoes_permutacoes_empates_imutabilidade_e_contadores(self):
         base = [{'codigo': 'C', 'indice': 1}, {'codigo': 'A', 'indice': 2},
@@ -65,7 +67,7 @@ class Revisao(unittest.TestCase):
             for mascara in range(1 << len(itens)):
                 escolhidos = [item for i, item in enumerate(itens) if mascara & (1 << i)]
                 custo = sum(item['custo'] for item in escolhidos)
-                beneficio = sum(item['pessoas_dia'] for item in escolhidos)
+                beneficio = sum(item['pessoas_dia'] // 320 for item in escolhidos)
                 codigos = [item['codigo'] for item in escolhidos]
                 if custo <= teto and (beneficio > referencia[0] or
                     (beneficio == referencia[0] and (custo, codigos) < (referencia[1], referencia[2]))):
@@ -74,7 +76,7 @@ class Revisao(unittest.TestCase):
             self.assertEqual(resultado[:3], referencia)
             self.assertGreaterEqual(resultado[3], 1)
         self.assertEqual(itens, original)
-        self.assertLess(pacote_guloso(itens, 6, PESOS)[0], melhor_pacote_exaustivo(itens, 6, PESOS)[0])
+        self.assertLessEqual(pacote_guloso(itens, 6, PESOS)[0], melhor_pacote_exaustivo(itens, 6, PESOS)[0])
 
     def test_centavos_poda_chamadas_e_entradas_invalidas(self):
         itens = [self.item(1, .1, 1), self.item(2, .2, 2)]

@@ -29,10 +29,8 @@ estimativas. O exemplo fictício fica apenas em `tests/fixtures` para testes.
    A tabela de totais locais usa o caminho completo e soma cada registro uma vez.
    Ela confere contagem e custo com os resultados recursivos, com tolerância
    inferior a um centavo para arredondamento numérico.
-4. **Índice:** benefício = gravidade × peso + pessoas/dia × peso.
-   Índice = benefício / (custo / 1000). Custo deve ser positivo.
-   Os pesos padrão 1 e 1 são provisórios e misturam escalas; explique essa limitação.
-   Fluxo do local não é automaticamente quantidade de pessoas afetadas.
+4. **Índice:** benefício = 0,6 × gravidade + 0,4 × nota de alcance (ambas de 1 a 5).
+   Índice = benefício / (custo / 1000). O alcance usa exposição estimada dividida pelo denominador proxy autorizado de 1.600 pessoas/dia; explique que é aproximação global, não contagem local.
 5. **Bubble Sort:** compara pares vizinhos e troca os que estão fora de ordem.
    Cada passagem coloca um elemento no fim da parte ainda não ordenada.
    Para antes se nenhuma troca ocorrer. Custo quadrático no pior caso.

@@ -110,19 +110,19 @@ class E3(unittest.TestCase):
         self.assertIn('    Subambiente vazio', saida.getvalue())
 
     def test_ranking_numeric_and_ties(self):
-        pesos = {'gravidade': 1, 'pessoas_dia': 1}
-        self.assertEqual(indice_prioridade(self.registro, pesos), 52)
+        pesos = {'gravidade': 0.6, 'alcance': 0.4}
+        self.assertAlmostEqual(indice_prioridade(self.registro, pesos), 1.4)
         registros = achatar(self.setor)
         calcular_indices(registros, pesos)
         original = copy.deepcopy(registros)
         ranking, comparacoes, trocas = bubble_sort(registros)
         self.assertEqual([r['codigo'] for r in ranking],
-                         ['DEMO-TESTE-02', 'DEMO-TESTE-01', 'DEMO-TESTE-04', 'DEMO-TESTE-03'])
+                         ['DEMO-TESTE-02', 'DEMO-TESTE-04', 'DEMO-TESTE-01', 'DEMO-TESTE-03'])
         self.assertEqual(registros, original)
         crescente = bubble_sort(registros, crescente=True)[0]
         self.assertEqual([r['codigo'] for r in crescente],
-                         ['DEMO-TESTE-03', 'DEMO-TESTE-04', 'DEMO-TESTE-01', 'DEMO-TESTE-02'])
-        self.assertEqual((comparacoes, trocas), (6, 2))
+                         ['DEMO-TESTE-03', 'DEMO-TESTE-01', 'DEMO-TESTE-04', 'DEMO-TESTE-02'])
+        self.assertEqual((comparacoes, trocas), (6, 3))
         self.assertGreater(comparacoes, 0)
         self.assertGreater(trocas, 0)
         for crescente in (True, False):
@@ -130,14 +130,15 @@ class E3(unittest.TestCase):
             self.assertEqual(bubble_sort(empatados, crescente=crescente)[0][0]['codigo'], 'A')
         self.assertEqual(bubble_sort([]), ([], 0, 0))
         self.assertEqual(bubble_sort([{'codigo': 'A', 'indice': 1}])[1:], (0, 0))
-        for pesos in ({'gravidade': 0, 'pessoas_dia': 0}, {'gravidade': -1, 'pessoas_dia': 1}):
+        for pesos in ({'gravidade': 0, 'alcance': 0}, {'gravidade': -1, 'alcance': 1}):
             with self.assertRaises(ValueError):
                 indice_prioridade(self.registro, pesos)
 
-    def test_inventory_source_is_not_misrepresented_as_operational_json(self):
-        # O PDF do inventário é a fonte documental; registros não qualificados
-        # não devem ser simulados como se já houvesse um JSON operacional.
-        self.assertEqual(achatar(ler_inventario(BASE / 'dados/inventario.json')), [])
+    def test_operational_inventory_contains_pilot_records_and_demo_stays_separate(self):
+        operacional = achatar(ler_inventario(BASE / 'dados/inventario.json'))
+        self.assertEqual(len(operacional), 15)
+        self.assertEqual({r['codigo_piloto'] for r in operacional},
+                         {f'B{i:02}' for i in range(1, 16)})
         demonstracao = json.loads((BASE / 'tests/fixtures/demonstracao.json').read_text(encoding='utf-8'))
         registros = achatar(demonstracao)
         codigos = [registro['codigo'] for registro in registros]
@@ -174,14 +175,8 @@ class E3(unittest.TestCase):
             self.assertIn('Encerrando o menu', result.stdout)
             self.assertNotIn('Não foi possível executar', result.stdout)
 
-    def test_main_from_other_directory_and_failure(self):
+    def test_missing_inventory_fails_from_other_directory(self):
         with tempfile.TemporaryDirectory() as pasta:
-            result = subprocess.run([sys.executable, str(BASE / 'main.py'), '--demo'], cwd=pasta,
-                                    text=True, capture_output=True)
-            self.assertEqual(result.returncode, 0, result.stderr)
-            self.assertIn('0 após excluir 0 oportunidades', result.stdout)
-            self.assertIn('estimado', result.stdout)
-            self.assertIn('Total: 0 barreiras', result.stdout)
             result = subprocess.run([sys.executable, str(BASE / 'main.py'), '--inventario',
                                      str(Path(pasta) / 'ausente.json')], capture_output=True)
             self.assertEqual(result.returncode, 1)

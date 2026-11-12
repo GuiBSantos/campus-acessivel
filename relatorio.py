@@ -98,7 +98,7 @@ def texto_ranking(setor, pesos, algoritmo="bubble"):
     if not confere_com_o_python(ranking, 'indice', False):
         raise ValueError('Falha na conferência do ranking.')
     linhas = [f'RANKING — {algoritmo.title()} Sort próprio; empate por código crescente',
-              f'Pesos provisórios: gravidade={pesos["gravidade"]}, pessoas/dia={pesos["pessoas_dia"]}',
+              f'Pesos: gravidade={pesos["gravidade"]}, alcance={pesos["alcance"]}',
               'Origens: veja custo, alcance e medida nos detalhes de cada registro.',
               f'{"Pos":>3}  {"Código":<16} {"Grav.":>5} {"Pessoas/dia":>11} {"Custo":>18} {"Índice":>12}']
     for posicao, registro in enumerate(ranking, 1):
@@ -207,10 +207,10 @@ def texto_desempenho(setor, pesos):
 
 
 def texto_sensibilidade(setor, pesos):
-    linhas = ['A5 — sensibilidade dos pesos provisórios']
+    linhas = ['A5 — sensibilidade dos pesos']
     for nome, usados in (('original', pesos),
                          ('gravidade dobrada', dict(pesos, gravidade=2 * pesos['gravidade'])),
-                         ('alcance dobrado', dict(pesos, pessoas_dia=2 * pesos['pessoas_dia']))):
+                         ('alcance dobrado', dict(pesos, alcance=2 * pesos['alcance']))):
         registros = achatar(setor)
         calcular_indices(registros, usados)
         ranking, _, _ = bubble_sort(registros)

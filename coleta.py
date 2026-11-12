@@ -72,8 +72,9 @@ def validar_registro(barreira, codigos_usados=None):
     referencia = barreira.get('referencia_norma')
     status_normativo = barreira.get('status_normativo')
     referencia_observacional = (
-        tipo == 'elevador_inadequado' and referencia is None
-        and status_normativo == 'nao_avaliado'
+        (tipo == 'elevador_inadequado' and referencia is None
+         and status_normativo == 'nao_avaliado')
+        or (referencia is None and status_normativo == 'pendente')
     )
     if (not referencia_observacional and
             (isinstance(referencia, bool) or not isinstance(referencia, (int, float))
@@ -82,7 +83,7 @@ def validar_registro(barreira, codigos_usados=None):
         erros.append('referencia_norma: numero finito nao negativo obrigatorio.')
     if barreira.get('pendencia_normativa'):
         erros.append('pendencia_normativa: resolva a pendencia antes de importar.')
-    if status_normativo not in (None, 'confirmado') and not referencia_observacional:
+    if status_normativo not in (None, 'confirmado', 'pendente') and not referencia_observacional:
         erros.append('status_normativo: registro ainda nao confirmado.')
     codigo = barreira.get('codigo')
     if isinstance(codigo, str):

@@ -1,73 +1,35 @@
-# Critérios do MVP E3
+# Critérios finais do modelo de prioridade
 
-O inventário operacional é `dados/inventario.json`; no checkout atual ele tem a
-hierarquia, mas zero registros. O PDF de inventário do Grupo 5 apresenta 15 itens
-preliminares B01–B15, ainda não convertidos para o contrato operacional. O exemplo
-fictício está em `tests/fixtures/demonstracao.json`, somente para testes.
+## Decisão técnica adotada
 
-O PDF registra medidas de rampas, portas e cabine do elevador, além de contagens
-preliminares. Não contém custos cotados nem alcance em pessoas/dia. A escala
-piloto tem quatro categorias; a conversão para 1–5 e sua aprovação continuam a
-cargo do grupo. B03 foi aprovado por Antonio como oportunidade de conforto com
-gravidade baixa, sem alegação de não conformidade. B04 é um elevador existente
-com problema de uso observado. Consulte `docs/pendencias_piloto.md` e
-`docs/validacao_normativa.md` para os pontos que ainda precisam de evidência ou
-decisão.
+Para manter uma regra única e comparável, este projeto adota gravidade e alcance em escala de 1 a 5, com pesos de 60% e 40%. A escolha prioriza a remoção de impedimentos graves sem ignorar quantas pessoas encontram a barreira. É uma decisão metodológica do projeto para análise acadêmica; não é norma técnica nem aprovação institucional do campus.
 
-## Modelo provisório para demonstrar o algoritmo
+- **Gravidade (1–5):** 1 = desconforto leve; 2 = dificuldade com alternativa próxima; 3 = limitação relevante; 4 = grande restrição ou necessidade frequente de ajuda; 5 = acesso impedido ou risco imediato.
+- **Alcance (1–5):** percentual estimado de usuários únicos do ambiente que encontram a barreira em um dia típico: até 20% = 1; 21–40% = 2; 41–60% = 3; 61–80% = 4; 81–100% = 5. Registrar também numerador, denominador, período e método.
+- **Benefício:** 0,6 × gravidade + 0,4 × alcance.
+- **Índice custo-benefício:** benefício ÷ (custo em reais / 1.000).
+- **Empates:** código crescente. Para seleção de pacote, maior benefício total, depois menor custo e códigos crescentes.
 
-Benefício = gravidade × peso_gravidade + pessoas_dia × peso_pessoas_dia.
-Índice = benefício / (custo / 1000). Custos devem ser positivos.
-Pesos de demonstração: gravidade = 1 e pessoas_dia = 1. Eles demonstram a fórmula,
-mas misturam escalas e não representam uma decisão validada pelo grupo.
-Não usar esses pesos em resultados do grupo. Não converter categorias verbais
-do piloto automaticamente em números.
+O campo `pessoas_dia` registra exposição bruta. Como o grupo autorizou usar o fluxo estimado, o inventário usa `usuarios_dia: 1600` como denominador proxy global e converte a proporção em nota de alcance. Essa aproximação não é contagem local; substituí-la por usuários do ambiente quando houver dados. O programa calcula benefício = 0,6 × gravidade + 0,4 × nota de alcance.
 
-## Proposta para decisão do grupo (ainda não aprovada)
+Detalhamento de fontes e contas: `docs/estimativas_custo.md`.
 
-- Gravidade, escala 1–5: 1 = desconforto leve sem bloquear o uso; 2 = dificuldade
-  pequena com alternativa próxima; 3 = limitação relevante ou desvio; 4 = ajuda
-  frequente ou grande restrição; 5 = acesso impedido ou risco imediato.
-- Alcance, escala 1–5: calcular a proporção de usuários diários do ambiente
-  afetados pela barreira: até 20% = 1; 21–40% = 2; 41–60% = 3; 61–80% = 4;
-  81–100% = 5. Registrar também a estimativa bruta de pessoas/dia e o total de
-  usuários/dia usado como denominador.
-- Benefício sugerido = 0,6 × gravidade + 0,4 × alcance. Índice sugerido =
-  benefício ÷ (custo em R$ / 1.000). O peso maior para gravidade reflete a
-  prioridade de remover restrições severas; o grupo deve aprovar ou ajustar a
-  proporção antes de alterar o código.
-- Custo: quantidade × preço unitário + instalação/mão de obra + transporte.
-  Registrar item/escopo, fonte ou cotações, data e responsável. Usar três
-  cotações comparáveis ou orçamento formal quando possível; preços públicos
-  podem servir como estimativa identificada, não como cotação local.
-- Pessoas/dia: usar horários e ocupação do ambiente ou observação em dias
-  representativos; estimar pessoas únicas que encontram a barreira por dia,
-  com período e método anotados. Não somar visitas repetidas como pessoas
-  diferentes sem declarar que a métrica é passagens/dia.
+## Regra para custos
 
-Ranking: índice decrescente; em empate, código crescente, independentemente da
-direção escolhida para o índice. Bubble Sort próprio conta cada comparação
-entre registros e cada troca. A lista original não é reordenada.
+Usar custo total da intervenção (quantidade × preço unitário + instalação/mão de obra + transporte). Guardar fonte, data, escopo, quantidade e responsável. Orçamento formal ou cotações locais prevalecem. Preços públicos são estimativas de referência e não cotações do UNASP. Custos sem comparável direto permanecem placeholders de planejamento e não devem orientar contratação nem pacote final.
 
-Campos numéricos aceitam ponto ou vírgula decimal; pessoas/dia é inteiro não negativo,
-gravidade é inteiro de 1 a 5, custo é positivo e medida é não negativa.
-CSV UTF-8 separado por ponto e vírgula, caminho separado por `/` ou `>`, incluindo
-setor e ambiente. O último componente deve coincidir com `ambiente`.
-JSON inválido ou inventário inconsistente é recusado antes da gravação.
+## Registros e evidência
 
+O inventário operacional é `dados/inventario.json`, com B01–B15. `dados/validacao_normativa.json` e `docs/validacao_normativa.md` registram limites documentais. `null` com status `pendente` significa que ainda não há referência numérica comparável; no elevador, `nao_avaliado` significa observação funcional sem conclusão normativa. Nenhum status documental equivale a laudo ou vistoria.
 
-## Convenções atualizadas em 12/11/2026
+B03 permanece barreira de conforto com gravidade 1, sem alegação de infração aos 80 cm. B04 descreve dificuldade observada em elevador existente, sem afirmar ausência ou desconformidade normativa. B12/B13 são limitações de capacidade relatadas, sem cotas normativas ou demanda simultânea medida.
 
-- Bubble sem parada antecipada e Selection fazem n(n−1)/2 comparações.
-- Insertion usa trocas adjacentes. Assim seu número de trocas coincide com o
-  Bubble para a mesma entrada e o mesmo desempate. Comparações contam avaliações
-  entre registros, não cada operador interno do desempate.
-- O desempate das três ordenações continua sendo código crescente.
-- Buscas contam registros examinados; o custo de ordenar antes da binária é
-  mostrado separadamente. Lista já ordenada é pré-condição das funções binárias.
-- Pacotes maximizam a soma dos benefícios, não a soma dos índices. A exaustiva
-  desempata pelo menor custo e depois pela lista de códigos crescente.
-- Valores monetários dos pacotes são convertidos em centavos, sem arredondamento
-  silencioso; mais de duas casas é erro. Toda chamada da exaustiva conta,
-  inclusive as chamadas base, após a poda de itens individualmente inviáveis.
-- Pesos permanecem provisórios; a revisão não alterou decisões ou dados do grupo.
+## Critérios do software
+
+Medida é não negativa; gravidade é inteiro 1–5; pessoas/dia é inteiro não negativo; custo deve ser positivo para permitir o cálculo. Referência normativa numérica deve corresponder à mesma grandeza/unidade da medida quando aplicável. Referência desconhecida fica nula e pendente, sem inventar zero ou transferir limites de outra grandeza.
+
+CSV usa UTF-8, `;` e caminho separado por `/` ou `>`; JSON preserva `origens` e `base_estimativa`. A validação estrutural verifica tipos e consistência, mas não atesta medições, estimativas, acessibilidade ou conformidade.
+
+## Algoritmos e contagens
+
+Bubble Sort sem parada antecipada e Selection Sort fazem n(n−1)/2 comparações. Insertion Sort usa trocas adjacentes; buscas binárias exigem entrada ordenada. A busca contabiliza registros examinados e informa separadamente a ordenação preparatória. A busca exaustiva avalia pacotes dentro do teto, conta chamadas base e desempata por menor custo e códigos. Resultados didáticos em `resultados/analise_crescimento_exaustiva.md` usam dados sintéticos.

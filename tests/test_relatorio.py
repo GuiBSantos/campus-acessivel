@@ -17,7 +17,7 @@ BASE = Path(__file__).resolve().parents[1]
 class Relatorio(unittest.TestCase):
     def setUp(self):
         self.setor = ler_inventario(BASE / 'tests/fixtures/demonstracao.json')
-        self.pesos = {'gravidade': 1, 'pessoas_dia': 1}
+        self.pesos = {'gravidade': 0.6, 'alcance': 0.4}
 
     def test_format_and_estimate_provenance(self):
         self.assertEqual(reais(134460), 'R$ 134.460,00')

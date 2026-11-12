@@ -8,7 +8,37 @@
       "subsetores": [
         {
           "nome": "Rampa de acesso entre pavimentos",
-          "barreiras": [],
+          "barreiras": [
+            {
+              "codigo": "ES-RAM-01",
+              "ambiente": "Rampa de acesso entre pavimentos",
+              "tipo": "rampa_inclinada",
+              "descricao": "Rampa de 7,84 m de comprimento inclinado e 1,38 m de largura; ângulo informado de aproximadamente 7°; inclinação calculada aproximada de 12,3%.",
+              "medida": 12.3,
+              "unidade": "%",
+              "referencia_norma": null,
+              "gravidade": 4,
+              "pessoas_dia": 400,
+              "custo": 12715.0,
+              "intervencao": "Refazer ou alongar a rampa para reduzir a inclinação (meta ≤ 8,33%), com patamares; avaliar projeto civil",
+              "coletado_por": "Raphael Rios e Antonio Augusto Rodrigues Soares Júnior",
+              "data_coleta": "2026-10-21",
+              "codigo_piloto": "B01",
+              "base_estimativa": "Custo de referência pública conforme docs/estimativas_custo.md; estimativa preliminar, não orçamento do campus. Alcance diário preservado como hipótese do inventário histórico, sem contagem em campo. Classificação normativa pendente conforme matriz documental. Nota de alcance provisória calculada usando denominador histórico global de 1.600 pessoas/dia; revisar com denominador local quando disponível.",
+              "classificacao": "barreira",
+              "status_normativo": "pendente",
+              "origens": {
+                "medida": "PDF do piloto e complementos do grupo; conferência documental em dados/validacao_normativa.json",
+                "referencia_norma": "pendente: não comparar inclinação observada sem desnível segmentado com limite condicional por desnível",
+                "custo": "docs/estimativas_custo.md: referência pública estimativa; não é cotação do campus",
+                "pessoas_dia": "hipótese preservada do inventário histórico; não é contagem observada",
+                "usuarios_dia": "denominador estimado autorizado: fluxo total histórico de 1.600 pessoas/dia no prédio; aproximação global, não contagem local",
+                "nota_alcance": "proporção estimada pessoas_dia/1.600, convertida pela escala documentada em docs/criterios_e3.md"
+              },
+              "usuarios_dia": 1600,
+              "nota_alcance": 2
+            }
+          ],
           "subsetores": []
         },
         {
@@ -17,7 +47,37 @@
           "subsetores": [
             {
               "nome": "Portas",
-              "barreiras": [],
+              "barreiras": [
+                {
+                  "codigo": "ES-BRA-04",
+                  "ambiente": "Portas",
+                  "tipo": "sinalizacao_ausente",
+                  "descricao": "1 de 8 portas contabilizada sem Braille; contagem não avaliou outras formas de identificação acessível.",
+                  "medida": 1,
+                  "unidade": "portas sem Braille",
+                  "referencia_norma": null,
+                  "gravidade": 3,
+                  "pessoas_dia": 200,
+                  "custo": 62.65,
+                  "intervencao": "Verificar identificação acessível equivalente e instalar até 1 placas em Braille se necessário; preço estimado pela referência pública.",
+                  "coletado_por": "Raphael Rios e Antonio Augusto Rodrigues Soares Júnior",
+                  "data_coleta": "2026-10-21",
+                  "codigo_piloto": "B09",
+                  "base_estimativa": "Custo de referência pública conforme docs/estimativas_custo.md; estimativa preliminar, não orçamento do campus. Alcance diário preservado como hipótese do inventário histórico, sem contagem em campo. Classificação normativa pendente conforme matriz documental. Nota de alcance provisória calculada usando denominador histórico global de 1.600 pessoas/dia; revisar com denominador local quando disponível.",
+                  "classificacao": "barreira",
+                  "status_normativo": "pendente",
+                  "origens": {
+                    "medida": "PDF do piloto e complementos do grupo; conferência documental em dados/validacao_normativa.json",
+                    "referencia_norma": "dados/validacao_normativa.json; pendente de confirmação normativa",
+                    "custo": "docs/estimativas_custo.md: referência pública estimativa; não é cotação do campus",
+                    "pessoas_dia": "hipótese preservada do inventário histórico; não é contagem observada",
+                    "usuarios_dia": "denominador estimado autorizado: fluxo total histórico de 1.600 pessoas/dia no prédio; aproximação global, não contagem local",
+                    "nota_alcance": "proporção estimada pessoas_dia/1.600, convertida pela escala documentada em docs/criterios_e3.md"
+                  },
+                  "usuarios_dia": 1600,
+                  "nota_alcance": 1
+                }
+              ],
               "subsetores": []
             }
           ]
@@ -28,7 +88,66 @@
           "subsetores": [
             {
               "nome": "Laboratório",
-              "barreiras": [],
+              "barreiras": [
+                {
+                  "codigo": "ES-TEC-01",
+                  "ambiente": "Laboratório",
+                  "tipo": "mobiliario_inadequado",
+                  "descricao": "Exemplos B105 (48 computadores, 2 postos reservados) e B103 (36 computadores, 2 postos reservados); demanda simultânea não medida.",
+                  "medida": 2,
+                  "unidade": "postos reservados por laboratório (exemplos)",
+                  "referencia_norma": null,
+                  "gravidade": 3,
+                  "pessoas_dia": 80,
+                  "custo": 777.34,
+                  "intervencao": "Avaliar demanda simultânea e, se confirmada, adicionar uma mesa acessível; preço unitário de referência pública.",
+                  "coletado_por": "Raphael Rios e Antonio Augusto Rodrigues Soares Júnior",
+                  "data_coleta": "2026-10-21",
+                  "codigo_piloto": "B12",
+                  "base_estimativa": "Custo de referência pública conforme docs/estimativas_custo.md; estimativa preliminar, não orçamento do campus. Alcance diário preservado como hipótese do inventário histórico, sem contagem em campo. Classificação normativa pendente conforme matriz documental. Nota de alcance provisória calculada usando denominador histórico global de 1.600 pessoas/dia; revisar com denominador local quando disponível.",
+                  "classificacao": "barreira",
+                  "status_normativo": "pendente",
+                  "origens": {
+                    "medida": "PDF do piloto e complementos do grupo; conferência documental em dados/validacao_normativa.json",
+                    "referencia_norma": "dados/validacao_normativa.json; pendente de confirmação normativa",
+                    "custo": "docs/estimativas_custo.md: referência pública estimativa; não é cotação do campus",
+                    "pessoas_dia": "hipótese preservada do inventário histórico; não é contagem observada",
+                    "usuarios_dia": "denominador estimado autorizado: fluxo total histórico de 1.600 pessoas/dia no prédio; aproximação global, não contagem local",
+                    "nota_alcance": "proporção estimada pessoas_dia/1.600, convertida pela escala documentada em docs/criterios_e3.md"
+                  },
+                  "usuarios_dia": 1600,
+                  "nota_alcance": 1
+                },
+                {
+                  "codigo": "ES-TEC-02",
+                  "ambiente": "Laboratório",
+                  "tipo": "mobiliario_inadequado",
+                  "descricao": "Piloto informa um teclado Braille por laboratório; suficiência depende da demanda simultânea, ainda não medida.",
+                  "medida": 1,
+                  "unidade": "teclado Braille por laboratório",
+                  "referencia_norma": null,
+                  "gravidade": 3,
+                  "pessoas_dia": 80,
+                  "custo": 262.1,
+                  "intervencao": "Confirmar compatibilidade e demanda simultânea; referência histórica de compra pública para um teclado adicional.",
+                  "coletado_por": "Raphael Rios e Antonio Augusto Rodrigues Soares Júnior",
+                  "data_coleta": "2026-10-21",
+                  "codigo_piloto": "B13",
+                  "base_estimativa": "Custo de referência pública conforme docs/estimativas_custo.md; estimativa preliminar, não orçamento do campus. Alcance diário preservado como hipótese do inventário histórico, sem contagem em campo. Classificação normativa pendente conforme matriz documental. Nota de alcance provisória calculada usando denominador histórico global de 1.600 pessoas/dia; revisar com denominador local quando disponível.",
+                  "classificacao": "barreira",
+                  "status_normativo": "pendente",
+                  "origens": {
+                    "medida": "PDF do piloto e complementos do grupo; conferência documental em dados/validacao_normativa.json",
+                    "referencia_norma": "dados/validacao_normativa.json; pendente de confirmação normativa",
+                    "custo": "docs/estimativas_custo.md: referência pública estimativa; não é cotação do campus",
+                    "pessoas_dia": "hipótese preservada do inventário histórico; não é contagem observada",
+                    "usuarios_dia": "denominador estimado autorizado: fluxo total histórico de 1.600 pessoas/dia no prédio; aproximação global, não contagem local",
+                    "nota_alcance": "proporção estimada pessoas_dia/1.600, convertida pela escala documentada em docs/criterios_e3.md"
+                  },
+                  "usuarios_dia": 1600,
+                  "nota_alcance": 1
+                }
+              ],
               "subsetores": []
             }
           ]
@@ -37,12 +156,72 @@
     },
     {
       "nome": "Rampa principal entre blocos",
-      "barreiras": [],
+      "barreiras": [
+        {
+          "codigo": "ES-RAM-02",
+          "ambiente": "Rampa principal entre blocos",
+          "tipo": "rampa_inclinada",
+          "descricao": "Dois trechos de rampa de 12,76 m cada, largura informada de 2,00 m e ângulo aproximado de 7°; inclinação calculada aproximada de 12,3%.",
+          "medida": 12.3,
+          "unidade": "%",
+          "referencia_norma": null,
+          "gravidade": 4,
+          "pessoas_dia": 800,
+          "custo": 41389.0,
+          "intervencao": "Refazer os dois trechos com inclinação ≤ 8,33% e patamares; exige projeto e espaço de implantação",
+          "coletado_por": "Raphael Rios e Antonio Augusto Rodrigues Soares Júnior",
+          "data_coleta": "2026-10-21",
+          "codigo_piloto": "B02",
+          "base_estimativa": "Custo de referência pública conforme docs/estimativas_custo.md; estimativa preliminar, não orçamento do campus. Alcance diário preservado como hipótese do inventário histórico, sem contagem em campo. Classificação normativa pendente conforme matriz documental. Nota de alcance provisória calculada usando denominador histórico global de 1.600 pessoas/dia; revisar com denominador local quando disponível.",
+          "classificacao": "barreira",
+          "status_normativo": "pendente",
+          "origens": {
+            "medida": "PDF do piloto e complementos do grupo; conferência documental em dados/validacao_normativa.json",
+            "referencia_norma": "dados/validacao_normativa.json; pendente de confirmação normativa",
+            "custo": "docs/estimativas_custo.md: referência pública estimativa; não é cotação do campus",
+            "pessoas_dia": "hipótese preservada do inventário histórico; não é contagem observada",
+            "usuarios_dia": "denominador estimado autorizado: fluxo total histórico de 1.600 pessoas/dia no prédio; aproximação global, não contagem local",
+            "nota_alcance": "proporção estimada pessoas_dia/1.600, convertida pela escala documentada em docs/criterios_e3.md"
+          },
+          "usuarios_dia": 1600,
+          "nota_alcance": 3
+        }
+      ],
       "subsetores": []
     },
     {
       "nome": "Salas de aula (padrão em todos os blocos)",
-      "barreiras": [],
+      "barreiras": [
+        {
+          "codigo": "ES-POR-01",
+          "ambiente": "Salas de aula (padrão em todos os blocos)",
+          "tipo": "porta_conforto",
+          "descricao": "Passagem de porta considerada pelo grupo barreira de conforto; vão útil informado de 80 cm, que atende ao mínimo de largura citado.",
+          "medida": 80,
+          "unidade": "cm",
+          "referencia_norma": 80,
+          "gravidade": 1,
+          "pessoas_dia": 120,
+          "custo": 2800.0,
+          "intervencao": "Avaliar solução de ampliação do espaço de passagem e obter orçamento específico; custo atual é apenas referência provisória.",
+          "coletado_por": "Raphael Rios e Antonio Augusto Rodrigues Soares Júnior",
+          "data_coleta": "2026-10-21",
+          "codigo_piloto": "B03",
+          "base_estimativa": "Custo de referência pública conforme docs/estimativas_custo.md; estimativa preliminar, não orçamento do campus. Alcance diário preservado como hipótese do inventário histórico, sem contagem em campo. Classificação normativa pendente conforme matriz documental. Nota de alcance provisória calculada usando denominador histórico global de 1.600 pessoas/dia; revisar com denominador local quando disponível.",
+          "classificacao": "barreira",
+          "status_normativo": "pendente",
+          "origens": {
+            "medida": "PDF do piloto e complementos do grupo; conferência documental em dados/validacao_normativa.json",
+            "referencia_norma": "dados/validacao_normativa.json; valor numérico documental, aplicação ainda pendente",
+            "custo": "hipótese de R$ 2.800,00 do inventário histórico; sem cotação/comparável direto; placeholder de planejamento",
+            "pessoas_dia": "hipótese preservada do inventário histórico; não é contagem observada",
+            "usuarios_dia": "denominador estimado autorizado: fluxo total histórico de 1.600 pessoas/dia no prédio; aproximação global, não contagem local",
+            "nota_alcance": "proporção estimada pessoas_dia/1.600, convertida pela escala documentada em docs/criterios_e3.md"
+          },
+          "usuarios_dia": 1600,
+          "nota_alcance": 1
+        }
+      ],
       "subsetores": []
     },
     {
@@ -51,14 +230,74 @@
       "subsetores": [
         {
           "nome": "Elevador",
-          "barreiras": [],
+          "barreiras": [
+            {
+              "codigo": "ES-ELE-01",
+              "ambiente": "Elevador",
+              "tipo": "elevador_inadequado",
+              "descricao": "Elevador existente com dificuldade de uso observada; cabine informada de 1,32 m × 0,89 m. Tipo/modelo e requisitos específicos não confirmados.",
+              "medida": 0.89,
+              "unidade": "m",
+              "referencia_norma": null,
+              "gravidade": 3,
+              "pessoas_dia": 150,
+              "custo": 419555.0,
+              "intervencao": "Avaliar com mantenedora alternativas de ajuste; custo de modernização integral usado apenas como referência de ordem de grandeza.",
+              "coletado_por": "Raphael Rios e Antonio Augusto Rodrigues Soares Júnior",
+              "data_coleta": "2026-10-21",
+              "codigo_piloto": "B04",
+              "base_estimativa": "Custo de referência pública conforme docs/estimativas_custo.md; estimativa preliminar, não orçamento do campus. Alcance diário preservado como hipótese do inventário histórico, sem contagem em campo. Classificação normativa pendente conforme matriz documental. Nota de alcance provisória calculada usando denominador histórico global de 1.600 pessoas/dia; revisar com denominador local quando disponível.",
+              "classificacao": "barreira",
+              "status_normativo": "nao_avaliado",
+              "origens": {
+                "medida": "PDF do piloto e complementos do grupo; conferência documental em dados/validacao_normativa.json",
+                "referencia_norma": "dados/validacao_normativa.json; pendente de confirmação normativa",
+                "custo": "média de contratos públicos para modernização/substituição integral; ordem de grandeza, escopo diferente do problema observado",
+                "pessoas_dia": "hipótese preservada do inventário histórico; não é contagem observada",
+                "usuarios_dia": "denominador estimado autorizado: fluxo total histórico de 1.600 pessoas/dia no prédio; aproximação global, não contagem local",
+                "nota_alcance": "proporção estimada pessoas_dia/1.600, convertida pela escala documentada em docs/criterios_e3.md"
+              },
+              "usuarios_dia": 1600,
+              "nota_alcance": 1
+            }
+          ],
           "subsetores": []
         }
       ]
     },
     {
       "nome": "Áreas livres (Blocos A e B)",
-      "barreiras": [],
+      "barreiras": [
+        {
+          "codigo": "ES-ACE-01",
+          "ambiente": "Áreas livres (Blocos A e B)",
+          "tipo": "degrau_isolado",
+          "descricao": "Dois degraus de 11 cm na área livre do Bloco A inferior; passagem descrita como ampla e portas de correr.",
+          "medida": 22,
+          "unidade": "cm (desnível total informado)",
+          "referencia_norma": null,
+          "gravidade": 4,
+          "pessoas_dia": 640,
+          "custo": 5352.07,
+          "intervencao": "Avaliar rampa de acesso com projeto e verificação de espaço, patamares e drenagem; custo é estimativa geométrica.",
+          "coletado_por": "Raphael Rios e Antonio Augusto Rodrigues Soares Júnior",
+          "data_coleta": "2026-10-21",
+          "codigo_piloto": "B05",
+          "base_estimativa": "Custo de referência pública conforme docs/estimativas_custo.md; estimativa preliminar, não orçamento do campus. Alcance diário preservado como hipótese do inventário histórico, sem contagem em campo. Classificação normativa pendente conforme matriz documental. O custo considera rampa de 2,64 m a 8,33% calculada a partir dos 22 cm; conferir implantação e projeto. Nota de alcance provisória calculada usando denominador histórico global de 1.600 pessoas/dia; revisar com denominador local quando disponível.",
+          "classificacao": "barreira",
+          "status_normativo": "pendente",
+          "origens": {
+            "medida": "PDF do piloto e complementos do grupo; conferência documental em dados/validacao_normativa.json",
+            "referencia_norma": "dados/validacao_normativa.json; pendente de confirmação normativa",
+            "custo": "docs/estimativas_custo.md: referência pública estimativa; não é cotação do campus",
+            "pessoas_dia": "hipótese preservada do inventário histórico; não é contagem observada",
+            "usuarios_dia": "denominador estimado autorizado: fluxo total histórico de 1.600 pessoas/dia no prédio; aproximação global, não contagem local",
+            "nota_alcance": "proporção estimada pessoas_dia/1.600, convertida pela escala documentada em docs/criterios_e3.md"
+          },
+          "usuarios_dia": 1600,
+          "nota_alcance": 2
+        }
+      ],
       "subsetores": []
     },
     {
@@ -71,7 +310,37 @@
           "subsetores": [
             {
               "nome": "Portas",
-              "barreiras": [],
+              "barreiras": [
+                {
+                  "codigo": "ES-BRA-01",
+                  "ambiente": "Portas",
+                  "tipo": "sinalizacao_ausente",
+                  "descricao": "6 de 6 portas contabilizadas sem Braille; contagem não avaliou outras formas de identificação acessível.",
+                  "medida": 6,
+                  "unidade": "portas sem Braille",
+                  "referencia_norma": null,
+                  "gravidade": 3,
+                  "pessoas_dia": 200,
+                  "custo": 375.9,
+                  "intervencao": "Verificar identificação acessível equivalente e instalar até 6 placas em Braille se necessário; preço estimado pela referência pública.",
+                  "coletado_por": "Raphael Rios e Antonio Augusto Rodrigues Soares Júnior",
+                  "data_coleta": "2026-10-21",
+                  "codigo_piloto": "B06",
+                  "base_estimativa": "Custo de referência pública conforme docs/estimativas_custo.md; estimativa preliminar, não orçamento do campus. Alcance diário preservado como hipótese do inventário histórico, sem contagem em campo. Classificação normativa pendente conforme matriz documental. Nota de alcance provisória calculada usando denominador histórico global de 1.600 pessoas/dia; revisar com denominador local quando disponível.",
+                  "classificacao": "barreira",
+                  "status_normativo": "pendente",
+                  "origens": {
+                    "medida": "PDF do piloto e complementos do grupo; conferência documental em dados/validacao_normativa.json",
+                    "referencia_norma": "dados/validacao_normativa.json; pendente de confirmação normativa",
+                    "custo": "docs/estimativas_custo.md: referência pública estimativa; não é cotação do campus",
+                    "pessoas_dia": "hipótese preservada do inventário histórico; não é contagem observada",
+                    "usuarios_dia": "denominador estimado autorizado: fluxo total histórico de 1.600 pessoas/dia no prédio; aproximação global, não contagem local",
+                    "nota_alcance": "proporção estimada pessoas_dia/1.600, convertida pela escala documentada em docs/criterios_e3.md"
+                  },
+                  "usuarios_dia": 1600,
+                  "nota_alcance": 1
+                }
+              ],
               "subsetores": []
             }
           ]
@@ -82,7 +351,37 @@
           "subsetores": [
             {
               "nome": "Portas",
-              "barreiras": [],
+              "barreiras": [
+                {
+                  "codigo": "ES-BRA-07",
+                  "ambiente": "Portas",
+                  "tipo": "sinalizacao_ausente",
+                  "descricao": "7 de 9 portas contabilizadas sem Braille; contagem não avaliou outras formas de identificação acessível.",
+                  "medida": 7,
+                  "unidade": "portas sem Braille",
+                  "referencia_norma": null,
+                  "gravidade": 3,
+                  "pessoas_dia": 200,
+                  "custo": 438.55,
+                  "intervencao": "Verificar identificação acessível equivalente e instalar até 7 placas em Braille se necessário; preço estimado pela referência pública.",
+                  "coletado_por": "Raphael Rios e Antonio Augusto Rodrigues Soares Júnior",
+                  "data_coleta": "2026-10-21",
+                  "codigo_piloto": "B14",
+                  "base_estimativa": "Custo de referência pública conforme docs/estimativas_custo.md; estimativa preliminar, não orçamento do campus. Alcance diário preservado como hipótese do inventário histórico, sem contagem em campo. Classificação normativa pendente conforme matriz documental. Nota de alcance provisória calculada usando denominador histórico global de 1.600 pessoas/dia; revisar com denominador local quando disponível.",
+                  "classificacao": "barreira",
+                  "status_normativo": "pendente",
+                  "origens": {
+                    "medida": "PDF do piloto e complementos do grupo; conferência documental em dados/validacao_normativa.json",
+                    "referencia_norma": "dados/validacao_normativa.json; pendente de confirmação normativa",
+                    "custo": "docs/estimativas_custo.md: referência pública estimativa; não é cotação do campus",
+                    "pessoas_dia": "hipótese preservada do inventário histórico; não é contagem observada",
+                    "usuarios_dia": "denominador estimado autorizado: fluxo total histórico de 1.600 pessoas/dia no prédio; aproximação global, não contagem local",
+                    "nota_alcance": "proporção estimada pessoas_dia/1.600, convertida pela escala documentada em docs/criterios_e3.md"
+                  },
+                  "usuarios_dia": 1600,
+                  "nota_alcance": 1
+                }
+              ],
               "subsetores": []
             }
           ]
@@ -99,7 +398,37 @@
           "subsetores": [
             {
               "nome": "Portas",
-              "barreiras": [],
+              "barreiras": [
+                {
+                  "codigo": "ES-BRA-02",
+                  "ambiente": "Portas",
+                  "tipo": "sinalizacao_ausente",
+                  "descricao": "10 de 10 portas contabilizadas sem Braille; contagem não avaliou outras formas de identificação acessível.",
+                  "medida": 10,
+                  "unidade": "portas sem Braille",
+                  "referencia_norma": null,
+                  "gravidade": 3,
+                  "pessoas_dia": 200,
+                  "custo": 626.5,
+                  "intervencao": "Verificar identificação acessível equivalente e instalar até 10 placas em Braille se necessário; preço estimado pela referência pública.",
+                  "coletado_por": "Raphael Rios e Antonio Augusto Rodrigues Soares Júnior",
+                  "data_coleta": "2026-10-21",
+                  "codigo_piloto": "B07",
+                  "base_estimativa": "Custo de referência pública conforme docs/estimativas_custo.md; estimativa preliminar, não orçamento do campus. Alcance diário preservado como hipótese do inventário histórico, sem contagem em campo. Classificação normativa pendente conforme matriz documental. Nota de alcance provisória calculada usando denominador histórico global de 1.600 pessoas/dia; revisar com denominador local quando disponível.",
+                  "classificacao": "barreira",
+                  "status_normativo": "pendente",
+                  "origens": {
+                    "medida": "PDF do piloto e complementos do grupo; conferência documental em dados/validacao_normativa.json",
+                    "referencia_norma": "dados/validacao_normativa.json; pendente de confirmação normativa",
+                    "custo": "docs/estimativas_custo.md: referência pública estimativa; não é cotação do campus",
+                    "pessoas_dia": "hipótese preservada do inventário histórico; não é contagem observada",
+                    "usuarios_dia": "denominador estimado autorizado: fluxo total histórico de 1.600 pessoas/dia no prédio; aproximação global, não contagem local",
+                    "nota_alcance": "proporção estimada pessoas_dia/1.600, convertida pela escala documentada em docs/criterios_e3.md"
+                  },
+                  "usuarios_dia": 1600,
+                  "nota_alcance": 1
+                }
+              ],
               "subsetores": []
             }
           ]
@@ -110,7 +439,37 @@
           "subsetores": [
             {
               "nome": "Portas",
-              "barreiras": [],
+              "barreiras": [
+                {
+                  "codigo": "ES-BRA-08",
+                  "ambiente": "Portas",
+                  "tipo": "sinalizacao_ausente",
+                  "descricao": "8 de 9 portas contabilizadas sem Braille; contagem não avaliou outras formas de identificação acessível.",
+                  "medida": 8,
+                  "unidade": "portas sem Braille",
+                  "referencia_norma": null,
+                  "gravidade": 3,
+                  "pessoas_dia": 200,
+                  "custo": 501.2,
+                  "intervencao": "Verificar identificação acessível equivalente e instalar até 8 placas em Braille se necessário; preço estimado pela referência pública.",
+                  "coletado_por": "Raphael Rios e Antonio Augusto Rodrigues Soares Júnior",
+                  "data_coleta": "2026-10-21",
+                  "codigo_piloto": "B15",
+                  "base_estimativa": "Custo de referência pública conforme docs/estimativas_custo.md; estimativa preliminar, não orçamento do campus. Alcance diário preservado como hipótese do inventário histórico, sem contagem em campo. Classificação normativa pendente conforme matriz documental. Nota de alcance provisória calculada usando denominador histórico global de 1.600 pessoas/dia; revisar com denominador local quando disponível.",
+                  "classificacao": "barreira",
+                  "status_normativo": "pendente",
+                  "origens": {
+                    "medida": "PDF do piloto e complementos do grupo; conferência documental em dados/validacao_normativa.json",
+                    "referencia_norma": "dados/validacao_normativa.json; pendente de confirmação normativa",
+                    "custo": "docs/estimativas_custo.md: referência pública estimativa; não é cotação do campus",
+                    "pessoas_dia": "hipótese preservada do inventário histórico; não é contagem observada",
+                    "usuarios_dia": "denominador estimado autorizado: fluxo total histórico de 1.600 pessoas/dia no prédio; aproximação global, não contagem local",
+                    "nota_alcance": "proporção estimada pessoas_dia/1.600, convertida pela escala documentada em docs/criterios_e3.md"
+                  },
+                  "usuarios_dia": 1600,
+                  "nota_alcance": 1
+                }
+              ],
               "subsetores": []
             }
           ]
@@ -127,7 +486,37 @@
           "subsetores": [
             {
               "nome": "Portas",
-              "barreiras": [],
+              "barreiras": [
+                {
+                  "codigo": "ES-BRA-03",
+                  "ambiente": "Portas",
+                  "tipo": "sinalizacao_ausente",
+                  "descricao": "13 de 16 portas contabilizadas sem Braille; contagem não avaliou outras formas de identificação acessível.",
+                  "medida": 13,
+                  "unidade": "portas sem Braille",
+                  "referencia_norma": null,
+                  "gravidade": 3,
+                  "pessoas_dia": 200,
+                  "custo": 814.45,
+                  "intervencao": "Verificar identificação acessível equivalente e instalar até 13 placas em Braille se necessário; preço estimado pela referência pública.",
+                  "coletado_por": "Raphael Rios e Antonio Augusto Rodrigues Soares Júnior",
+                  "data_coleta": "2026-10-21",
+                  "codigo_piloto": "B08",
+                  "base_estimativa": "Custo de referência pública conforme docs/estimativas_custo.md; estimativa preliminar, não orçamento do campus. Alcance diário preservado como hipótese do inventário histórico, sem contagem em campo. Classificação normativa pendente conforme matriz documental. Nota de alcance provisória calculada usando denominador histórico global de 1.600 pessoas/dia; revisar com denominador local quando disponível.",
+                  "classificacao": "barreira",
+                  "status_normativo": "pendente",
+                  "origens": {
+                    "medida": "PDF do piloto e complementos do grupo; conferência documental em dados/validacao_normativa.json",
+                    "referencia_norma": "dados/validacao_normativa.json; pendente de confirmação normativa",
+                    "custo": "docs/estimativas_custo.md: referência pública estimativa; não é cotação do campus",
+                    "pessoas_dia": "hipótese preservada do inventário histórico; não é contagem observada",
+                    "usuarios_dia": "denominador estimado autorizado: fluxo total histórico de 1.600 pessoas/dia no prédio; aproximação global, não contagem local",
+                    "nota_alcance": "proporção estimada pessoas_dia/1.600, convertida pela escala documentada em docs/criterios_e3.md"
+                  },
+                  "usuarios_dia": 1600,
+                  "nota_alcance": 1
+                }
+              ],
               "subsetores": []
             }
           ]
@@ -144,7 +533,37 @@
           "subsetores": [
             {
               "nome": "Portas",
-              "barreiras": [],
+              "barreiras": [
+                {
+                  "codigo": "ES-BRA-05",
+                  "ambiente": "Portas",
+                  "tipo": "sinalizacao_ausente",
+                  "descricao": "5 de 8 portas contabilizadas sem Braille; contagem não avaliou outras formas de identificação acessível.",
+                  "medida": 5,
+                  "unidade": "portas sem Braille",
+                  "referencia_norma": null,
+                  "gravidade": 3,
+                  "pessoas_dia": 200,
+                  "custo": 313.25,
+                  "intervencao": "Verificar identificação acessível equivalente e instalar até 5 placas em Braille se necessário; preço estimado pela referência pública.",
+                  "coletado_por": "Raphael Rios e Antonio Augusto Rodrigues Soares Júnior",
+                  "data_coleta": "2026-10-21",
+                  "codigo_piloto": "B10",
+                  "base_estimativa": "Custo de referência pública conforme docs/estimativas_custo.md; estimativa preliminar, não orçamento do campus. Alcance diário preservado como hipótese do inventário histórico, sem contagem em campo. Classificação normativa pendente conforme matriz documental. Nota de alcance provisória calculada usando denominador histórico global de 1.600 pessoas/dia; revisar com denominador local quando disponível.",
+                  "classificacao": "barreira",
+                  "status_normativo": "pendente",
+                  "origens": {
+                    "medida": "PDF do piloto e complementos do grupo; conferência documental em dados/validacao_normativa.json",
+                    "referencia_norma": "dados/validacao_normativa.json; pendente de confirmação normativa",
+                    "custo": "docs/estimativas_custo.md: referência pública estimativa; não é cotação do campus",
+                    "pessoas_dia": "hipótese preservada do inventário histórico; não é contagem observada",
+                    "usuarios_dia": "denominador estimado autorizado: fluxo total histórico de 1.600 pessoas/dia no prédio; aproximação global, não contagem local",
+                    "nota_alcance": "proporção estimada pessoas_dia/1.600, convertida pela escala documentada em docs/criterios_e3.md"
+                  },
+                  "usuarios_dia": 1600,
+                  "nota_alcance": 1
+                }
+              ],
               "subsetores": []
             }
           ]
@@ -155,12 +574,43 @@
           "subsetores": [
             {
               "nome": "Portas",
-              "barreiras": [],
+              "barreiras": [
+                {
+                  "codigo": "ES-BRA-06",
+                  "ambiente": "Portas",
+                  "tipo": "sinalizacao_ausente",
+                  "descricao": "3 de 9 portas contabilizadas sem Braille; contagem não avaliou outras formas de identificação acessível.",
+                  "medida": 3,
+                  "unidade": "portas sem Braille",
+                  "referencia_norma": null,
+                  "gravidade": 3,
+                  "pessoas_dia": 200,
+                  "custo": 187.95,
+                  "intervencao": "Verificar identificação acessível equivalente e instalar até 3 placas em Braille se necessário; preço estimado pela referência pública.",
+                  "coletado_por": "Raphael Rios e Antonio Augusto Rodrigues Soares Júnior",
+                  "data_coleta": "2026-10-21",
+                  "codigo_piloto": "B11",
+                  "base_estimativa": "Custo de referência pública conforme docs/estimativas_custo.md; estimativa preliminar, não orçamento do campus. Alcance diário preservado como hipótese do inventário histórico, sem contagem em campo. Classificação normativa pendente conforme matriz documental. Nota de alcance provisória calculada usando denominador histórico global de 1.600 pessoas/dia; revisar com denominador local quando disponível.",
+                  "classificacao": "barreira",
+                  "status_normativo": "pendente",
+                  "origens": {
+                    "medida": "PDF do piloto e complementos do grupo; conferência documental em dados/validacao_normativa.json",
+                    "referencia_norma": "dados/validacao_normativa.json; pendente de confirmação normativa",
+                    "custo": "docs/estimativas_custo.md: referência pública estimativa; não é cotação do campus",
+                    "pessoas_dia": "hipótese preservada do inventário histórico; não é contagem observada",
+                    "usuarios_dia": "denominador estimado autorizado: fluxo total histórico de 1.600 pessoas/dia no prédio; aproximação global, não contagem local",
+                    "nota_alcance": "proporção estimada pessoas_dia/1.600, convertida pela escala documentada em docs/criterios_e3.md"
+                  },
+                  "usuarios_dia": 1600,
+                  "nota_alcance": 1
+                }
+              ],
               "subsetores": []
             }
           ]
         }
       ]
     }
-  ]
+  ],
+  "nota_custos": "Custos estimados a partir de docs/estimativas_custo.md (referências públicas consultadas em 12/11/2026); não são cotações do campus. B01/B02 usam limite inferior publicado como cenário; B03 usa estimativa preliminar de R$ 2.800 por porta preservada do inventário histórico por não haver comparável direto; B04 modernização integral como ordem de grandeza; B05 cálculo geométrico; Braille usa R$ 62,65/placa; B12 uma mesa; B13 um teclado."
 }

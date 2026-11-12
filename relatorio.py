@@ -7,7 +7,7 @@ from math import isclose
 from pathlib import Path
 
 from coleta import validar_setor
-from ordenacao import bubble_sort, calcular_indices, confere_com_o_python
+from ordenacao import bubble_sort, selection_sort, insertion_sort, calcular_indices, confere_com_o_python
 from recursao import achatar, contar_barreiras, custo_total, profundidade, resumo_hierarquico
 
 
@@ -39,8 +39,8 @@ def conferir_inventario(setor, esperado=15):
     if erros:
         return erros
     registros = achatar(setor)
-    if len(registros) != esperado:
-        erros.append(f'Quantidade: esperadas {esperado} barreiras, encontradas {len(registros)}.')
+    if len(registros) < esperado:
+        erros.append(f'Quantidade: mínimo de {esperado} barreiras, encontradas {len(registros)}.')
     codigos = []
     pilotos = []
     grupos = {}
@@ -62,8 +62,11 @@ def conferir_inventario(setor, esperado=15):
             codigo = f'B{i:02}'
             if pilotos.count(codigo) != 1:
                 erros.append(f'Cobertura do piloto: {codigo} deve aparecer uma vez.')
-        if len(pilotos) != 15:
-            erros.append('Cobertura do piloto: esperados 15 códigos de origem.')
+        # Novos registros podem ampliar o inventário além dos 15 itens do piloto.
+    if len(grupos) < 3:
+        erros.append('Cobertura: mínimo de 3 ambientes com barreiras.')
+    if profundidade(setor) < 2:
+        erros.append('Hierarquia: mínimo de 2 níveis.')
     quantidade = sum(grupo['quantidade'] for grupo in grupos.values())
     total = sum((grupo['custo'] for grupo in grupos.values()), Decimal('0'))
     if quantidade != contar_barreiras(setor):
@@ -87,14 +90,15 @@ def matriz_ambiente_tipo(registros):
     return ambientes, tipos, matriz
 
 
-def texto_ranking(setor, pesos):
+def texto_ranking(setor, pesos, algoritmo="bubble"):
+    algoritmos = {"bubble": bubble_sort, "selection": selection_sort, "insertion": insertion_sort}
     """Gerar tabela e detalhes com as hipóteses originais, sem alterar dados."""
     registros = achatar(setor)
     calcular_indices(registros, pesos)
-    ranking, comparacoes, trocas = bubble_sort(registros)
+    ranking, comparacoes, trocas = algoritmos[algoritmo](registros)
     if not confere_com_o_python(ranking, 'indice', False):
         raise ValueError('Falha na conferência do ranking.')
-    linhas = ['RANKING — Bubble Sort próprio; empate por código crescente',
+    linhas = [f'RANKING — {algoritmo.title()} Sort próprio; empate por código crescente',
               f'Pesos provisórios: gravidade={pesos["gravidade"]}, pessoas/dia={pesos["pessoas_dia"]}',
               'Origens: veja custo, alcance e medida nos detalhes de cada registro.',
               f'{"Pos":>3}  {"Código":<16} {"Grav.":>5} {"Pessoas/dia":>11} {"Custo":>18} {"Índice":>12}']
@@ -132,9 +136,16 @@ def texto_resumo(setor, esperado=15):
         grupo[1] += Decimal(str(registro['custo']))
     for caminho, (quantidade, custo) in grupos.items():
         linhas.append(f'{caminho}: {quantidade} barreiras | {reais(custo)}')
+    linhas.append('\nA3 — TOTAIS POR SUBSETOR DE PRIMEIRO NÍVEL')
+    for filho in setor['subsetores']:
+        linhas.append(f"{filho['nome']}: {contar_barreiras(filho)} barreiras | {reais(custo_total(filho))}")
+    registros = achatar(setor)
+    if registros:
+        graves, _, _ = bubble_sort(registros, 'gravidade', False)
+        linhas.append(f"Barreira mais grave (empate por código): {graves[0]['codigo']} | {graves[0]['caminho']}")
     erros = conferir_inventario(setor, esperado)
     linhas.append('\nCONFERÊNCIAS')
-    linhas.extend(erros or [f'OK: {esperado} códigos únicos; contagens e custos por ambientes conferem com o total.'])
+    linhas.extend(erros or [f'OK: {contar_barreiras(setor)} códigos únicos; contagens e custos por ambientes conferem com o total.'])
     linhas.append('Consistência dos dados não comprova medições, cotações ou conformidade normativa.')
     return '\n'.join(linhas)
 
@@ -144,11 +155,12 @@ def gerar_relatorio(setor, pesos, esperado=15):
     ranking, _ = texto_ranking(setor, pesos)
     registros = achatar(setor)
     ambientes, tipos, matriz = matriz_ambiente_tipo(registros)
-    linhas = ['Campus Acessível — relatório E3',
+    linhas = ['Campus Acessível — relatório de análise',
               'Valores podem ser estimados, fictícios ou ter origem não informada. Consulte os detalhes.',
               texto_resumo(setor, esperado), ranking, '\nMATRIZ AMBIENTE × TIPO', 'Ambiente | ' + ' | '.join(tipos)]
     for ambiente, linha in zip(ambientes, matriz):
         linhas.append(ambiente + ' | ' + ' | '.join(str(valor) for valor in linha))
+    linhas.extend([texto_desempenho(setor, pesos), texto_sensibilidade(setor, pesos)])
     return '\n\n'.join(linhas) + '\n'
 
 
@@ -157,3 +169,65 @@ def exportar_relatorio(caminho, setor, pesos, esperado=15):
     texto = gerar_relatorio(setor, pesos, esperado)
     with Path(caminho).open('x', encoding='utf-8') as arquivo:
         arquivo.write(texto)
+
+
+def texto_desempenho(setor, pesos):
+    """A1 e A2: contagens observadas, sem inventar conclusões."""
+    from busca import busca_sequencial, busca_binaria_iterativa, busca_binaria_recursiva
+    registros = achatar(setor)
+    calcular_indices(registros, pesos)
+    linhas = ['A1 — tamanho | entrada | algoritmo | comparações | trocas']
+    tamanhos = []
+    for tamanho in (len(registros) // 3, 2 * len(registros) // 3, len(registros)):
+        if tamanho > 0 and tamanho not in tamanhos:
+            tamanhos.append(tamanho)
+    for tamanho in tamanhos:
+        base = registros[:tamanho]
+        ordenada, _, _ = bubble_sort(base)
+        for nome, entrada in (('coleta', base), ('ordenada', ordenada), ('inversa', ordenada[::-1])):
+            for algoritmo in (bubble_sort, selection_sort, insertion_sort):
+                _, comparacoes, trocas = algoritmo(entrada)
+                linhas.append(f'{tamanho} | {nome} | {algoritmo.__name__} | {comparacoes} | {trocas}')
+    por_codigo, comparacoes, trocas = bubble_sort(registros, 'codigo', True)
+    linhas.append(f'\nA2 — preparo por código: {comparacoes} comparações, {trocas} trocas')
+    if por_codigo:
+        codigos = [por_codigo[0]['codigo'], por_codigo[len(por_codigo)//2]['codigo'],
+                   por_codigo[-1]['codigo'], por_codigo[len(por_codigo)//3]['codigo']]
+        ausente = '__AUSENTE__'
+        while busca_sequencial(por_codigo, ausente)[0] != -1:
+            ausente += '_'
+        codigos.append(ausente)
+        for codigo in codigos:
+            for busca in (busca_sequencial, busca_binaria_iterativa, busca_binaria_recursiva):
+                posicao, contagem = busca(por_codigo, codigo)
+                linhas.append(f'{codigo} | {busca.__name__} | posição={posicao} | comparações={contagem}')
+    return '\n'.join(linhas)
+
+
+def texto_sensibilidade(setor, pesos):
+    """A5: comparar top 10 com cada peso dobrado, sem alterar o inventário."""
+    linhas = ['A5 — sensibilidade dos pesos provisórios']
+    for nome, usados in (('original', pesos),
+                         ('gravidade dobrada', dict(pesos, gravidade=2 * pesos['gravidade'])),
+                         ('alcance dobrado', dict(pesos, pessoas_dia=2 * pesos['pessoas_dia']))):
+        registros = achatar(setor)
+        calcular_indices(registros, usados)
+        ranking, _, _ = bubble_sort(registros)
+        linhas.append(nome + ': ' + ', '.join(item['codigo'] for item in ranking[:10]))
+    return '\n'.join(linhas)
+
+
+def texto_planos(setor, pesos, orcamentos, permitir_grande=False):
+    """A4: comparar orçamentos informados, evitando busca exponencial silenciosa."""
+    from recursao import pacote_guloso, melhor_pacote_exaustivo, preparar_pacote
+    registros = achatar(setor)
+    linhas = ['A4 — orçamento | estratégia | benefício | custo | itens | chamadas | códigos']
+    for teto in orcamentos:
+        candidatos, _ = preparar_pacote(registros, teto, pesos)
+        for nome, algoritmo in (('guloso', pacote_guloso), ('exaustivo', melhor_pacote_exaustivo)):
+            if nome == 'exaustivo' and len(candidatos) > 20 and not permitir_grande:
+                linhas.append(f'{teto}: exaustiva não executada: {len(candidatos)} candidatos (>20).')
+                continue
+            beneficio, custo, codigos, chamadas = algoritmo(registros, teto, pesos)
+            linhas.append(f'{teto} | {nome} | {beneficio} | {custo:.2f} | {len(codigos)} | {chamadas} | {codigos}')
+    return '\n'.join(linhas)

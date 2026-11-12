@@ -97,14 +97,16 @@ def importar_ficha_campo(caminho):
                 return [], [f'Cabeçalho ausente ou duplicado: {campo}.']
         for linha, registro in enumerate(leitor, 2):
             problemas = []
+            if None in registro:
+                problemas.append('Quantidade de campos maior que o cabeçalho.')
             for campo in NUMEROS:
                 try:
                     registro[campo] = (int(registro[campo]) if campo in
-                                       ('gravidade', 'pessoas_dia') else float(registro[campo]))
+                                       ('gravidade', 'pessoas_dia') else float(str(registro[campo]).replace(',', '.')))
                 except (TypeError, ValueError):
                     problemas.append(f'{campo}: número inválido.')
             caminho_no = registro.get('caminho') or ''
-            partes = [parte.strip() for parte in caminho_no.split('/')]
+            partes = [parte.strip() for parte in caminho_no.replace('>', '/').split('/')]
             if len(partes) < 2 or any(not parte for parte in partes):
                 problemas.append('caminho: informe setor/ambiente sem partes vazias.')
             elif partes[-1] != registro.get('ambiente'):
@@ -164,3 +166,53 @@ def ler_inventario(caminho):
     if erros:
         raise ValueError('\n'.join(erros))
     return setor
+
+
+def alterar_barreira(setor, acao, codigo=None, registro=None, caminho=None):
+    """Devolver cópia validada; nunca modificar o inventário em caso de falha.
+
+    Cadastro/edição recebem um registro completo e o caminho do nó existente.
+    Na edição, metadados antigos são preservados se não forem substituídos.
+    """
+    import copy
+    novo = copy.deepcopy(setor)
+    if acao not in ('cadastrar', 'editar', 'remover'):
+        raise ValueError('Ação inválida.')
+    erros = validar_setor(novo)
+    if erros:
+        raise ValueError('; '.join(erros))
+    encontrado = None
+    destino = None
+    caminho = caminho.replace('>', '/') if isinstance(caminho, str) else caminho
+    if caminho:
+        caminho = '/'.join(parte.strip() for parte in caminho.split('/'))
+    pilha = [(novo, novo['nome'])]
+    while pilha:
+        no, atual = pilha.pop()
+        if atual == caminho:
+            destino = no
+        for posicao, item in enumerate(no['barreiras']):
+            if item['codigo'] == codigo:
+                encontrado = (no, posicao)
+        for filho in no['subsetores']:
+            pilha.append((filho, atual + '/' + filho['nome']))
+    if acao != 'cadastrar' and encontrado is None:
+        raise ValueError('Código não encontrado.')
+    if acao != 'remover':
+        if destino is None:
+            raise ValueError('Caminho de destino não encontrado na árvore.')
+        if not isinstance(registro, dict):
+            raise ValueError('Registro deve ser um objeto JSON.')
+        item = dict(encontrado[0]['barreiras'][encontrado[1]]) if acao == 'editar' else {}
+        item.update(registro)
+        item['ambiente'] = destino['nome']
+        if 'caminho' in item:
+            item['caminho'] = caminho
+    if acao != 'cadastrar':
+        del encontrado[0]['barreiras'][encontrado[1]]
+    if acao != 'remover':
+        destino['barreiras'].append(item)
+    erros = validar_setor(novo)
+    if erros:
+        raise ValueError('; '.join(erros))
+    return novo

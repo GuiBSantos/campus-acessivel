@@ -6,7 +6,7 @@ Projeto acadêmico da disciplina **Construção de Algoritmos e Programação**,
 
 Este repositório reúne o desenvolvimento de um sistema em Python e a documentação de um levantamento de barreiras de acessibilidade. A proposta é transformar medidas coletadas pelo grupo em uma recomendação justificável: quais intervenções executar, em que ordem e dentro de qual orçamento.
 
-> **Estado do projeto:** MVP técnico da E3 implementado: validação, CSV, JSON, percursos recursivos, resumo hierárquico e ranking com Bubble Sort próprio. A demonstração usa o inventário de 15 registros fornecido pelo grupo, preservando estimativas e hipóteses. O inventário real ainda depende de conciliação e valores confirmados. Veja [critérios da E3](docs/criterios_e3.md), [pendências do piloto](docs/pendencias_piloto.md) e [caderno de bordo](docs/caderno_de_bordo.md).
+> **Estado do projeto (12/11/2026):** algoritmos de busca, ordenação e seleção de pacotes implementados e integrados ao menu, junto da coleta, recursão e relatórios. Os dados do grupo foram preservados, incluindo hipóteses e estimativas. Isso não torna o inventário validado nem a entrega acadêmica concluída. Consulte a [revisão técnica](docs/revisao_2026-11-12.md), as [pendências de campo](docs/pendencias_piloto.md) e o [caderno de bordo](docs/caderno_de_bordo.md).
 
 ## O problema que queremos resolver
 
@@ -36,7 +36,7 @@ Nosso trabalho será registrar as barreiras encontradas, estimar o impacto e o c
 
 O inventário final deverá conter pelo menos **15 barreiras**, distribuídas em **3 ambientes** e **2 níveis de hierarquia**. Cada barreira terá uma medida com unidade e uma foto identificada pelo seu código.
 
-## Funcionalidades previstas
+## Funcionalidades implementadas
 
 - Importação da ficha de campo, com campos separados por ponto e vírgula.
 - Cadastro, edição, remoção e validação de barreiras.
@@ -48,9 +48,9 @@ O inventário final deverá conter pelo menos **15 barreiras**, distribuídas em
 - Comparação entre seleção gulosa e busca exaustiva sob um teto de orçamento.
 - Exibição de contadores dos algoritmos e exportação de relatório em texto.
 
-## Organização prevista do repositório
+## Organização do repositório
 
-Os seis módulos Python estão na raiz. Coleta, percursos recursivos e Bubble Sort estão implementados; buscas, demais ordenações, seleção de pacotes e relatórios finais continuam pendentes. As pastas abaixo já contêm orientações para receber os dados e as entregas.
+Os seis módulos Python estão na raiz. Coleta, percursos recursivos, três buscas, três ordenações e seleção de pacotes estão implementados. O relatório técnico final em PDF e as evidências de campo permanecem pendentes. As pastas abaixo já contêm orientações para receber os dados e as entregas.
 
 | Arquivo ou pasta | Responsabilidade |
 | --- | --- |
@@ -129,7 +129,7 @@ O escopo da disciplina não permite bibliotecas externas, interface gráfica ou 
 
 `sorted()`, `list.sort()`, `min()`, `max()` e o operador `in` não poderão substituir os algoritmos exigidos. O uso de `sorted()` será restrito à função separada de conferência `confere_com_o_python`, conforme o enunciado.
 
-## Execução do MVP E3
+## Execução
 
 Na raiz do repositório, sem instalar pacotes:
 
@@ -185,7 +185,7 @@ O relatório técnico terá de 4 a 6 páginas e será organizado em cinco achado
 | A4 — Otimização | Comparação gulosa × exaustiva em pelo menos quatro orçamentos, análise de divergência e crescimento das chamadas recursivas |
 | A5 — Decisão | Justificativa do índice e análise das dez primeiras posições ao dobrar separadamente os pesos da gravidade e do alcance |
 
-Os resultados ainda não estão disponíveis nesta versão. A recomendação final será registrada após a validação dos dados e a execução dessas análises.
+As tabelas A1, A2, A3 e A5 podem ser geradas pelo sistema. A opção 11 compara e exporta A4 para os orçamentos informados. O grupo ainda deve interpretar os números, analisar a escalabilidade da exaustiva e justificar a recomendação final com dados validados.
 
 ## Colaboração do grupo
 
@@ -215,7 +215,7 @@ As datas acima reproduzem o planejamento do documento-base; não indicam que as 
 
 ## Checklist do pacote final
 
-- [ ] Seis módulos Python implementados e integrados.
+- [x] Seis módulos Python implementados e integrados (ver limites na revisão técnica).
 - [ ] Inventário JSON com pelo menos 15 barreiras, 3 ambientes e 2 níveis.
 - [ ] Ficha de campo preenchida e assinada pelo grupo.
 - [ ] Uma foto por barreira, identificada pelo código.
@@ -240,3 +240,39 @@ As opções 4 e 5 conferem quantidade esperada, códigos únicos, cobertura do p
 quando informada, contagens e custos por ambiente contra o total recursivo.
 Consulte o [roteiro da apresentação](docs/apresentacao_e3.md) para executar,
 explicar os casos base e entender o que ainda falta para a E4.
+
+
+## Operações adicionadas na revisão de 12/11
+
+As opções 1 a 8 foram preservadas para compatibilidade com o roteiro E3.
+
+| Opção | Operação |
+| --- | --- |
+| 9 | Buscar código; escolher sequencial, binária iterativa ou recursiva |
+| 10 | Exibir matriz ambiente × tipo |
+| 11 | Comparar guloso × exaustivo para orçamentos separados por `;` e exportar A4 |
+| 12 | Exibir desempenho A1/A2 e sensibilidade A5 |
+| 13 | Escolher Bubble, Selection ou Insertion para o ranking |
+| 14 | Cadastrar, editar ou remover registro em ambiente existente |
+| 15 | Salvar inventário alterado em novo arquivo JSON |
+
+Na opção 14, informe o caminho completo de um ambiente existente e um objeto
+JSON de registro. Na edição, podem ser informados apenas os campos alterados;
+os metadados restantes são preservados. Alterações ficam em memória até salvar
+pela opção 15. Não há criação interativa de novos ambientes: use a importação
+CSV ou a árvore JSON para expandir a hierarquia.
+
+A busca exaustiva é ignorada acima de 20 candidatos até confirmação explícita.
+Orçamentos e custos de pacotes aceitam até duas casas decimais; o cálculo do
+limite usa centavos inteiros. A4 aceita qualquer quantidade de tetos, mas o
+relatório acadêmico requer pelo menos quatro. Não há garantia de que a base
+apresente divergência entre as estratégias; os resultados devem ser observados.
+
+CSV aceita caminhos com `/` ou `>` e decimais com ponto ou vírgula. O relatório
+exportado pela opção 8 inclui A1/A2/A3/A5, e a opção 11 exporta A4 separadamente.
+
+Execute a verificação automatizada com:
+
+```bash
+python -m unittest discover -s tests -v
+```

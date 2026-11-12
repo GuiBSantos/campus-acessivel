@@ -24,6 +24,6 @@ UTF-8, campos separados por ponto e vírgula nesta ordem:
 caminho;codigo;ambiente;tipo;descricao;medida;unidade;referencia_norma;gravidade;pessoas_dia;custo;intervencao;coletado_por;data_coleta
 ```
 
-O caminho contém setor e ambiente, separados por `/`. Para preservar origens
+O caminho contém setor e ambiente, separados por `/` ou `>`. Decimais aceitam ponto ou vírgula. Para preservar origens
 por campo e hipóteses detalhadas, prefira JSON. O CSV básico não contém esses
 metadados e a saída marca a origem como não informada.

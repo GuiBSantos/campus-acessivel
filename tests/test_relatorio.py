@@ -51,7 +51,7 @@ class Relatorio(unittest.TestCase):
             if i == 0:
                 setor = dict(nome='Raiz', barreiras=[], subsetores=[])
             setor['barreiras'].append(r)
-        self.assertEqual(conferir_inventario(setor), [])
+        self.assertEqual(len(conferir_inventario(setor)), 2)  # Falta cobertura e hierarquia.
         setor['barreiras'][1]['codigo_piloto'] = 'B01'
         erros = conferir_inventario(setor)
         self.assertTrue(any('B01' in e for e in erros))

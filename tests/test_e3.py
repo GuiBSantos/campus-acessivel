@@ -124,7 +124,7 @@ class E3(unittest.TestCase):
         crescente = bubble_sort(registros, crescente=True)[0]
         self.assertEqual([r['codigo'] for r in crescente],
                          ['DEMO-TESTE-03', 'DEMO-TESTE-04', 'DEMO-TESTE-01', 'DEMO-TESTE-02'])
-        self.assertEqual((comparacoes, trocas), (5, 2))
+        self.assertEqual((comparacoes, trocas), (6, 2))
         self.assertGreater(comparacoes, 0)
         self.assertGreater(trocas, 0)
         for crescente in (True, False):
@@ -154,7 +154,7 @@ class E3(unittest.TestCase):
     def test_menu_full_flow_and_recovery(self):
         with tempfile.TemporaryDirectory() as pasta:
             ausente = str(Path(pasta) / 'ausente.json')
-            roteiro = f'5\n9\n1\n2\n{ausente}\n4\n5\n6\n7\n0\n'
+            roteiro = f'5\n99\n1\n2\n{ausente}\n4\n5\n6\n7\n0\n'
             result = subprocess.run([sys.executable, str(BASE / 'main.py')],
                                     input=roteiro, text=True, capture_output=True, cwd=pasta)
             self.assertEqual(result.returncode, 0, result.stderr)

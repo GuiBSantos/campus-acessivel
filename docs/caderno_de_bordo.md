@@ -68,3 +68,18 @@ A preencher com um defeito real, a execução ou teste que o revelou e a correç
 - Com apoio de IA, removidos os dois JSONs intermediários e movido o exemplo fictício para a pasta de testes. Histórico anterior preservado no Git.
 - Menu (opção 1) e `--demo` agora usam `dados/inventario.json`, com 15 registros. Hipóteses e estimativas continuam explícitas.
 - Documentação e testes atualizados; essa limpeza não constitui revisão de campo dos valores.
+
+
+## 12/11/2026 — Revisão do estado atual e correções
+
+- Solicitação: Guilherme pediu análise do projeto e mudanças necessárias.
+- Ferramenta de IA: Codex/ChatGPT revisou o commit atual, implementou os
+  algoritmos pendentes, CRUD, integração e testes, sem alterar o inventário.
+- Defeito reproduzível: `confere_com_o_python` aplicava negação numérica à chave
+  textual `codigo` em ordem decrescente, causando TypeError. Correção: comparação
+  de referência estável que funciona com texto e números. Evidência automatizada:
+  `test_ordenacoes_permutacoes_empates_imutabilidade_e_contadores`.
+- Verificação: 31 testes passaram. Convenções dos contadores foram documentadas.
+- Retorno da IA: código e revisão técnica em `docs/revisao_2026-11-12.md`.
+- Alterações e justificativas humanas sobre esse retorno: pendentes de registro
+  pelos integrantes. Não se presume aprovação dos critérios nem coleta adicional.

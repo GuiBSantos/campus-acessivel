@@ -36,18 +36,11 @@ def conferir_inventario(setor, esperado=15):
     registros = achatar(setor)
     oportunidades = [registro for registro in registros
                      if registro.get('classificacao') == 'oportunidade_melhoria']
-    if oportunidades:
-        candidatos = len(registros) - len(oportunidades)
-        codigos = ', '.join(registro['codigo'] for registro in oportunidades)
-        erros.append(f'Classificacao: {codigos} e oportunidade de melhoria e nao conta '
-                     f'como barreira comprovada; {candidatos} candidatos restantes, '
-                     'ainda sujeitos a validacao de campo.')
-        if candidatos < esperado:
-            erros.append(f'Quantidade elegivel: minimo de {esperado} barreiras; '
-                         f'{candidatos} candidatos apos excluir oportunidades. '
-                         f'Faltam pelo menos {esperado - candidatos} ocorrencias comprovadas.')
-    if len(registros) < esperado:
-        erros.append(f'Quantidade: mínimo de {esperado} barreiras, encontradas {len(registros)}.')
+    elegiveis = len(registros) - len(oportunidades)
+    if elegiveis < esperado:
+        erros.append(f'Quantidade elegível: mínimo de {esperado} barreiras; '
+                     f'{elegiveis} após excluir {len(oportunidades)} oportunidades de melhoria. '
+                     f'Faltam pelo menos {esperado - elegiveis} ocorrências comprovadas.')
     codigos = []
     pilotos = []
     grupos = {}
@@ -120,6 +113,8 @@ def texto_ranking(setor, pesos, algoritmo="bubble"):
                        f'Alcance: {registro["pessoas_dia"]} pessoas/dia | origem: {origem_campo(registro, "pessoas_dia")}',
                        f'Medida: {registro["medida"]} {registro["unidade"]} | origem: {origem_campo(registro, "medida")}',
                        f'Intervenção: {registro["intervencao"]}'])
+        if registro.get('status_normativo') == 'nao_avaliado':
+            linhas.append('Referência normativa: não avaliada; classificação baseada em observação de uso.')
         if registro.get('base_estimativa'):
             linhas.append('Hipóteses / base da estimativa: ' + registro['base_estimativa'])
     return '\n'.join(linhas), ranking
@@ -134,6 +129,11 @@ def texto_resumo(setor, esperado=15):
               f'Total: {contar_barreiras(setor)} barreiras | {reais(custo_total(setor))}',
               'Custos consolidados podem incluir estimativas ou dados fictícios; consulte as origens nos detalhes.',
               '\nTOTAIS LOCAIS POR AMBIENTE (sem duplicar subtotais)']
+    oportunidades = [registro for registro in achatar(setor)
+                     if registro.get('classificacao') == 'oportunidade_melhoria']
+    if oportunidades:
+        codigos = ', '.join(registro['codigo'] for registro in oportunidades)
+        linhas.insert(4, f'Oportunidades de melhoria excluídas da contagem mínima de barreiras: {codigos}.')
     grupos = {}
     for registro in achatar(setor):
         grupo = grupos.setdefault(registro['caminho'], [0, Decimal('0')])

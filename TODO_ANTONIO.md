@@ -4,38 +4,42 @@ Atualizado em 12/11/2026, conforme o código e a documentação disponíveis.
 
 ## Situação atual
 
-- O contrato operacional exige `referencia_norma` numérica, finita e não negativa. A validação e a importação CSV rejeitam referências vazias, `null`, textos e pendências normativas explícitas.
-- O inventário operacional está **sem barreiras**. A hierarquia foi preservada, mas os 15 registros anteriores foram separados em [registros_pendentes.json](dados/registros_pendentes.json). Nenhum estava integralmente confirmado; eles não participam do ranking atual.
-- Separar registros pendentes não resolve a coleta nem comprova o mínimo exigido. Não preencher lacunas com zero, números presumidos ou ocorrências duplicadas.
-- A última execução registrada da suíte passou com **32 testes**. Isso verifica o software, não a validade das medições ou das decisões do grupo.
+- O PDF `Campus_Acessivel_Grupo5_Inventario_Piloto (2)..pdf` contém 15 registros preliminares e medições de campo; ainda não foi convertido para `dados/inventario.json`.
+- O contrato exige referência numérica quando há critério dimensional aplicável. B04 pode ser registrado como observação de uso (`elevador_inadequado`, `status_normativo: nao_avaliado`, referência `null`) sem alegar infração normativa.
+- `dados/inventario.json` continua com a hierarquia vazia. Não há `dados/registros_pendentes.json` no checkout atual; este TODO não deve afirmar que esse arquivo existe.
+- B01/B02 têm comprimentos, larguras e ângulo de aproximadamente 7° medido em campo, confirmado pelo grupo como dado observado. `tan(7°) × 100` resulta em aproximadamente 12,3%; desnível e projeção derivados da geometria permanecem estimativas, não medições adicionais.
+- Antonio aprovou registrar B03 como oportunidade de melhoria de conforto, com gravidade baixa, sem chamá-la de não conformidade; e B04 como elevador existente inadequado ao uso observado, sem classificá-lo como ausente.
+- Permanecem pendentes a medida de B05, a contagem total de portas em B06–B11/B14–B15, a conferência das quantidades/recursos do laboratório e a inclusão das fotos no repositório.
+- A suíte atual passou com **36 testes** após as alterações descritas abaixo; isso verifica o software, não a validade das medições ou decisões do grupo.
 
 ## 1. Validar o inventário — pendente
 
-- [ ] Obter o PDF original do piloto, fichas e fotos identificadas por código.
+- [x] Obter e ler o PDF do inventário de 15 registros; converter os dados para o inventário operacional ainda está pendente.
 - [ ] Conferir medidas, unidades, locais, datas e responsáveis de cada ocorrência.
-- [ ] Resolver as divergências descritas em [validação do piloto](docs/validacao_dados_piloto.md) e [validação normativa](docs/validacao_normativa.md).
-- [ ] Confirmar segmentos, desníveis e inclinações de B01/B02. O limite de 6,25% de B01 continua condicional.
-- [ ] Identificar o equipamento de B04 e medir o obstáculo de B05; não usar o degrau hipotético de 15 cm.
-- [ ] Contar as portas e verificar a identificação completa dos acessos de B06–B11 e B14–B15.
-- [ ] Verificar mobiliário, equipamentos e demanda de B12/B13; as contagens atuais não comprovam insuficiência.
+- [ ] Resolver as divergências registradas em [pendencias_piloto.md](docs/pendencias_piloto.md) e [validacao_normativa.md](docs/validacao_normativa.md); `docs/validacao_dados_piloto.md` não existe no checkout.
+- [ ] B04 é elevador existente. Identificar tipo/modelo somente se forem afirmar conformidade normativa; registrar separadamente o desconforto e a dependência de ajuda observados.
+- [ ] Medir e descrever o vão/desnível que impede o acesso em B05; a intervenção precisa de uma dimensão observada.
+- [ ] Contar o total de portas verificadas, além das portas identificadas, em B06–B11 e B14–B15.
+- [ ] Confirmar o total de computadores do laboratório e registrar o que torna as duas estações acessíveis; documentar o efeito prático de haver um teclado Braille.
 - [ ] Documentar fontes de custos e pessoas/dia. Todos os valores anteriores eram estimados; registrar método, data e responsável, evitando contar pessoas repetidas como beneficiários distintos.
 - [ ] Reintroduzir no inventário apenas registros com as pendências resolvidas e evidências vinculadas.
 
 ## 2. Confirmar as 15 barreiras — pendente
 
 - [ ] Comprovar pelo menos 15 barreiras distintas, distribuídas conforme os ambientes e níveis exigidos no enunciado.
-- [ ] Manter B03 fora da contagem enquanto houver apenas a largura informada de 80 cm e uma oportunidade de melhoria. Para reincluir, comprovar um obstáculo efetivo.
-- [ ] Buscar outra ocorrência real caso B03 não se qualifique. Não dividir ou duplicar registros apenas para completar a quantidade.
+- [x] Registrar B03 como `porta_conforto`, oportunidade de melhoria e gravidade baixa (1 na escala do sistema), sem afirmar descumprimento do mínimo de 80 cm.
+- [ ] Confirmar com o grupo/professor se B03 pode compor as 15 barreiras exigidas; o programa a exclui da contagem mínima enquanto estiver classificada como oportunidade.
+- [ ] Se B03 não contar, comprovar outra ocorrência real para atingir 15 barreiras elegíveis. Não dividir ou duplicar registros.
 - [ ] Para cada barreira, reunir código, local, descrição, medida, unidade, foto, data, responsável e justificativa verificável.
 
-**Condição de conclusão:** 15 registros comprovados no inventário operacional. Hoje há zero; os 14 candidatos restantes do piloto também não equivalem a 14 barreiras confirmadas.
+**Condição de conclusão:** 15 barreiras comprovadas no inventário operacional. O PDF apresenta 15 registros preliminares; B03 está aprovado como oportunidade e, se não for aceito pelo professor como uma das 15, serão necessárias 15 barreiras confirmadas entre as demais ocorrências e qualquer ocorrência adicional comprovada.
 
 ## 3. Ajustar o contrato dos dados — implementação feita; conferência final pendente
 
 - [x] Exigir referência normativa numérica e adaptar a importação CSV e a validação JSON.
 - [x] Retirar categorias de observação/avaliação do contrato operacional e preservar os registros pendentes separadamente.
 - [x] Testar rejeição de referências inválidas e de pendências explícitas.
-- [ ] Comparar a lista completa de categorias com o enunciado original. Atualmente o código aceita `rampa_inclinada`, `porta_estreita`, `sinalizacao_ausente` e `elevador_ausente`; confirmar se há outras obrigatórias.
+- [x] Comparar categorias com o Anexo A: o código agora inclui as 14 categorias listadas e as categorias justificadas `porta_conforto` e `elevador_inadequado`.
 - [ ] Ao reincluir dados, garantir que `referencia_norma` represente a mesma grandeza e unidade de `medida`, com fonte aplicável ao caso.
 - [ ] Conferir importação, gravação e reabertura com o inventário final preenchido. A validação de formato não confirma a evidência de campo.
 
@@ -48,15 +52,15 @@ Atualizado em 12/11/2026, conforme o código e a documentação disponíveis.
 - [ ] Aprovar método e fontes de custo e alcance; registrar decisões, responsáveis e data no caderno de bordo.
 - [ ] Atualizar código e textos que indicam critérios provisórios somente depois dessa decisão.
 
-## 5. Completar a análise da exaustiva — medição e discussão pendentes
+## 5. Análise da exaustiva — experimento didático pronto; integração final pendente
 
-O contador de chamadas recursivas já está implementado, incluindo casos base. Falta produzir a análise para vários tamanhos de entrada.
+O contador de chamadas recursivas está implementado, incluindo casos base. Uma análise didática para 4, 8, 12 e 16 itens já está em [analise_crescimento_exaustiva.md](resultados/analise_crescimento_exaustiva.md); falta referenciá-la no relatório técnico final.
 
-- [ ] Executar entradas de tamanhos variados, por exemplo 4, 8, 12 e 16 itens, respeitando o limite prático de execução.
-- [ ] Registrar tamanho original, candidatos após a poda por custo, orçamento, chamadas e condições do experimento.
-- [ ] Explicar o crescimento combinatório e o efeito das podas. No caso sem poda, a árvore binária completa tem `2^(n+1) - 1` chamadas para `n` candidatos.
-- [ ] Separar experimentos didáticos com dados fictícios dos resultados do inventário do grupo.
-- [ ] Salvar tabela e interpretação em `resultados/` e referenciá-las no relatório.
+- [x] Executar entradas didáticas de tamanhos 4, 8, 12 e 16.
+- [x] Registrar tamanho, candidatos após poda, orçamento, chamadas e condições do experimento didático.
+- [x] Explicar o crescimento combinatório e o efeito das podas, identificando a análise como fictícia.
+- [x] Separar o experimento didático dos resultados do inventário do grupo.
+- [x] Salvar tabela e interpretação em `resultados/`; referenciar no relatório técnico final continua pendente.
 
 ## 6. Executar os cenários de orçamento — pendente dos dados e critérios finais
 
@@ -72,7 +76,7 @@ O contador de chamadas recursivas já está implementado, incluindo casos base. 
 - [ ] Exportar A4 separadamente pela opção 11.
 - [ ] Reunir as saídas, a análise de crescimento e a interpretação dos cenários em `resultados/`.
 - [ ] Registrar inventário usado, pesos, tetos e comandos/opções para reproduzir os resultados.
-- [ ] Atualizar `resultados/README.md`, que ainda informa não haver resultados calculados.
+- [x] Atualizar `resultados/README.md` para descrever a análise didática disponível e distinguir resultados finais pendentes.
 
 **Não usar saídas do inventário vazio como análise final das barreiras do campus.**
 
@@ -86,9 +90,9 @@ O contador de chamadas recursivas já está implementado, incluindo casos base. 
 
 ## 9. Fechar a versão de entrega — pendente
 
-- [ ] Após os ajustes finais, executar `python -m unittest discover -s tests -q` e registrar o resultado. No Windows, conferir também a codificação UTF-8 usada nas execuções anteriores.
-- [ ] Atualizar README, caderno de bordo e `docs/criterios_e3.md`: ainda existem trechos históricos descrevendo 15 registros operacionais e funcionalidades como pendentes, apesar de já implementadas.
-- [ ] Distinguir claramente dados confirmados, arquivo de pendências e exemplos fictícios.
+- [x] Executar `python -m unittest discover -s tests -q`: 36 testes passaram após os ajustes atuais. Repetir após as próximas alterações; conferir UTF-8 no Windows.
+- [x] Atualizar o estado principal no README, caderno de bordo e `docs/criterios_e3.md` para refletir o PDF de 15 registros e as mudanças aprovadas; ainda conferir possíveis trechos históricos restantes antes da entrega.
+- [x] Distinguir no README de dados e nos resultados os registros do PDF, o inventário operacional vazio e o exemplo fictício; a ficha de fotos e a classificação final ainda precisam ser associadas ao pacote.
 - [ ] Conferir inventário, fotos, fontes, tabelas A1–A5, análise e instruções no pacote final.
 - [ ] Conferir os requisitos e arquivos efetivamente enviados ao AVA, incluindo abertura dos arquivos da versão entregue.
 

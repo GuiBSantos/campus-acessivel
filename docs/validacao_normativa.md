@@ -28,10 +28,10 @@ O percentual do item 10.16.6 trata de terminais em bibliotecas/centros de leitur
 
 | Piloto | Decisão documental | Falta para fechar |
 | --- | --- | --- |
-| B01 | Tipo candidato: `rampa_inclinada`. Referência condicional: 6,25%, critério R. | Confirmar que 7,84 m é um segmento inclinado contínuo e que o ângulo de 7° representa esse segmento. |
-| B02 | Tipo candidato: `rampa_inclinada`. Sem valor único aplicável ao segmento descrito; redimensionamento precisa considerar divisão e patamares. | Medir desnível de cada trecho e delimitar segmentos reais. |
-| B03 | 80 cm como referência da largura, critério P. O valor medido atende esse requisito isolado. Não chamar de porta estreita com essa evidência. | Verificar porta por porta, vão efetivamente livre e demais condições de uso. Manter como observação/oportunidade, não barreira confirmada. |
-| B04 | Equipamento existente: não classificar como `elevador_ausente`. Referência dimensional pendente. | Identificar elevador versus plataforma, modelo, instalação, portas e documentação técnica; selecionar norma e tabela aplicáveis. |
+| B01 | Tipo candidato: `rampa_inclinada`. O inventário informa 7,84 m de comprimento inclinado, 1,38 m de largura e ângulo de aproximadamente 7°, confirmado pelo grupo como medição de campo. `tan(7°) × 100` resulta em aproximadamente 12,3%; o desnível estimado é 0,96 m. | O registro de campo é aceito. O desnível é estimado a partir do comprimento inclinado e do ângulo; não deve ser apresentado como medição direta. |
+| B02 | Tipo candidato: `rampa_inclinada`. O inventário esclarece dois trechos de 12,76 m cada e informa que os patamares não estão incluídos. Considerando o ângulo aproximado de 7° medido em campo, cada trecho tem inclinação calculada de aproximadamente 12,3% e desnível geométrico estimado de 1,56 m. | A divisão em dois trechos e o ângulo de campo são aceitos como informados. Os desníveis são estimativas derivadas, não medições diretas. |
+| B03 | Vão útil informado de 80 cm, que atende ao mínimo de largura citado no critério P. O grupo propõe maior espaço para conforto e circulação; não classificar como porta fora do mínimo. | Registrar como `porta_conforto`, oportunidade de melhoria, gravidade baixa, e comparar com as portas maiores observadas. A contagem entre as 15 barreiras depende de orientação do professor/grupo. |
+| B04 | O inventário esclarece que existe elevador e registra cabine de 1,32 m × 0,89 m; o grupo observou desconforto e dependência de ajuda por cadeirantes. Não classificar como `elevador_ausente` nem concluir infração normativa sem identificar requisitos aplicáveis. | Usar categoria `elevador_inadequado` e descrever a dificuldade observada. Identificar tipo/modelo apenas se forem comparar com exigência normativa específica. |
 | B05 | Critério A fundamenta investigação do acesso; não há referência dimensional determinada. | Identificar e medir o obstáculo. O degrau de 15 cm do JSON é hipótese, não medição. |
 | B06–B11, B14–B15 | `sinalizacao_ausente` apenas após conferir a identificação completa de cada acesso; critério S. | Fotografar porta, parede adjacente e batente; conferir identificação visual, tátil e eventuais soluções sonoras. Contar o total real. |
 | B12 | Avaliar características dos postos pelo critério M. A contagem de dois postos não permite concluir insuficiência. | Medir mobiliário, circulação e identificar demanda. Não comparar “2 estações” com centímetros de uma mesa. |
@@ -39,13 +39,13 @@ O percentual do item 10.16.6 trata de terminais em bibliotecas/centros de leitur
 
 ### Cálculo derivado das rampas
 
-Se os comprimentos do piloto forem inclinados e cada trecho mantiver aproximadamente 7°:
+Se os comprimentos do inventário forem os comprimentos inclinados e cada trecho mantiver aproximadamente 7°:
 
 - B01: h = 7,84 × sen(7°) ≈ 0,955 m.
 - B02: h = 12,76 × sen(7°) ≈ 1,555 m por trecho.
 - Inclinação: tan(7°) × 100 ≈ 12,28%.
 
-Esses resultados são cálculos a partir do piloto, não desníveis medidos. Nessas condições, B01 excede R; B02 requer revisão também da segmentação; RX não justifica os trechos descritos. A expressão “8,33% para desnível até 1,50 m” do caderno não reproduz corretamente a tabela 4. Registre a divergência e não use o anexo simplificado para dimensionar uma obra.
+Esses resultados são cálculos aproximados a partir do ângulo medido em campo e do comprimento informado, não desníveis medidos diretamente. O código também oferece cálculo por desnível/projeção medidos. Nessas condições, ambas as rampas excedem R; RX não justifica os trechos descritos. A expressão “8,33% para desnível até 1,50 m” do caderno não reproduz corretamente a tabela 4. Registre a divergência e não use o anexo simplificado para dimensionar uma obra.
 
 ## Decisão sobre o modelo de dados
 
@@ -55,13 +55,13 @@ O arquivo complementar `dados/validacao_normativa.json` cobre os 15 códigos do 
 - `null` significa referência não fechada nesta auditoria. Não é zero e não significa aprovação desse formato pelo professor.
 - `tipo_candidato` organiza a futura migração; não comprova existência da barreira.
 - Tipos adicionais sugeridos para investigação: `equipamento_elevacao_em_avaliacao`, `acesso_em_avaliacao`, `posto_trabalho_em_avaliacao`, `recurso_assistivo_em_avaliacao`. Sua justificativa fica registrada aqui e no caderno de bordo. Não devem ser apresentados como categorias oficiais da norma.
-- B03 deve permanecer rastreável, mas não contar como barreira comprovada apenas para completar quinze itens.
+- B03 foi aprovado por Antonio como oportunidade de conforto, gravidade baixa, sem alegação de não conformidade. O sistema marca oportunidades separadamente e não as conta no mínimo de barreiras.
 - Não converter a contagem estimada de portas em uma porcentagem normativa inventada. Também não usar 0 como substituto de referência desconhecida.
-- Antes da migração operacional: adaptar validação/importação, separar observações de barreiras confirmadas e tornar explícita a elegibilidade no ranking. O programa atual ainda classifica os 15 registros recebidos, incluindo hipóteses.
+- A migração dos 15 registros para o inventário operacional ainda depende dos campos pendentes. O programa admite categorias de conforto/equipamento e classificação de oportunidade; não preencher dimensões, referências ou custos ausentes por suposição.
 
 A conferência normativa não valida gravidade, fluxo, preços ou a recomendação financeira. Esses critérios continuam sendo decisões documentadas do grupo.
 
 
-## Atualizacao: inventario sem hipoteses
+## Estado do inventário no checkout
 
-O contrato operacional agora exige referencia normativa numerica. Os 15 registros anteriores foram preservados em `dados/registros_pendentes.json` e retirados do inventario operacional e do ranking, pois nenhum estava integralmente confirmado. As descricoes anteriores da simulacao com 15 registros sao historicas. O inventario conserva a hierarquia, mas tem zero barreiras; o minimo academico continua pendente. Consulte `dados/README.md` para o contrato atual.
+`dados/inventario.json` ainda contém somente a hierarquia vazia. O PDF mais recente do Grupo 5 apresenta 15 registros preliminares; ele precisa ser convertido e os campos pendentes resolvidos antes da importação operacional. A validação normativa é documental e não substitui as evidências de campo.

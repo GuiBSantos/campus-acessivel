@@ -1,16 +1,18 @@
 # Critérios do MVP E3
 
-O inventário operacional é `dados/inventario.json`, fornecido pelo usuário
-na versão `inventario (1).json`. Possui 15 registros B01–B15 e quatro níveis.
-Substitui os arquivos documentais intermediários, removidos da versão atual.
-O exemplo fictício está em `tests/fixtures/demonstracao.json`, somente para testes.
+O inventário operacional é `dados/inventario.json`; no checkout atual ele tem a
+hierarquia, mas zero registros. O PDF de inventário do Grupo 5 apresenta 15 itens
+preliminares B01–B15, ainda não convertidos para o contrato operacional. O exemplo
+fictício está em `tests/fixtures/demonstracao.json`, somente para testes.
 
-O arquivo operacional é estruturalmente válido, mas contém estimativas e
-hipóteses, preservadas em `base_estimativa`. Validade estrutural não comprova
-medição ou cotação. A escala informada converte Crítica=5, Alta=4, Média=3 e
-Baixa=2, reservando 1 a incômodo mínimo; sua aprovação cabe ao grupo.
-A revisão das localizações, normas, demanda, custos e alcance permanece
-necessária. Consulte `docs/pendencias_piloto.md` para as divergências da fonte.
+O PDF registra medidas de rampas, portas e cabine do elevador, além de contagens
+preliminares. Não contém custos cotados nem alcance em pessoas/dia. A escala
+piloto tem quatro categorias; a conversão para 1–5 e sua aprovação continuam a
+cargo do grupo. B03 foi aprovado por Antonio como oportunidade de conforto com
+gravidade baixa, sem alegação de não conformidade. B04 é um elevador existente
+com problema de uso observado. Consulte `docs/pendencias_piloto.md` e
+`docs/validacao_normativa.md` para os pontos que ainda precisam de evidência ou
+decisão.
 
 ## Modelo provisório para demonstrar o algoritmo
 

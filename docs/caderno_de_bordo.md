@@ -94,3 +94,21 @@ A preencher com um defeito real, a execução ou teste que o revelou e a correç
 - Categorias adicionais de investigação propostas: equipamento_elevacao_em_avaliacao, acesso_em_avaliacao, posto_trabalho_em_avaliacao, recurso_assistivo_em_avaliacao. Motivo: não rotular como inexistente ou inadequado aquilo que os dados ainda não comprovam. Não são categorias oficiais da norma.
 - Inventário e código preservados. Matriz separada evita que referências desconhecidas sejam aceitas como registros finais completos.
 - Revisão dos integrantes e eventuais alterações sobre o retorno da IA: a registrar pelo grupo.
+
+
+## 12/11/2026 — Tratamento de B03, B04 e conferência de rampas
+
+- Pedido: Antonio pediu adaptar o código e o TODO à interpretação do inventário de 15 itens, preservando como pendentes B05, contagens de portas e revisão das quantidades do laboratório.
+- Apoio de IA: foram adicionadas funções para calcular inclinação com desnível/projeção e estimar a geometria a partir do comprimento inclinado e ângulo; adicionados os tipos `porta_conforto` e `elevador_inadequado`; oportunidades de melhoria agora ficam fora do mínimo de barreiras.
+- Decisões aprovadas por Antonio nesta conversa: B03 é uma oportunidade de conforto, gravidade baixa, sem alegação de não conformidade; B04 é um elevador existente com dificuldade de uso, não um elevador ausente.
+- Ainda pendente: confirmação coletiva do grupo/professor sobre contar B03 entre as 15; medições de B05; total de portas com/sem Braille; quantidade exata e contexto dos recursos do laboratório; fotos no repositório. Nenhum desses valores foi presumido.
+- Verificação: `python -m unittest discover -s tests -q` passou com 36 testes após as alterações.
+- Revisão e alterações adicionais dos integrantes: a registrar pelo grupo.
+
+## 12/11/2026 — Análise didática do crescimento exaustivo
+
+- Pedido: identificar trabalho do TODO que poderia avançar antes da conclusão das medições pendentes.
+- Apoio de IA: gerou dados sintéticos identificados como didáticos e executou a busca exaustiva para 4, 8, 12 e 16 candidatos, com tetos sem restrição e teto didático de R$ 200. Resultado salvo em `resultados/analise_crescimento_exaustiva.md`.
+- Resultado: sem podas, as chamadas observadas foram 31, 511, 8.191 e 131.071; o cenário restrito mostrou remoção de candidatos individualmente inviáveis e cortes por saldo.
+- Limite: os dados e tetos são fictícios; não substituem A4 calculado com o inventário validado. A referência no relatório técnico final continua pendente.
+- Revisão e alterações dos integrantes: a registrar pelo grupo.

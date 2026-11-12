@@ -5,7 +5,8 @@ from pathlib import Path
 import tempfile
 import unittest
 
-from coleta import (NUMEROS, TEXTOS, gravar_inventario, importar_ficha_campo,
+from coleta import (NUMEROS, TEXTOS, calcular_inclinacao_percentual,
+                    estimar_geometria_rampa, gravar_inventario, importar_ficha_campo,
                     ler_inventario, montar_arvore, validar_registro, validar_setor)
 from recursao import (achatar, caminho_da_barreira, contar_barreiras,
                       contar_por_tipo, custo_total, profundidade,
@@ -30,17 +31,55 @@ class ColetaRecursaoE3(unittest.TestCase):
         self.setor = ler_inventario(INVENTARIO)
         self.registros = achatar(self.setor)
 
-    def test_inventario_operacional_vazio_e_historico_preservado(self):
+    def test_inventario_operacional_ainda_sem_registros_importados(self):
         self.assertEqual(achatar(ler_inventario(BASE / 'dados/inventario.json')), [])
-        pendentes = json.loads((BASE / 'dados/registros_pendentes.json').read_text(encoding='utf-8'))
-        self.assertEqual(len(achatar(pendentes)), 15)
-        self.assertTrue(validar_setor(pendentes))
 
     def test_referencia_estritamente_numerica(self):
         for valor in (None, '', '80', True, -1, float('nan'), float('inf')):
             self.assertTrue(validar_registro(dict(self.registros[0], referencia_norma=valor)))
         for valor in (0, 6.25, 80):
             self.assertEqual(validar_registro(dict(self.registros[0], referencia_norma=valor)), [])
+
+    def test_calculos_de_rampa_com_dados_do_inventario(self):
+        b01 = estimar_geometria_rampa(7.84, 7)
+        b02_trecho = estimar_geometria_rampa(12.76, 7)
+        self.assertAlmostEqual(b01['inclinacao_percentual'], 12.28, places=2)
+        self.assertAlmostEqual(b01['desnivel_estimado'], 0.955, places=3)
+        self.assertAlmostEqual(b02_trecho['inclinacao_percentual'], 12.28, places=2)
+        self.assertAlmostEqual(b02_trecho['desnivel_estimado'], 1.555, places=3)
+        self.assertAlmostEqual(calcular_inclinacao_percentual(
+            b01['desnivel_estimado'], b01['projecao_horizontal_estimada']), 12.28, places=2)
+        with self.assertRaises(ValueError):
+            estimar_geometria_rampa(12.76, 90)
+        with self.assertRaises(ValueError):
+            calcular_inclinacao_percentual(1, 0)
+
+    def test_tipos_personalizados_e_classificacao_de_melhoria(self):
+        base = self.registros[0]
+        porta = dict(base, tipo='porta_conforto', classificacao='oportunidade_melhoria', gravidade=1)
+        elevador = dict(base, tipo='elevador_inadequado')
+        self.assertEqual(validar_registro(porta), [])
+        self.assertEqual(validar_registro(elevador), [])
+        elevador.update(referencia_norma=None, status_normativo='nao_avaliado')
+        self.assertEqual(validar_registro(elevador), [])
+        self.assertTrue(validar_registro(dict(elevador, status_normativo=None)))
+        self.assertTrue(validar_registro(dict(base, classificacao='fora_da_lista')))
+
+    def test_csv_permite_elevador_observacional_sem_referencia_normativa(self):
+        campos = ('caminho', 'referencia_norma') + TEXTOS + NUMEROS + ('status_normativo',)
+        registro = dict(self.registros[0], tipo='elevador_inadequado', referencia_norma=None,
+                        status_normativo='nao_avaliado',
+                        caminho='Raiz > ' + self.registros[0]['ambiente'])
+        with tempfile.TemporaryDirectory() as pasta:
+            ficha = Path(pasta) / 'observacao.csv'
+            with ficha.open('w', encoding='utf-8', newline='') as arquivo:
+                escritor = csv.DictWriter(arquivo, fieldnames=campos, delimiter=';')
+                escritor.writeheader()
+                escritor.writerow(registro)
+            registros, erros = importar_ficha_campo(ficha)
+        self.assertEqual(erros, [])
+        self.assertIsNone(registros[0]['referencia_norma'])
+        self.assertEqual(registros[0]['status_normativo'], 'nao_avaliado')
 
     def test_validar_registro_rejeita_campos_ausentes_tipos_limites_e_datas(self):
         valido = copy.deepcopy(self.registros[0])

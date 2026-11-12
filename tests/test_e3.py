@@ -134,20 +134,15 @@ class E3(unittest.TestCase):
             with self.assertRaises(ValueError):
                 indice_prioridade(self.registro, pesos)
 
-    def test_pilot_preserves_each_code_once(self):
-        setor = json.loads((BASE / 'dados/registros_pendentes.json').read_text(encoding='utf-8'))
-        registros = achatar(setor)
-        self.assertEqual(len(registros), 15)
-        finais = []
-        for registro in registros:
-            finais.append(registro['codigo'])
-            self.assertGreater(registro['custo'], 0)
-            self.assertTrue(registro['base_estimativa'])
-        for registro in registros:
-            self.assertEqual(finais.count(registro['codigo']), 1)
-        pilotos = [registro['codigo_piloto'] for registro in registros]
-        for i in range(1, 16):
-            self.assertEqual(pilotos.count(f'B{i:02}'), 1)
+    def test_inventory_source_is_not_misrepresented_as_operational_json(self):
+        # O PDF do inventário é a fonte documental; registros não qualificados
+        # não devem ser simulados como se já houvesse um JSON operacional.
+        self.assertEqual(achatar(ler_inventario(BASE / 'dados/inventario.json')), [])
+        demonstracao = json.loads((BASE / 'tests/fixtures/demonstracao.json').read_text(encoding='utf-8'))
+        registros = achatar(demonstracao)
+        codigos = [registro['codigo'] for registro in registros]
+        self.assertEqual(len(registros), 4)
+        self.assertEqual(len(set(codigos)), 4)
 
     def test_menu_full_flow_and_recovery(self):
         with tempfile.TemporaryDirectory() as pasta:
@@ -184,7 +179,7 @@ class E3(unittest.TestCase):
             result = subprocess.run([sys.executable, str(BASE / 'main.py'), '--demo'], cwd=pasta,
                                     text=True, capture_output=True)
             self.assertEqual(result.returncode, 0, result.stderr)
-            self.assertIn('encontradas 0', result.stdout)
+            self.assertIn('0 após excluir 0 oportunidades', result.stdout)
             self.assertIn('estimado', result.stdout)
             self.assertIn('Total: 0 barreiras', result.stdout)
             result = subprocess.run([sys.executable, str(BASE / 'main.py'), '--inventario',

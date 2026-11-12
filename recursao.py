@@ -1,4 +1,5 @@
 def custo_total(no):
+    # Caso base: um nó sem filhos retorna a soma dos custos locais.
     total = sum(barreira['custo'] for barreira in no['barreiras'])
     for filho in no['subsetores']:
         total += custo_total(filho)
@@ -6,6 +7,7 @@ def custo_total(no):
 
 
 def contar_barreiras(no):
+    # Caso base: um nó sem filhos contribui somente com suas barreiras locais.
     total = len(no['barreiras'])
     for filho in no['subsetores']:
         total += contar_barreiras(filho)
@@ -13,6 +15,7 @@ def contar_barreiras(no):
 
 
 def contar_por_tipo(no, tipo):
+    # Caso base: um nó sem filhos contribui somente com ocorrências locais do tipo.
     total = sum(1 for barreira in no['barreiras'] if barreira['tipo'] == tipo)
     for filho in no['subsetores']:
         total += contar_por_tipo(filho, tipo)
@@ -20,6 +23,7 @@ def contar_por_tipo(no, tipo):
 
 
 def profundidade(no):
+    # Caso base: sem filhos, maior permanece zero e a profundidade é um nível.
     maior = 0
     for filho in no['subsetores']:
         valor = profundidade(filho)
@@ -29,6 +33,7 @@ def profundidade(no):
 
 
 def achatar(no, caminho=''):
+    # Caso base: sem filhos, o resultado contém somente as barreiras locais.
     caminho = caminho + '/' + no['nome'] if caminho else no['nome']
     registros = [dict(barreira, caminho=caminho) for barreira in no['barreiras']]
     for filho in no['subsetores']:
@@ -37,6 +42,7 @@ def achatar(no, caminho=''):
 
 
 def caminho_da_barreira(no, codigo):
+    # Caso base: retorna o nome do nó quando encontra o código; ao esgotar filhos, retorna None.
     for barreira in no['barreiras']:
         if barreira['codigo'] == codigo:
             return no['nome']
@@ -48,6 +54,7 @@ def caminho_da_barreira(no, codigo):
 
 
 def resumo_hierarquico(no, nivel=0, formatar_custo=None):
+    # Caso base: nó sem filhos imprime a si mesmo e não faz novas chamadas.
     custo = (formatar_custo(custo_total(no)) if formatar_custo else f"R$ {custo_total(no):.2f}")
     print(f"{'  ' * nivel}{no['nome']}: {contar_barreiras(no)} barreiras | {custo}")
     for filho in no['subsetores']:
@@ -88,6 +95,7 @@ def melhor_pacote_exaustivo(barreiras, orcamento, pesos, indice=0, contador=None
 
     def visitar(posicao, saldo):
         contador[0] += 1
+        # Caso base: todos os candidatos já foram incluídos ou descartados.
         if posicao == len(candidatos):
             return 0, 0, []
         melhor = visitar(posicao + 1, saldo)

@@ -10,8 +10,46 @@ TEXTOS = ('codigo', 'ambiente', 'tipo', 'descricao', 'unidade',
 NUMEROS = ('medida', 'gravidade', 'pessoas_dia', 'custo')
 
 
-TIPOS = frozenset(('rampa_inclinada', 'porta_estreita', 'sinalizacao_ausente',
-                   'elevador_ausente'))
+TIPOS = frozenset((
+    # Categorias do Anexo A do caderno do aluno.
+    'degrau_isolado', 'desnivel_soleira', 'piso_irregular', 'rampa_inclinada',
+    'ausencia_corrimao', 'porta_estreita', 'circulacao_estreita', 'balcao_alto',
+    'interruptor_alto', 'mobiliario_inadequado', 'banheiro_inadequado',
+    'sinalizacao_ausente', 'vaga_ausente', 'elevador_ausente',
+    # Categorias específicas justificadas pelo inventário do Grupo 5.
+    'porta_conforto', 'elevador_inadequado',
+))
+
+CLASSIFICACOES = frozenset(('barreira', 'oportunidade_melhoria'))
+
+
+def calcular_inclinacao_percentual(desnivel_vertical, projecao_horizontal):
+    """Calcula a inclinação de uma rampa a partir de medidas no mesmo sistema de unidade."""
+    valores = (desnivel_vertical, projecao_horizontal)
+    if any(isinstance(valor, bool) or not isinstance(valor, (int, float))
+           or (isinstance(valor, float) and not math.isfinite(valor)) for valor in valores):
+        raise ValueError('Desnível e projeção horizontal devem ser números finitos.')
+    if desnivel_vertical < 0 or projecao_horizontal <= 0:
+        raise ValueError('Desnível não pode ser negativo e projeção deve ser positiva.')
+    return desnivel_vertical / projecao_horizontal * 100
+
+
+def estimar_geometria_rampa(comprimento_inclinado, angulo_graus):
+    """Estima desnível, projeção e inclinação usando comprimento e ângulo medidos."""
+    valores = (comprimento_inclinado, angulo_graus)
+    if any(isinstance(valor, bool) or not isinstance(valor, (int, float))
+           or (isinstance(valor, float) and not math.isfinite(valor)) for valor in valores):
+        raise ValueError('Comprimento e ângulo devem ser números finitos.')
+    if comprimento_inclinado <= 0 or not 0 < angulo_graus < 90:
+        raise ValueError('Comprimento deve ser positivo e ângulo entre 0° e 90°.')
+    angulo = math.radians(angulo_graus)
+    desnivel = comprimento_inclinado * math.sin(angulo)
+    projecao = comprimento_inclinado * math.cos(angulo)
+    return {
+        'desnivel_estimado': desnivel,
+        'projecao_horizontal_estimada': projecao,
+        'inclinacao_percentual': calcular_inclinacao_percentual(desnivel, projecao),
+    }
 
 
 def validar_registro(barreira, codigos_usados=None):
@@ -24,16 +62,27 @@ def validar_registro(barreira, codigos_usados=None):
             erros.append(f'{campo}: texto obrigatório.')
         elif campo == 'descricao' and len(valor.strip()) < 10:
             erros.append('descricao: detalhe insuficiente para ser verificável.')
-    if barreira.get('tipo') not in TIPOS:
+    tipo = barreira.get('tipo')
+    if not isinstance(tipo, str) or tipo not in TIPOS:
         erros.append('tipo: categoria desconhecida.')
+    classificacao = barreira.get('classificacao')
+    if (classificacao is not None and
+            (not isinstance(classificacao, str) or classificacao not in CLASSIFICACOES)):
+        erros.append('classificacao: use barreira ou oportunidade_melhoria.')
     referencia = barreira.get('referencia_norma')
-    if (isinstance(referencia, bool) or not isinstance(referencia, (int, float))
-            or (isinstance(referencia, float) and not math.isfinite(referencia))
-            or referencia < 0):
+    status_normativo = barreira.get('status_normativo')
+    referencia_observacional = (
+        tipo == 'elevador_inadequado' and referencia is None
+        and status_normativo == 'nao_avaliado'
+    )
+    if (not referencia_observacional and
+            (isinstance(referencia, bool) or not isinstance(referencia, (int, float))
+             or (isinstance(referencia, float) and not math.isfinite(referencia))
+             or referencia < 0)):
         erros.append('referencia_norma: numero finito nao negativo obrigatorio.')
     if barreira.get('pendencia_normativa'):
         erros.append('pendencia_normativa: resolva a pendencia antes de importar.')
-    if barreira.get('status_normativo') not in (None, 'confirmado'):
+    if status_normativo not in (None, 'confirmado') and not referencia_observacional:
         erros.append('status_normativo: registro ainda nao confirmado.')
     codigo = barreira.get('codigo')
     if isinstance(codigo, str):
@@ -110,10 +159,13 @@ def importar_ficha_campo(caminho):
             if None in registro:
                 problemas.append('Quantidade de campos maior que o cabeçalho.')
             valor = registro.get('referencia_norma')
-            try:
-                registro['referencia_norma'] = float(str(valor).replace(',', '.'))
-            except (TypeError, ValueError):
-                problemas.append('referencia_norma: n?mero inv?lido.')
+            if (valor is None or not str(valor).strip()) and registro.get('tipo') == 'elevador_inadequado' and registro.get('status_normativo') == 'nao_avaliado':
+                registro['referencia_norma'] = None
+            else:
+                try:
+                    registro['referencia_norma'] = float(str(valor).replace(',', '.'))
+                except (TypeError, ValueError):
+                    problemas.append('referencia_norma: n?mero inv?lido.')
             for campo in NUMEROS:
                 try:
                     registro[campo] = (int(registro[campo]) if campo in

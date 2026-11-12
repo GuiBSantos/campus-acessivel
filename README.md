@@ -147,12 +147,13 @@ demonstração completa (7), exportar relatório textual (8) e sair (0). Carregu
 Uma falha ao carregar outro arquivo preserva o inventário anterior em memória.
 O menu não grava por cima dos arquivos de entrada.
 
-Com `--demo`, a execução automática usa os **15 registros** de
-`dados/inventario.json`. Confere gravação/leitura JSON em pasta temporária,
-imprime a hierarquia e mostra o ranking com comparações e trocas.
-Não altera os dados de entrada. Custos, alcance e algumas medidas continuam
-estimados; a saída preserva suas hipóteses e não os apresenta como confirmados.
-O exemplo fictício foi movido para `tests/fixtures`, somente para testes.
+Com `--demo`, a execução automática usa `dados/inventario.json`. Confere
+gravação/leitura JSON em pasta temporária, imprime a hierarquia e mostra o
+ranking sem alterar os dados de entrada. No checkout atual, o inventário tem
+hierarquia mas ainda está sem registros; portanto essa execução não gera
+resultados do levantamento de campo. O PDF com os 15 registros preliminares
+precisa ser conciliado e importado. O exemplo fictício está em `tests/fixtures`,
+somente para testes.
 
 Para usar um inventário confirmado ou importar uma ficha completa:
 
@@ -161,9 +162,11 @@ python main.py --inventario dados/inventario.json
 python main.py --ficha dados/ficha.csv --peso-gravidade 1 --peso-pessoas 1
 ```
 
-O JSON `dados/inventario.json` está incluído e contém 15 registros com estimativas
-e hipóteses explícitas; não representa cotações ou contagens confirmadas. A ficha
-CSV ainda deve ser preparada pelo grupo. Dados inválidos
+O JSON `dados/inventario.json` está incluído, mas contém somente a hierarquia.
+O PDF de inventário apresenta 15 itens preliminares que ainda precisam ser
+convertidos e conciliados com o contrato de dados. Custos e alcance em
+pessoas/dia ainda precisam de método e valores documentados. A ficha CSV ainda
+deve ser preparada pelo grupo. Dados inválidos
 interrompem a execução com mensagem e código de saída 1. Caminhos fornecidos são
 relativos ao diretório atual; os dados padrão são localizados a partir de main.py.
 Somente main.py solicita entradas. As opções `--demo`, `--inventario` e
@@ -282,9 +285,14 @@ python -m unittest discover -s tests -v
 
 ## Conferência normativa documental
 
-A [conferência de 12/11/2026](docs/validacao_normativa.md) registra fontes, critérios e limites por ocorrência. A [matriz complementar](dados/validacao_normativa.json) cobre B01–B15 e não é carregada pelo programa. O inventário operacional continua incluindo hipóteses: não confundir seu ranking com uma lista de infrações confirmadas. A migração de `referencia_norma` depende das grandezas e pendências documentadas; não preencher referências desconhecidas com zero.
+A [conferência de 12/11/2026](docs/validacao_normativa.md) registra fontes, critérios e limites por ocorrência. A [matriz complementar](dados/validacao_normativa.json) cobre B01–B15 e não é carregada pelo programa. O inventário PDF tem medidas e observações preliminares; a conversão operacional depende das pendências documentadas. Não confundir uma oportunidade de conforto com infração normativa nem preencher referências desconhecidas com zero.
 
 
-## Atualizacao: inventario sem hipoteses
+## Estado atual do inventário
 
-O contrato operacional agora exige referencia normativa numerica. Os 15 registros anteriores foram preservados em `dados/registros_pendentes.json` e retirados do inventario operacional e do ranking, pois nenhum estava integralmente confirmado. As descricoes anteriores da simulacao com 15 registros sao historicas. O inventario conserva a hierarquia, mas tem zero barreiras; o minimo academico continua pendente. Consulte `dados/README.md` para o contrato atual.
+O PDF do Grupo 5 apresenta os 15 registros preliminares; `dados/inventario.json`
+mantém apenas a hierarquia e ainda não contém esses registros. B03 está marcado
+como oportunidade de conforto e não conta no mínimo de barreiras enquanto assim
+classificado. B05, contagens de portas, recursos do laboratório, custos, alcance
+e fotos ainda precisam ser concluídos ou associados. Consulte `dados/README.md`
+e `TODO_ANTONIO.md` para o estado detalhado.

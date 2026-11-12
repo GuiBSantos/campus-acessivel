@@ -42,6 +42,24 @@ class Relatorio(unittest.TestCase):
         self.setor['subsetores'][1]['barreiras'][0]['codigo'] = registros[0]['codigo']
         self.assertTrue(any('repetido' in e for e in conferir_inventario(self.setor, 4)))
 
+    def test_oportunidade_melhoria_nao_conta_no_minimo_de_barreiras(self):
+        setor = copy.deepcopy(self.setor)
+        base = achatar(setor)[0]
+        base['classificacao'] = 'oportunidade_melhoria'
+        base['tipo'] = 'porta_conforto'
+        base['gravidade'] = 1
+        setor['subsetores'][0]['barreiras'][0].update(
+            classificacao='oportunidade_melhoria', tipo='porta_conforto', gravidade=1)
+        for i in range(11):
+            setor['subsetores'][0]['barreiras'].append(
+                dict(base, codigo=f'TESTE-BARREIRA-{i:02}', classificacao='barreira'))
+        erros = conferir_inventario(setor)
+        self.assertTrue(any('14 após excluir 1 oportunidades' in erro for erro in erros))
+        setor['subsetores'][0]['barreiras'].append(
+            dict(base, codigo='TESTE-BARREIRA-11', classificacao='barreira'))
+        erros = conferir_inventario(setor)
+        self.assertFalse(any('Quantidade elegível' in erro for erro in erros))
+
     def test_pilot_coverage_even_with_unique_final_codes(self):
         for i in range(15):
             r = dict(self.setor['subsetores'][0]['barreiras'][0],

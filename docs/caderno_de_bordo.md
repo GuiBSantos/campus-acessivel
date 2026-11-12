@@ -83,3 +83,14 @@ A preencher com um defeito real, a execução ou teste que o revelou e a correç
 - Retorno da IA: código e revisão técnica em `docs/revisao_2026-11-12.md`.
 - Alterações e justificativas humanas sobre esse retorno: pendentes de registro
   pelos integrantes. Não se presume aprovação dos critérios nem coleta adicional.
+
+
+## 12/11/2026 — Conferência normativa documental
+
+- Pedido: Guilherme autorizou conferir normas e definir referências fundamentadas.
+- Apoio de IA: ChatGPT consultou o texto da NBR 9050 corrigida em 2021, o catálogo ABNT e legislação oficial; produziu `docs/validacao_normativa.md` e a matriz complementar de quinze ocorrências.
+- Resultado: duas referências numéricas documentadas, uma delas condicional; demais casos dependem de contexto, equipamento, inspeção ou grandeza adequada. Não houve vistoria nem validação humana presumida.
+- Correção: reconhecida a simplificação incorreta do anexo sobre rampas. A conferência distingue desnível por segmento, condições do piloto e conclusões condicionais.
+- Categorias adicionais de investigação propostas: equipamento_elevacao_em_avaliacao, acesso_em_avaliacao, posto_trabalho_em_avaliacao, recurso_assistivo_em_avaliacao. Motivo: não rotular como inexistente ou inadequado aquilo que os dados ainda não comprovam. Não são categorias oficiais da norma.
+- Inventário e código preservados. Matriz separada evita que referências desconhecidas sejam aceitas como registros finais completos.
+- Revisão dos integrantes e eventuais alterações sobre o retorno da IA: a registrar pelo grupo.

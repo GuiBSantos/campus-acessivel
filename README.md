@@ -276,3 +276,8 @@ Execute a verificação automatizada com:
 ```bash
 python -m unittest discover -s tests -v
 ```
+
+
+## Conferência normativa documental
+
+A [conferência de 12/11/2026](docs/validacao_normativa.md) registra fontes, critérios e limites por ocorrência. A [matriz complementar](dados/validacao_normativa.json) cobre B01–B15 e não é carregada pelo programa. O inventário operacional continua incluindo hipóteses: não confundir seu ranking com uma lista de infrações confirmadas. A migração de `referencia_norma` depende das grandezas e pendências documentadas; não preencher referências desconhecidas com zero.

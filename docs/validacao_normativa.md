@@ -60,3 +60,8 @@ O arquivo complementar `dados/validacao_normativa.json` cobre os 15 códigos do 
 - Antes da migração operacional: adaptar validação/importação, separar observações de barreiras confirmadas e tornar explícita a elegibilidade no ranking. O programa atual ainda classifica os 15 registros recebidos, incluindo hipóteses.
 
 A conferência normativa não valida gravidade, fluxo, preços ou a recomendação financeira. Esses critérios continuam sendo decisões documentadas do grupo.
+
+
+## Atualizacao: inventario sem hipoteses
+
+O contrato operacional agora exige referencia normativa numerica. Os 15 registros anteriores foram preservados em `dados/registros_pendentes.json` e retirados do inventario operacional e do ranking, pois nenhum estava integralmente confirmado. As descricoes anteriores da simulacao com 15 registros sao historicas. O inventario conserva a hierarquia, mas tem zero barreiras; o minimo academico continua pendente. Consulte `dados/README.md` para o contrato atual.

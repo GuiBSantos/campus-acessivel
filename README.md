@@ -283,3 +283,8 @@ python -m unittest discover -s tests -v
 ## Conferência normativa documental
 
 A [conferência de 12/11/2026](docs/validacao_normativa.md) registra fontes, critérios e limites por ocorrência. A [matriz complementar](dados/validacao_normativa.json) cobre B01–B15 e não é carregada pelo programa. O inventário operacional continua incluindo hipóteses: não confundir seu ranking com uma lista de infrações confirmadas. A migração de `referencia_norma` depende das grandezas e pendências documentadas; não preencher referências desconhecidas com zero.
+
+
+## Atualizacao: inventario sem hipoteses
+
+O contrato operacional agora exige referencia normativa numerica. Os 15 registros anteriores foram preservados em `dados/registros_pendentes.json` e retirados do inventario operacional e do ranking, pois nenhum estava integralmente confirmado. As descricoes anteriores da simulacao com 15 registros sao historicas. O inventario conserva a hierarquia, mas tem zero barreiras; o minimo academico continua pendente. Consulte `dados/README.md` para o contrato atual.

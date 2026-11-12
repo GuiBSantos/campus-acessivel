@@ -60,7 +60,7 @@ class E3(unittest.TestCase):
     def test_csv_tree_and_line_errors(self):
         with tempfile.TemporaryDirectory() as pasta:
             arquivo = Path(pasta) / 'ficha.csv'
-            campos = ('caminho',) + TEXTOS + NUMEROS
+            campos = ('caminho', 'referencia_norma') + TEXTOS + NUMEROS
             registros = achatar(self.setor)
             with arquivo.open('w', newline='', encoding='utf-8') as f:
                 writer = csv.DictWriter(f, fieldnames=campos, delimiter=';')
@@ -93,7 +93,7 @@ class E3(unittest.TestCase):
             {'nome': 'Subambiente vazio', 'barreiras': [], 'subsetores': []})
         self.assertEqual(contar_barreiras(self.setor), 4)
         self.assertEqual(custo_total(self.setor), 8500)
-        self.assertEqual(contar_por_tipo(self.setor, 'Exemplo didático'), 4)
+        self.assertEqual(contar_por_tipo(self.setor, 'rampa_inclinada'), 4)
         self.assertEqual(contar_por_tipo(self.setor, 'ausente'), 0)
         self.assertEqual(profundidade(self.setor), 3)
         self.assertEqual(caminho_da_barreira(self.setor, 'DEMO-TESTE-99'), None)
@@ -135,7 +135,7 @@ class E3(unittest.TestCase):
                 indice_prioridade(self.registro, pesos)
 
     def test_pilot_preserves_each_code_once(self):
-        setor = ler_inventario(BASE / 'dados/inventario.json')
+        setor = json.loads((BASE / 'dados/registros_pendentes.json').read_text(encoding='utf-8'))
         registros = achatar(setor)
         self.assertEqual(len(registros), 15)
         finais = []
@@ -166,7 +166,7 @@ class E3(unittest.TestCase):
         with tempfile.TemporaryDirectory() as pasta:
             ficha = Path(pasta) / 'ficha.csv'
             with ficha.open('w', encoding='utf-8', newline='') as arquivo:
-                writer = csv.DictWriter(arquivo, fieldnames=('caminho',) + TEXTOS + NUMEROS,
+                writer = csv.DictWriter(arquivo, fieldnames=('caminho', 'referencia_norma') + TEXTOS + NUMEROS,
                                         delimiter=';')
                 writer.writeheader()
                 writer.writerows(achatar(self.setor))
@@ -184,9 +184,9 @@ class E3(unittest.TestCase):
             result = subprocess.run([sys.executable, str(BASE / 'main.py'), '--demo'], cwd=pasta,
                                     text=True, capture_output=True)
             self.assertEqual(result.returncode, 0, result.stderr)
-            self.assertIn('14 candidatos', result.stdout)
+            self.assertIn('encontradas 0', result.stdout)
             self.assertIn('estimado', result.stdout)
-            self.assertIn('Faltam pelo menos 1', result.stdout)
+            self.assertIn('Total: 0 barreiras', result.stdout)
             result = subprocess.run([sys.executable, str(BASE / 'main.py'), '--inventario',
                                      str(Path(pasta) / 'ausente.json')], capture_output=True)
             self.assertEqual(result.returncode, 1)

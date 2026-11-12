@@ -1,4 +1,4 @@
-import copy
+﻿import copy
 import csv
 import itertools
 import json
@@ -91,7 +91,7 @@ class Revisao(unittest.TestCase):
         self.assertIn('(>20)', texto_planos(setor, PESOS, [30]))
 
     def test_csv_do_caderno_e_coluna_extra(self):
-        campos = ['caminho'] + list(TEXTOS + NUMEROS)
+        campos = ['caminho', 'referencia_norma'] + list(TEXTOS + NUMEROS)
         registro = dict(self.modelo, caminho='Raiz > ' + self.modelo['ambiente'], custo='1650,50', medida='12,3')
         with tempfile.TemporaryDirectory() as pasta:
             caminho = Path(pasta) / 'ficha.csv'
@@ -128,7 +128,7 @@ class Revisao(unittest.TestCase):
         self.assertEqual(self.setor, original)
 
     def test_menu_novos_fluxos_e_relatorios(self):
-        codigo = achatar(ler_inventario(BASE / 'dados/inventario.json'))[0]['codigo']
+        codigo = 'SEM-REGISTRO-01'
         roteiro = f'1\n9\n{codigo}\nrecursiva\n10\n11\n1000;2000;5000;10000\n\n12\n13\nselection\n0\n'
         r = subprocess.run([sys.executable, str(BASE / 'main.py')], input=roteiro,
                            text=True, capture_output=True, timeout=20)
@@ -140,15 +140,15 @@ class Revisao(unittest.TestCase):
         self.assertIn('gravidade dobrada', texto_sensibilidade(self.setor, PESOS))
 
     def test_cobertura_minima_nao_exige_exatamente_15(self):
-        setor = ler_inventario(BASE / 'dados/inventario.json')
+        setor = copy.deepcopy(self.setor)
         base = achatar(setor)[0]
-        adicional = dict(base, codigo='TESTE-NOVO-99')
-        adicional.pop('codigo_piloto')
-        setor = alterar_barreira(setor, 'cadastrar', registro=adicional, caminho=base['caminho'])
+        for i in range(20):
+            setor = alterar_barreira(setor, 'cadastrar', registro=dict(base, codigo=f'TESTE-NOVO-{i:02}'), caminho=base['caminho'])
         erros = conferir_inventario(setor)
-        self.assertTrue(any('15 candidatos' in erro for erro in erros))
         self.assertFalse(any('Quantidade elegivel' in erro for erro in erros))
+
 
 
 if __name__ == '__main__':
     unittest.main()
+

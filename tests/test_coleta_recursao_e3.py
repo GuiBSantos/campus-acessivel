@@ -12,7 +12,7 @@ from recursao import (achatar, caminho_da_barreira, contar_barreiras,
                       resumo_hierarquico)
 
 BASE = Path(__file__).resolve().parents[1]
-INVENTARIO = BASE / 'dados' / 'inventario.json'
+INVENTARIO = BASE / 'tests' / 'fixtures' / 'demonstracao.json'
 
 
 def iterar_registros(no):
@@ -30,31 +30,17 @@ class ColetaRecursaoE3(unittest.TestCase):
         self.setor = ler_inventario(INVENTARIO)
         self.registros = achatar(self.setor)
 
-    def test_inventario_operacional_tem_15_registros_com_contrato_valido(self):
-        self.assertEqual(validar_setor(self.setor), [])
-        self.assertEqual(len(self.registros), 15)
-        codigos = [registro['codigo'] for registro in self.registros]
-        self.assertEqual(len(codigos), len(set(codigos)))
-        self.assertEqual({registro['codigo_piloto'] for registro in self.registros},
-                         {f'B{i:02}' for i in range(1, 16)})
-        for registro in self.registros:
-            for campo in TEXTOS:
-                self.assertIsInstance(registro[campo], str, (registro['codigo'], campo))
-                self.assertTrue(registro[campo].strip(), (registro['codigo'], campo))
-            for campo in NUMEROS:
-                self.assertIsInstance(registro[campo], (int, float),
-                                      (registro['codigo'], campo))
-                self.assertNotIsInstance(registro[campo], bool)
-            self.assertEqual(len(registro['data_coleta']), 10)
-            self.assertEqual(validar_registro(registro), [])
+    def test_inventario_operacional_vazio_e_historico_preservado(self):
+        self.assertEqual(achatar(ler_inventario(BASE / 'dados/inventario.json')), [])
+        pendentes = json.loads((BASE / 'dados/registros_pendentes.json').read_text(encoding='utf-8'))
+        self.assertEqual(len(achatar(pendentes)), 15)
+        self.assertTrue(validar_setor(pendentes))
 
-    def test_b03_permanece_oportunidade_e_nao_descumprimento(self):
-        b03 = next(r for r in self.registros if r['codigo_piloto'] == 'B03')
-        self.assertEqual(b03['medida'], 80)
-        self.assertEqual(b03['unidade'], 'cm')
-        self.assertEqual(b03['gravidade'], 2)
-        self.assertIn('oportunidade de melhoria', b03['base_estimativa'].casefold())
-        self.assertIn('ampliar', b03['intervencao'].casefold())
+    def test_referencia_estritamente_numerica(self):
+        for valor in (None, '', '80', True, -1, float('nan'), float('inf')):
+            self.assertTrue(validar_registro(dict(self.registros[0], referencia_norma=valor)))
+        for valor in (0, 6.25, 80):
+            self.assertEqual(validar_registro(dict(self.registros[0], referencia_norma=valor)), [])
 
     def test_validar_registro_rejeita_campos_ausentes_tipos_limites_e_datas(self):
         valido = copy.deepcopy(self.registros[0])
@@ -84,11 +70,11 @@ class ColetaRecursaoE3(unittest.TestCase):
         self.assertTrue(any('SETOR-SUBSETOR' in erro
                             for erro in validar_registro(dict(registro, codigo='B01'))))
         setor = copy.deepcopy(self.setor)
-        setor['subsetores'][0]['subsetores'][0]['barreiras'].append(
+        setor['subsetores'][0]['barreiras'].append(
             copy.deepcopy(setor['subsetores'][1]['barreiras'][0]))
         self.assertTrue(any('repetido' in erro for erro in validar_setor(setor)))
         setor = copy.deepcopy(self.setor)
-        setor['subsetores'][0]['subsetores'][0]['barreiras'][0]['ambiente'] = 'Ambiente incorreto'
+        setor['subsetores'][0]['barreiras'][0]['ambiente'] = 'Ambiente incorreto'
         self.assertTrue(any('ambiente difere' in erro for erro in validar_setor(setor)))
         setor = copy.deepcopy(self.setor)
         setor['subsetores'].append(copy.deepcopy(setor['subsetores'][0]))
@@ -98,7 +84,7 @@ class ColetaRecursaoE3(unittest.TestCase):
         self.assertTrue(validar_setor(setor))
 
     def test_importar_csv_montar_arvore_e_rejeitar_entradas_invalidas(self):
-        campos = ('caminho',) + TEXTOS + NUMEROS
+        campos = ('caminho', 'referencia_norma') + TEXTOS + NUMEROS
         with tempfile.TemporaryDirectory() as pasta:
             ficha = Path(pasta) / 'ficha.csv'
             with ficha.open('w', encoding='utf-8-sig', newline='') as arquivo:
@@ -108,7 +94,7 @@ class ColetaRecursaoE3(unittest.TestCase):
                                     for registro in self.registros)
             registros, erros = importar_ficha_campo(ficha)
             self.assertEqual(erros, [])
-            self.assertEqual(len(registros), 15)
+            self.assertEqual(len(registros), 4)
             reconstruida = montar_arvore(registros)
             self.assertEqual(achatar(reconstruida), registros)
 
@@ -132,6 +118,19 @@ class ColetaRecursaoE3(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'mesmo setor'):
             montar_arvore(dois_setores)
 
+    def test_csv_rejeita_referencia_vazia_e_pendencia(self):
+        campos = ('caminho', 'referencia_norma', 'pendencia_normativa') + TEXTOS + NUMEROS
+        with tempfile.TemporaryDirectory() as pasta:
+            ficha = Path(pasta) / 'ficha.csv'
+            for valor, pendencia in (('', ''), ('null', ''), ('NaN', ''), ('80', 'Confirmar medida')):
+                with ficha.open('w', encoding='utf-8', newline='') as arquivo:
+                    escritor = csv.DictWriter(arquivo, fieldnames=campos, delimiter=';', extrasaction='ignore')
+                    escritor.writeheader()
+                    escritor.writerow(dict(self.registros[0], referencia_norma=valor, pendencia_normativa=pendencia))
+                registros, erros = importar_ficha_campo(ficha)
+                self.assertEqual(registros, [])
+                self.assertTrue(erros)
+
     def test_persistencia_json_roundtrip_e_recusa_inventario_invalido(self):
         with tempfile.TemporaryDirectory() as pasta:
             caminho = Path(pasta) / 'inventario.json'
@@ -139,7 +138,7 @@ class ColetaRecursaoE3(unittest.TestCase):
             self.assertEqual(ler_inventario(caminho), self.setor)
             original = caminho.read_bytes()
             invalido = copy.deepcopy(self.setor)
-            invalido['subsetores'][0]['subsetores'][0]['barreiras'][0]['custo'] = 0
+            invalido['subsetores'][0]['barreiras'][0]['custo'] = 0
             with self.assertRaises(ValueError):
                 gravar_inventario(caminho, invalido)
             self.assertEqual(caminho.read_bytes(), original)
@@ -160,20 +159,9 @@ class ColetaRecursaoE3(unittest.TestCase):
             custos_por_raiz[primeiro_nivel] = custos_por_raiz.get(primeiro_nivel, 0) + registro['custo']
             contagens_por_raiz[primeiro_nivel] = contagens_por_raiz.get(primeiro_nivel, 0) + 1
         self.assertEqual(len(pares), contar_barreiras(self.setor))
-        self.assertEqual(contar_barreiras(self.setor), 15)
-        self.assertEqual(custo_total(self.setor), 134460)
-        self.assertEqual(profundidade(self.setor), 4)
-        self.assertEqual(contagens_por_raiz, {
-            'Bloco B': 4, 'Rampa principal entre blocos': 1,
-            'Salas de aula (padrão em todos os blocos)': 1, 'Auditório': 1,
-            'Áreas livres (Blocos A e B)': 1, 'Bloco D': 2, 'Bloco E': 2,
-            'Bloco A': 1, 'Bloco C': 2,
-        })
-        self.assertEqual(custos_por_raiz['Bloco B'], 13460)
-        self.assertEqual(custos_por_raiz['Rampa principal entre blocos'], 40000)
-        self.assertEqual(custos_por_raiz['Auditório'], 60000)
-        self.assertEqual(contar_por_tipo(self.setor, 'Braille'), 8)
-        self.assertEqual(contar_por_tipo(self.setor, 'tipo ausente'), 0)
+        self.assertEqual(contar_barreiras(self.setor), 4)
+        self.assertEqual(custo_total(self.setor), sum(r['custo'] for r in self.registros))
+        self.assertEqual(contar_por_tipo(self.setor, 'rampa_inclinada'), 4)
 
     def test_folhas_vazias_caminhos_achatamento_e_resumo(self):
         folha = {'nome': 'Folha vazia', 'barreiras': [], 'subsetores': []}
@@ -182,9 +170,8 @@ class ColetaRecursaoE3(unittest.TestCase):
         self.assertEqual(contar_por_tipo(folha, 'Rampa'), 0)
         self.assertEqual(profundidade(folha), 1)
         self.assertEqual(achatar(folha), [])
-        b01 = next(r for r in self.registros if r['codigo_piloto'] == 'B01')
-        self.assertEqual(caminho_da_barreira(self.setor, b01['codigo']),
-                         'Prédio do Ensino Superior — UNASP-EC/Bloco B/Rampa de acesso entre pavimentos')
+        primeiro = self.registros[0]
+        self.assertEqual(caminho_da_barreira(self.setor, primeiro['codigo']), primeiro['caminho'])
         self.assertIsNone(caminho_da_barreira(self.setor, 'NAO-EXISTE-99'))
         original = copy.deepcopy(self.setor)
         achatados = achatar(self.setor)
@@ -197,8 +184,8 @@ class ColetaRecursaoE3(unittest.TestCase):
         with contextlib.redirect_stdout(capturada):
             resumo_hierarquico(self.setor)
         saida = capturada.getvalue()
-        self.assertIn('15 barreiras', saida)
-        self.assertIn('R$ 134460.00', saida)
+        self.assertIn('4 barreiras', saida)
+        self.assertIn(f'R$ {custo_total(self.setor):.2f}', saida)
         formatada = io.StringIO()
         with contextlib.redirect_stdout(formatada):
             resumo_hierarquico(folha, formatar_custo=lambda valor: f'R${valor:.0f}')

@@ -6,8 +6,12 @@ from datetime import date
 from pathlib import Path
 
 TEXTOS = ('codigo', 'ambiente', 'tipo', 'descricao', 'unidade',
-          'referencia_norma', 'intervencao', 'coletado_por', 'data_coleta')
+          'intervencao', 'coletado_por', 'data_coleta')
 NUMEROS = ('medida', 'gravidade', 'pessoas_dia', 'custo')
+
+
+TIPOS = frozenset(('rampa_inclinada', 'porta_estreita', 'sinalizacao_ausente',
+                   'elevador_ausente'))
 
 
 def validar_registro(barreira, codigos_usados=None):
@@ -20,6 +24,17 @@ def validar_registro(barreira, codigos_usados=None):
             erros.append(f'{campo}: texto obrigatório.')
         elif campo == 'descricao' and len(valor.strip()) < 10:
             erros.append('descricao: detalhe insuficiente para ser verificável.')
+    if barreira.get('tipo') not in TIPOS:
+        erros.append('tipo: categoria desconhecida.')
+    referencia = barreira.get('referencia_norma')
+    if (isinstance(referencia, bool) or not isinstance(referencia, (int, float))
+            or (isinstance(referencia, float) and not math.isfinite(referencia))
+            or referencia < 0):
+        erros.append('referencia_norma: numero finito nao negativo obrigatorio.')
+    if barreira.get('pendencia_normativa'):
+        erros.append('pendencia_normativa: resolva a pendencia antes de importar.')
+    if barreira.get('status_normativo') not in (None, 'confirmado'):
+        erros.append('status_normativo: registro ainda nao confirmado.')
     codigo = barreira.get('codigo')
     if isinstance(codigo, str):
         if not re.fullmatch(r'[A-Z0-9]+-[A-Z0-9]+-\d{2,}', codigo):
@@ -86,7 +101,7 @@ def importar_ficha_campo(caminho):
     registros, erros, codigos = [], [], []
     with open(caminho, encoding='utf-8-sig', newline='') as arquivo:
         leitor = csv.DictReader(arquivo, delimiter=';')
-        obrigatorios = ('caminho',) + TEXTOS + NUMEROS
+        obrigatorios = ('caminho', 'referencia_norma') + TEXTOS + NUMEROS
         for campo in obrigatorios:
             if leitor.fieldnames is None or leitor.fieldnames.count(campo) != 1:
                 return [], [f'Cabeçalho ausente ou duplicado: {campo}.']
@@ -94,6 +109,11 @@ def importar_ficha_campo(caminho):
             problemas = []
             if None in registro:
                 problemas.append('Quantidade de campos maior que o cabeçalho.')
+            valor = registro.get('referencia_norma')
+            try:
+                registro['referencia_norma'] = float(str(valor).replace(',', '.'))
+            except (TypeError, ValueError):
+                problemas.append('referencia_norma: n?mero inv?lido.')
             for campo in NUMEROS:
                 try:
                     registro[campo] = (int(registro[campo]) if campo in
